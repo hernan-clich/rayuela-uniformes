@@ -1,2 +1,6 @@
 node_modules
+.next
+.babelrc
+.eslintrc
+.prettierrc
 next-i18next.config.js
