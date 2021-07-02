@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
 import { primary, white } from '@styles/colors';
 
@@ -43,7 +44,7 @@ main {
 
 h1 {
   font-size: 2em;
-  margin: 0.67em 0;
+  margin: 0;
 }
 
 /* Grouping content
@@ -374,6 +375,7 @@ body {
 	font-size: 1rem;
 	font-weight: 400;
 	line-height: 1.3;
+  overflow-x: hidden;
 }
 
 a {
@@ -424,6 +426,9 @@ fieldset {
 const GlobalStyles = ({ children }: { children: React.ReactNode }) => {
   return (
     <>
+      <Head>
+        <link href="https://fonts.googleapis.com/css?family=Biryani:400,700,900" rel="stylesheet" />
+      </Head>
       <GlobalStyle />
       {children}
     </>

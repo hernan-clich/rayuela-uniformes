@@ -1,8 +1,12 @@
+import PublicLayout from '@components/PublicLayout';
+
 const Home = () => {
   return (
-    <div>
+    <PublicLayout>
       <h1>Home</h1>
-    </div>
+      <h1>Sweet</h1>
+      <h1>Home</h1>
+    </PublicLayout>
   );
 };
 
