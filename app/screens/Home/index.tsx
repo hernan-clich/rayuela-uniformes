@@ -1,11 +1,10 @@
 import PublicLayout from '@components/PublicLayout';
+import Hero from './components/Hero';
 
 function Home() {
   return (
     <PublicLayout>
-      <h1>Home</h1>
-      <h1>Sweet</h1>
-      <h1>Home</h1>
+      <Hero />
     </PublicLayout>
   );
 }
