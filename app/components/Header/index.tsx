@@ -1,6 +1,6 @@
-import Logo from '@components/Logo';
-import ShoppingCartIcon from '@components/ShoppingCartIcon';
 import HeaderContainer from './styles';
+import Logo from './components/Logo';
+import ShoppingCartIcon from './components/ShoppingCartIcon';
 
 function Header() {
   return (
