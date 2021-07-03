@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { SECONDARY_SPACING, PRIMARY_FONT } from '@styles/variables';
+import { SECONDARY_SPACING_EM, PRIMARY_FONT } from '@styles/variables';
 
 const HeaderContainer = styled.div`
   align-items: center;
@@ -7,7 +7,7 @@ const HeaderContainer = styled.div`
   flex-direction: row nowrap;
   justify-content: space-between;
   height: 10vh;
-  padding: ${SECONDARY_SPACING} 4em;
+  padding: ${SECONDARY_SPACING_EM} 4em;
   position: fixed;
   width: 100vw;
 
