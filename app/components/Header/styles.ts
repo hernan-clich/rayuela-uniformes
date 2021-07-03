@@ -1,8 +1,10 @@
 import styled from 'styled-components';
+import { white } from '@styles/colors';
 import { SECONDARY_SPACING_EM, PRIMARY_FONT } from '@styles/variables';
 
 const HeaderContainer = styled.div`
   align-items: center;
+  background-color: ${white};
   display: flex;
   flex-direction: row nowrap;
   justify-content: space-between;

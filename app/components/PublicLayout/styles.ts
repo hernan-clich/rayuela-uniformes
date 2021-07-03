@@ -6,5 +6,8 @@ export const PublicLayoutContainer = styled.div`
 `;
 
 export const ChildrenContainer = styled.div`
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
   margin-top: 10vh;
 `;
