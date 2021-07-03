@@ -1,5 +1,5 @@
-import CustomText from '@components/CustomText';
 import useWindowSize from '@hooks/useWindowSize';
+import HeaderBox from '../HeaderBox';
 import HeroContainer from './styles';
 
 function Hero() {
@@ -7,9 +7,11 @@ function Hero() {
 
   return (
     <HeroContainer bgImg="/hero_img.png" height={height} width={width}>
-      <CustomText textTransform="uppercase" weight="black" secondary>
-        Lo último en uniformes
-      </CustomText>
+      <HeaderBox
+        alignment={{ horizontal: 'left', vertical: 'center' }}
+        buttonText="Comprar"
+        titleText="Lo último en uniformes"
+      />
     </HeroContainer>
   );
 }

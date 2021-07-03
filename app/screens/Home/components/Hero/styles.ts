@@ -15,6 +15,7 @@ const HeroContainer = styled.div.attrs<Props>(({ height, width }) => ({
   background: url(${({ bgImg }) => bgImg}) no-repeat;
   background-position: center center;
   background-size: cover;
+  display: flex;
   margin: 0 ${PRIMARY_SPACING_EM} ${PRIMARY_SPACING_EM};
   max-height: calc(90vh - ${PRIMARY_SPACING_EM});
   width: calc(100vw - ${PRIMARY_SPACING_EM} * 2);

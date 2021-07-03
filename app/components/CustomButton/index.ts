@@ -1,24 +1,24 @@
 import styled from 'styled-components';
-import { EFontSizes, EFontWeights, ETextAlign, ETextTransform } from '@interfaces/fontInterfaces';
+import { EFontSizes, EFontWeights, ETextTransform } from '@interfaces/fontInterfaces';
 import { primary, white } from '@styles/colors';
-import { PRIMARY_FONT } from '@styles/variables';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '@styles/variables';
 
 type Props = {
   readonly size: keyof typeof EFontSizes;
   readonly weight: keyof typeof EFontWeights;
   readonly secondary?: boolean;
-  readonly textAlign?: keyof typeof ETextAlign;
   readonly textTransform?: keyof typeof ETextTransform;
 };
 
-const CustomText = styled.h1<Props>`
-  color: ${({ secondary }) => (secondary ? white : primary)};
-  font-family: ${PRIMARY_FONT};
+const CustomButton = styled.button<Props>`
+  background-color: ${({ secondary }) => (secondary ? white : primary)};
+  color: ${({ secondary }) => (secondary ? primary : white)};
   font-size: ${({ size }) => EFontSizes[size]};
   font-weight: ${({ weight }) => EFontWeights[weight]};
-  text-align: ${({ textAlign }) => (textAlign ? ETextAlign[textAlign] : ETextAlign.center)};
+  max-width: 10em;
+  padding: ${SECONDARY_SPACING_EM} ${PRIMARY_SPACING_EM};
   text-transform: ${({ textTransform }) =>
     textTransform ? ETextTransform[textTransform] : ETextTransform.none};
 `;
 
-export default CustomText;
+export default CustomButton;
