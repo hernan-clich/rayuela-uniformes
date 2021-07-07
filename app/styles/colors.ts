@@ -1,2 +1,3 @@
-export const primary = '#001F47';
-export const white = '#FFF';
+export const ALABASTER = '#FCFCFC';
+export const PRUSSIAN_BLUE = '#001F47';
+export const WHITE = '#FFF';

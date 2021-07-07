@@ -1,3 +1,4 @@
+import Footer from '@components/Footer';
 import Header from '@components/Header';
 import { PublicLayoutContainer, ChildrenContainer } from './styles';
 
@@ -10,6 +11,7 @@ function PublicLayout({ children }: Props) {
     <PublicLayoutContainer>
       <Header />
       <ChildrenContainer>{children}</ChildrenContainer>
+      <Footer />
     </PublicLayoutContainer>
   );
 }

@@ -1,6 +1,6 @@
 import Head from 'next/head';
 import { createGlobalStyle } from 'styled-components';
-import { primary, white } from '@styles/colors';
+import { PRUSSIAN_BLUE, WHITE } from '@styles/colors';
 
 export const GlobalStyle = createGlobalStyle`
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
@@ -369,8 +369,8 @@ html {
 }
 
 body {
-	background-color: ${white};
-	color: ${primary};
+	background-color: ${WHITE};
+	color: ${PRUSSIAN_BLUE};
 	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
 	font-size: 1rem;
 	font-weight: 400;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { EFontSizes, EFontWeights, ETextTransform } from '@interfaces/fontInterfaces';
-import { primary, white } from 'app/styles/colors';
+import { PRUSSIAN_BLUE, WHITE } from '@styles/colors';
 import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '@styles/variables';
 
 type Props = {
@@ -11,8 +11,8 @@ type Props = {
 };
 
 const CustomButton = styled.button<Props>`
-  background-color: ${({ secondary }) => (secondary ? white : primary)};
-  color: ${({ secondary }) => (secondary ? primary : white)};
+  background-color: ${({ secondary }) => (secondary ? WHITE : PRUSSIAN_BLUE)};
+  color: ${({ secondary }) => (secondary ? PRUSSIAN_BLUE : WHITE)};
   font-size: ${({ size }) => EFontSizes[size]};
   font-weight: ${({ weight }) => EFontWeights[weight]};
   max-width: 10em;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { EFontSizes, EFontWeights, ETextAlign, ETextTransform } from '@interfaces/fontInterfaces';
-import { primary, white } from '@styles/colors';
+import { PRUSSIAN_BLUE, WHITE } from '@styles/colors';
 import { PRIMARY_FONT } from '@styles/variables';
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 };
 
 const CustomText = styled.h1<Props>`
-  color: ${({ secondary }) => (secondary ? white : primary)};
+  color: ${({ secondary }) => (secondary ? WHITE : PRUSSIAN_BLUE)};
   font-family: ${PRIMARY_FONT};
   font-size: ${({ size }) => EFontSizes[size]};
   font-weight: ${({ weight }) => EFontWeights[weight]};
