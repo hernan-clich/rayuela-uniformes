@@ -1,4 +1,4 @@
-export type SingleSchool = {
+export type HomeItem = {
   id: string;
   name: string;
   img: string;

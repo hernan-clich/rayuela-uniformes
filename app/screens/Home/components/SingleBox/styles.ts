@@ -1,18 +1,12 @@
 import styled from 'styled-components';
-import { SMALL_BR, SECONDARY_SPACING_EM } from '@styles/variables';
 
 type Props = {
   readonly bgImg: string;
-  readonly width: number;
+  readonly height: string;
 };
 
-const SingleBoxContainer = styled.div.attrs<Props>(({ width }) => ({
-  style: {
-    height:
-      width > SMALL_BR
-        ? `calc(50vw - ${SECONDARY_SPACING_EM} * 3)`
-        : `calc(100vw - ${SECONDARY_SPACING_EM} * 4)`
-  }
+const SingleBoxContainer = styled.div.attrs<Props>(({ height }) => ({
+  style: { height }
 }))<Props>`
   background: url(${({ bgImg }) => bgImg}) no-repeat;
   background-position: center center;

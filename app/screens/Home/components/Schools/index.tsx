@@ -8,7 +8,7 @@ function Schools() {
   return (
     <SchoolsContainer width={width}>
       {SCHOOL_DATA.map((school) => (
-        <SingleBox key={school.id} boxTitle={school.name} bgImg={school.img} />
+        <SingleBox key={school.id} boxTitle={school.name} bgImg={school.img} squaredShape />
       ))}
     </SchoolsContainer>
   );

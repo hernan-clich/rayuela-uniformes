@@ -1,23 +1,28 @@
 import HeaderBox from '@screens/Home/components/HeaderBox';
 import useWindowSize from '@hooks/useWindowSize';
-import SingleSchoolContainer from './styles';
+
+import SingleBoxContainer from './styles';
+import { defineHeight } from './utils';
 
 type Props = {
   bgImg: string;
   boxTitle: string;
+  squaredShape: boolean;
 };
 
-function SingleBox({ bgImg, boxTitle }: Props) {
+function SingleBox({ bgImg, boxTitle, squaredShape }: Props) {
   const { width } = useWindowSize();
 
+  const elementHeight = defineHeight(width, squaredShape);
+
   return (
-    <SingleSchoolContainer bgImg={bgImg} width={width}>
+    <SingleBoxContainer bgImg={bgImg} height={elementHeight}>
       <HeaderBox
         alignment={{ horizontal: 'left', vertical: 'center' }}
         buttonText="Comprar"
         titleText={boxTitle}
       />
-    </SingleSchoolContainer>
+    </SingleBoxContainer>
   );
 }
 
