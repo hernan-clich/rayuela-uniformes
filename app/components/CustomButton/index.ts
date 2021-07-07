@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { EFontSizes, EFontWeights, ETextTransform } from '@interfaces/fontInterfaces';
-import { primary, white } from '@styles/colors';
+import { primary, white } from 'app/styles/colors';
 import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '@styles/variables';
 
 type Props = {

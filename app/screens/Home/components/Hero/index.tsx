@@ -6,7 +6,7 @@ function Hero() {
   const { height, width } = useWindowSize();
 
   return (
-    <HeroContainer bgImg="/hero_img.png" height={height} width={width}>
+    <HeroContainer bgImg="/assets/hero_img.png" height={height} width={width}>
       <HeaderBox
         alignment={{ horizontal: 'left', vertical: 'center' }}
         buttonText="Comprar"

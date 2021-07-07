@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { white } from '@styles/colors';
-import { SECONDARY_SPACING_EM, PRIMARY_FONT } from '@styles/variables';
+import { SECONDARY_SPACING_EM, PRIMARY_FONT } from 'app/styles/variables';
 
 const HeaderContainer = styled.div`
   align-items: center;

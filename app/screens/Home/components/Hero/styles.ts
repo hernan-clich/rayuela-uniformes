@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRIMARY_SPACING_EM, PRIMARY_SPACING_PX } from '@styles/variables';
+import { PRIMARY_SPACING_EM, PRIMARY_SPACING_PX } from 'app/styles/variables';
 
 type Props = {
   readonly bgImg: string;
