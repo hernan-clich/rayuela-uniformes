@@ -1,5 +1,5 @@
 import useWindowSize from '@hooks/useWindowSize';
-import SingleSchool from './components/SingleSchool';
+import SingleBox from '@screens/Home/components/SingleBox';
 import { SCHOOL_DATA } from './constants';
 import SchoolsContainer from './styles';
 
@@ -8,7 +8,7 @@ function Schools() {
   return (
     <SchoolsContainer width={width}>
       {SCHOOL_DATA.map((school) => (
-        <SingleSchool key={school.id} schoolName={school.name} bgImg={school.img} />
+        <SingleBox key={school.id} boxTitle={school.name} bgImg={school.img} />
       ))}
     </SchoolsContainer>
   );

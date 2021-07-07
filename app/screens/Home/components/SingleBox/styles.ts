@@ -6,7 +6,7 @@ type Props = {
   readonly width: number;
 };
 
-const SingleSchoolContainer = styled.div.attrs<Props>(({ width }) => ({
+const SingleBoxContainer = styled.div.attrs<Props>(({ width }) => ({
   style: {
     height:
       width > SMALL_BR
@@ -21,4 +21,4 @@ const SingleSchoolContainer = styled.div.attrs<Props>(({ width }) => ({
   width: 100%;
 `;
 
-export default SingleSchoolContainer;
+export default SingleBoxContainer;

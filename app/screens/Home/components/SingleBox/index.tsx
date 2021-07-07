@@ -4,10 +4,10 @@ import SingleSchoolContainer from './styles';
 
 type Props = {
   bgImg: string;
-  schoolName: string;
+  boxTitle: string;
 };
 
-function SingleSchool({ bgImg, schoolName }: Props) {
+function SingleBox({ bgImg, boxTitle }: Props) {
   const { width } = useWindowSize();
 
   return (
@@ -15,10 +15,10 @@ function SingleSchool({ bgImg, schoolName }: Props) {
       <HeaderBox
         alignment={{ horizontal: 'left', vertical: 'center' }}
         buttonText="Comprar"
-        titleText={schoolName}
+        titleText={boxTitle}
       />
     </SingleSchoolContainer>
   );
 }
 
-export default SingleSchool;
+export default SingleBox;
