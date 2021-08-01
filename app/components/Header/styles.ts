@@ -9,9 +9,9 @@ const HeaderContainer = styled.div`
   flex-direction: row nowrap;
   justify-content: space-between;
   height: 10vh;
-  padding: ${SECONDARY_SPACING_EM} 4em;
+  padding: ${SECONDARY_SPACING_EM} clamp(2em, 5vw, 4em);
   position: fixed;
-  width: 100vw;
+  width: calc(100vw - 15px);
 
   .header-left {
     align-items: center;
