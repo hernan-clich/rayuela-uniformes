@@ -11,6 +11,7 @@ function Hero() {
         alignment={{ horizontal: 'left', vertical: 'center' }}
         buttonText="Comprar"
         titleText="Lo último en uniformes"
+        secondary
       />
     </HeroContainer>
   );

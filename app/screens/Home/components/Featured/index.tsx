@@ -12,6 +12,7 @@ function Featured() {
           key={featured.id}
           boxTitle={featured.name}
           bgImg={featured.img}
+          fontColor={featured.fontColor}
           squaredShape={false}
         />
       ))}

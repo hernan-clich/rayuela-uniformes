@@ -21,3 +21,10 @@ export enum ETextTransform {
   none = 'none',
   uppercase = 'uppercase'
 }
+
+export enum EFontColors {
+  primary = 'primary',
+  secondary = 'secondary'
+}
+
+export type TFontColors = keyof typeof EFontColors;

@@ -7,9 +7,10 @@ type Props = {
   alignment: TAlignment;
   buttonText: string;
   titleText: string;
+  secondary?: boolean;
 };
 
-function HeaderBox({ alignment, buttonText, titleText }: Props) {
+function HeaderBox({ alignment, buttonText, secondary, titleText }: Props) {
   return (
     <HeaderBoxContainer alignment={alignment}>
       <div className="inner-wrapper">
@@ -18,7 +19,7 @@ function HeaderBox({ alignment, buttonText, titleText }: Props) {
           textAlign={alignment.horizontal}
           textTransform="uppercase"
           weight="black"
-          secondary>
+          secondary={secondary}>
           {titleText}
         </CustomText>
         <CustomButton size="small" weight="bold" textTransform="uppercase">
