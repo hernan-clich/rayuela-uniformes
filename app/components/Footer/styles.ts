@@ -7,7 +7,7 @@ const FooterContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin: 0 auto ${PRIMARY_SPACING_EM};
-  min-height: 50vh;
+  min-height: 40vh;
   padding: ${PRIMARY_SPACING_EM};
   width: calc(100vw - ${PRIMARY_SPACING_EM} * 2);
 
@@ -17,8 +17,11 @@ const FooterContainer = styled.div`
   }
 
   .footer-text {
+    padding: 0 1em;
+
     small {
       display: block;
+      word-break: break-word;
     }
   }
 
