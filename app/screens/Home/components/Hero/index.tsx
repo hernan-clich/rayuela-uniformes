@@ -8,6 +8,7 @@ function Hero() {
   return (
     <Styled.HeroContainer bgImg="/assets/hero_img.png" height={height} width={width}>
       <HeaderBox
+        asHtmlElement="h1"
         alignment={{ horizontal: 'left', vertical: 'center' }}
         buttonText="Comprar"
         titleText="Lo último en uniformes"

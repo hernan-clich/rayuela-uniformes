@@ -9,6 +9,7 @@ function Schools() {
     <Styled.SchoolsContainer width={width}>
       {SCHOOL_DATA.map((school) => (
         <SingleBox
+          asHtmlElement={school.asHtmlElement}
           key={school.id}
           boxTitle={school.name}
           bgImg={school.img}

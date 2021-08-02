@@ -9,6 +9,7 @@ function Featured() {
     <Styled.FeaturedContainer width={width}>
       {FEATURED_DATA.map((featured) => (
         <SingleBox
+          asHtmlElement={featured.asHtmlElement}
           key={featured.id}
           boxTitle={featured.name}
           bgImg={featured.img}

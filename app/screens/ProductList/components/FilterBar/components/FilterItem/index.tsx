@@ -14,7 +14,7 @@ function FilterItem({ name }: Props) {
 
   return (
     <Styled.FilterItemContainer onClick={handleClick}>
-      <CustomText as="span" size="xsmall" textTransform="uppercase" weight="bold">
+      <CustomText as="span" isUnselectable size="xsmall" textTransform="uppercase" weight="bold">
         {name}
       </CustomText>
       <ArrowIcon isActive={isFilterActive} />

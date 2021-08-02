@@ -5,18 +5,21 @@ export const FEATURED_DATA: HomeItem[] = [
     id: 'remeras',
     name: 'Remeras',
     img: '/assets/remeras.png',
-    fontColor: 'primary'
+    fontColor: 'primary',
+    asHtmlElement: 'h4'
   },
   {
     id: 'pantalones',
     name: 'Pantalones',
     img: '/assets/pantalones.png',
-    fontColor: 'secondary'
+    fontColor: 'secondary',
+    asHtmlElement: 'h4'
   },
   {
     id: 'medias',
     name: 'Medias',
     img: '/assets/medias.png',
-    fontColor: 'secondary'
+    fontColor: 'secondary',
+    asHtmlElement: 'h4'
   }
 ];
