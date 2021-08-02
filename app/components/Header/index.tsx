@@ -14,10 +14,10 @@ function Header() {
         <Logo />
         {width >= SMALL_BR && (
           <Styled.NavContainer>
-            <CustomText as="span" size="small" weight="bold">
+            <CustomText as="span" size="small" textTransform="uppercase" weight="bold">
               Colegios
             </CustomText>
-            <CustomText as="span" size="small" weight="bold">
+            <CustomText as="span" size="small" textTransform="uppercase" weight="bold">
               Categorías
             </CustomText>
           </Styled.NavContainer>
