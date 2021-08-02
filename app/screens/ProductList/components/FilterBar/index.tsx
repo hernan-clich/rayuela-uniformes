@@ -4,9 +4,9 @@ import * as Styled from './styles';
 function FilterBar() {
   return (
     <Styled.FilterBarContainer>
-      <div className="filter-items">
+      <Styled.FilterCategories>
         <FilterItem name="Colegios" />
-      </div>
+      </Styled.FilterCategories>
     </Styled.FilterBarContainer>
   );
 }

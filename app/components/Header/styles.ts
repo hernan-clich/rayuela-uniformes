@@ -13,20 +13,7 @@ export const HeaderContainer = styled.div`
   position: fixed;
   width: calc(100vw - 15px);
 
-  .header-left {
-    align-items: center;
-    display: flex;
-    flex-direction: row nowrap;
-  }
-
-  .nav-container {
-    font-family: ${PRIMARY_FONT};
-    font-weight: 900;
-    margin-left: 4em;
-    text-transform: uppercase;
-  }
-
-  .nav-link {
+  span {
     margin: 0 1em;
     padding: 0.25em;
 
@@ -35,9 +22,22 @@ export const HeaderContainer = styled.div`
     }
   }
 
-  .cart-icon {
+  button {
     &:hover {
       cursor: pointer;
     }
   }
+`;
+
+export const HeaderLeft = styled.div`
+  align-items: center;
+  display: flex;
+  flex-direction: row nowrap;
+`;
+
+export const NavContainer = styled.nav`
+  font-family: ${PRIMARY_FONT};
+  font-weight: 900;
+  margin-left: 4em;
+  text-transform: uppercase;
 `;

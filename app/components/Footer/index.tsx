@@ -8,8 +8,8 @@ import * as Styled from './styles';
 function Footer() {
   return (
     <Styled.FooterContainer>
-      <div className="footer-text">
-        <div className="footer-text-info">
+      <Styled.FooterText>
+        <div>
           <CustomText as="small" size="small" textAlign="left" weight="bold">
             creacionesmsariablas@hotmail.com
           </CustomText>
@@ -17,7 +17,7 @@ function Footer() {
             +54 11 5123 4567
           </CustomText>
         </div>
-        <div className="footer-text-info">
+        <div>
           <CustomText as="small" size="small" textAlign="left" weight="regular">
             Maure 2453, C1426
           </CustomText>
@@ -30,13 +30,13 @@ function Footer() {
             © 2021 - Rayuela Uniformes
           </CustomText>
         </div>
-      </div>
-      <div className="footer-social">
+      </Styled.FooterText>
+      <Styled.FooterSocial>
         <WaIcon />
         <FbIcon />
         <EmailIcon />
         <GoogIcon />
-      </div>
+      </Styled.FooterSocial>
     </Styled.FooterContainer>
   );
 }

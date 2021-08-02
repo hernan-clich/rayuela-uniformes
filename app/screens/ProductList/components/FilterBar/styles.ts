@@ -10,10 +10,10 @@ export const FilterBarContainer = styled.div`
   height: 7vh;
   margin: ${PRIMARY_SPACING_EM} auto calc(${PRIMARY_SPACING_EM} * 2);
   width: calc(100vw - ${PRIMARY_SPACING_EM} * 2);
+`;
 
-  .filter-items {
-    align-items: center;
-    display: flex;
-    margin-left: ${PRIMARY_SPACING_EM};
-  }
+export const FilterCategories = styled.div`
+  align-items: center;
+  display: flex;
+  margin-left: ${PRIMARY_SPACING_EM};
 `;

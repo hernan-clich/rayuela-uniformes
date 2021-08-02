@@ -15,14 +15,14 @@ export const HeaderBoxContainer = styled.div<Props>`
   padding: calc(${PRIMARY_SPACING_EM} * 2) 0;
   width: calc(100% - ${PRIMARY_SPACING_EM} * 2);
 
-  .inner-wrapper {
-    align-items: ${({ alignment }) => EHorizontal[alignment.horizontal]};
-    display: flex;
-    flex-flow: column nowrap;
-    width: 60%;
-
-    button {
-      margin-top: 2em;
-    }
+  button {
+    margin-top: 2em;
   }
+`;
+
+export const InnerWrapper = styled.div<Props>`
+  align-items: ${({ alignment }) => EHorizontal[alignment.horizontal]};
+  display: flex;
+  flex-flow: column nowrap;
+  width: 60%;
 `;

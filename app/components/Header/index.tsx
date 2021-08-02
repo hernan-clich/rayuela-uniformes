@@ -1,3 +1,4 @@
+import CustomText from '@components/CustomText';
 import useWindowSize from '@hooks/useWindowSize';
 import { SMALL_BR } from '@styles/variables';
 import Logo from './components/Logo';
@@ -9,16 +10,20 @@ function Header() {
 
   return (
     <Styled.HeaderContainer>
-      <div className="header-left">
+      <Styled.HeaderLeft>
         <Logo />
         {width >= SMALL_BR && (
-          <nav className="nav-container">
-            <span className="nav-link">Colegios</span>
-            <span className="nav-link">Categorías</span>
-          </nav>
+          <Styled.NavContainer>
+            <CustomText as="span" size="small" weight="bold">
+              Colegios
+            </CustomText>
+            <CustomText as="span" size="small" weight="bold">
+              Categorías
+            </CustomText>
+          </Styled.NavContainer>
         )}
-      </div>
-      <button className="cart-icon" type="button">
+      </Styled.HeaderLeft>
+      <button type="button">
         <ShoppingCartIcon />
       </button>
     </Styled.HeaderContainer>

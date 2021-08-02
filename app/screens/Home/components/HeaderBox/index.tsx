@@ -15,7 +15,7 @@ type Props = {
 function HeaderBox({ asHtmlElement, alignment, buttonText, secondary, titleText }: Props) {
   return (
     <Styled.HeaderBoxContainer alignment={alignment}>
-      <div className="inner-wrapper">
+      <Styled.InnerWrapper alignment={alignment}>
         <CustomText
           as={asHtmlElement}
           size="big"
@@ -28,7 +28,7 @@ function HeaderBox({ asHtmlElement, alignment, buttonText, secondary, titleText 
         <CustomButton size="small" weight="bold" textTransform="uppercase">
           {buttonText}
         </CustomButton>
-      </div>
+      </Styled.InnerWrapper>
     </Styled.HeaderBoxContainer>
   );
 }
