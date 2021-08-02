@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { WHITE } from '@styles/colors';
 import { SECONDARY_SPACING_EM, PRIMARY_FONT } from 'app/styles/variables';
 
-const HeaderContainer = styled.div`
+export const HeaderContainer = styled.div`
   align-items: center;
   background-color: ${WHITE};
   display: flex;
@@ -41,5 +41,3 @@ const HeaderContainer = styled.div`
     }
   }
 `;
-
-export default HeaderContainer;

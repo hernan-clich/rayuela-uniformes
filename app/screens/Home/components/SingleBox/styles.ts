@@ -5,7 +5,7 @@ type Props = {
   readonly height: string;
 };
 
-const SingleBoxContainer = styled.div.attrs<Props>(({ height }) => ({
+export const SingleBoxContainer = styled.div.attrs<Props>(({ height }) => ({
   style: { height }
 }))<Props>`
   background: url(${({ bgImg }) => bgImg}) no-repeat;
@@ -14,5 +14,3 @@ const SingleBoxContainer = styled.div.attrs<Props>(({ height }) => ({
   display: flex;
   width: 100%;
 `;
-
-export default SingleBoxContainer;

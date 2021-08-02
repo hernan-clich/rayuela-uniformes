@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { PRUSSIAN_BLUE, TRANSPARENT } from '@styles/colors';
 import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '@styles/variables';
 
-const FilterItemContainer = styled.div`
+export const FilterItemContainer = styled.div`
   border: 1px solid ${TRANSPARENT};
   cursor: pointer;
   display: flex;
@@ -18,5 +18,3 @@ const FilterItemContainer = styled.div`
     margin-right: 8px;
   }
 `;
-
-export default FilterItemContainer;

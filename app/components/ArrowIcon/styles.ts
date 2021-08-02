@@ -4,8 +4,6 @@ type Props = {
   readonly $isActive?: boolean;
 };
 
-const Svg = styled.svg<Props>`
+export const ArrowSvg = styled.svg<Props>`
   transform: ${({ $isActive }) => ($isActive ? 'rotate(180deg)' : 'rotate(0deg)')};
 `;
-
-export default Svg;

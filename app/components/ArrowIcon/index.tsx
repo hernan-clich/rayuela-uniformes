@@ -1,4 +1,4 @@
-import Svg from './styles';
+import * as Styled from './styles';
 
 interface Props {
   isActive?: boolean;
@@ -6,7 +6,7 @@ interface Props {
 
 function ArrowIcon({ isActive }: Props) {
   return (
-    <Svg
+    <Styled.ArrowSvg
       $isActive={isActive}
       width="12"
       height="12"
@@ -24,7 +24,7 @@ function ArrowIcon({ isActive }: Props) {
           <rect width="12" height="12" fill="white" transform="translate(12) rotate(90)" />
         </clipPath>
       </defs>
-    </Svg>
+    </Styled.ArrowSvg>
   );
 }
 

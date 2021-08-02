@@ -5,7 +5,7 @@ type Props = {
   readonly width: number;
 };
 
-const SchoolsContainer = styled.div<Props>`
+export const SchoolsContainer = styled.div<Props>`
   display: grid;
   grid-gap: 2rem;
   grid-template-columns: ${({ width }) => (width < SMALL_BR ? '1fr' : '1fr 1fr')};
@@ -13,5 +13,3 @@ const SchoolsContainer = styled.div<Props>`
   margin: 0 ${PRIMARY_SPACING_EM} ${PRIMARY_SPACING_EM};
   width: calc(100vw - ${PRIMARY_SPACING_EM} * 2);
 `;
-
-export default SchoolsContainer;

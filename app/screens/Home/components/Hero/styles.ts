@@ -7,7 +7,7 @@ type Props = {
   readonly width: number;
 };
 
-const HeroContainer = styled.div.attrs<Props>(({ height, width }) => ({
+export const HeroContainer = styled.div.attrs<Props>(({ height, width }) => ({
   style: {
     height: height > width ? width - PRIMARY_SPACING_PX * 2 : '90vh'
   }
@@ -20,5 +20,3 @@ const HeroContainer = styled.div.attrs<Props>(({ height, width }) => ({
   max-height: calc(90vh - ${PRIMARY_SPACING_EM});
   width: calc(100vw - ${PRIMARY_SPACING_EM} * 2);
 `;
-
-export default HeroContainer;

@@ -6,7 +6,7 @@ type Props = {
   alignment: TAlignment;
 };
 
-const HeaderBoxContainer = styled.div<Props>`
+export const HeaderBoxContainer = styled.div<Props>`
   align-self: ${({ alignment }) => EVertical[alignment.vertical]};
   align-items: ${({ alignment }) => EHorizontal[alignment.horizontal]};
   display: flex;
@@ -26,5 +26,3 @@ const HeaderBoxContainer = styled.div<Props>`
     }
   }
 `;
-
-export default HeaderBoxContainer;

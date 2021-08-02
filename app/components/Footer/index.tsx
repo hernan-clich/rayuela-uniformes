@@ -3,11 +3,11 @@ import FbIcon from './components/FbIcon';
 import EmailIcon from './components/EmailIcon';
 import GoogIcon from './components/GoogIcon';
 import WaIcon from './components/WaIcon';
-import FooterContainer from './styles';
+import * as Styled from './styles';
 
 function Footer() {
   return (
-    <FooterContainer>
+    <Styled.FooterContainer>
       <div className="footer-text">
         <div className="footer-text-info">
           <CustomText as="small" size="small" textAlign="left" weight="bold">
@@ -37,7 +37,7 @@ function Footer() {
         <EmailIcon />
         <GoogIcon />
       </div>
-    </FooterContainer>
+    </Styled.FooterContainer>
   );
 }
 

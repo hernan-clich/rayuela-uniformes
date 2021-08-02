@@ -1,13 +1,13 @@
 import FilterItem from './components/FilterItem';
-import FilterBarContainer from './styles';
+import * as Styled from './styles';
 
 function FilterBar() {
   return (
-    <FilterBarContainer>
+    <Styled.FilterBarContainer>
       <div className="filter-items">
         <FilterItem name="Colegios" />
       </div>
-    </FilterBarContainer>
+    </Styled.FilterBarContainer>
   );
 }
 

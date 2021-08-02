@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { ALABASTER } from '@styles/colors';
 import { PRIMARY_SPACING_EM } from '@styles/variables';
 
-const FooterContainer = styled.div`
+export const FooterContainer = styled.div`
   background-color: ${ALABASTER};
   display: flex;
   flex-direction: row;
@@ -61,5 +61,3 @@ const FooterContainer = styled.div`
     }
   }
 `;
-
-export default FooterContainer;

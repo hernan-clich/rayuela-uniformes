@@ -1,12 +1,12 @@
 import useWindowSize from '@hooks/useWindowSize';
 import SingleBox from '@screens/Home/components/SingleBox';
 import { FEATURED_DATA } from './constants';
-import FeaturedContainer from './styles';
+import * as Styled from './styles';
 
 function Featured() {
   const { width } = useWindowSize();
   return (
-    <FeaturedContainer width={width}>
+    <Styled.FeaturedContainer width={width}>
       {FEATURED_DATA.map((featured) => (
         <SingleBox
           key={featured.id}
@@ -16,7 +16,7 @@ function Featured() {
           squaredShape={false}
         />
       ))}
-    </FeaturedContainer>
+    </Styled.FeaturedContainer>
   );
 }
 

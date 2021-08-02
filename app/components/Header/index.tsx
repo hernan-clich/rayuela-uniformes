@@ -1,14 +1,14 @@
-import HeaderContainer from './styles';
-import Logo from './components/Logo';
-import ShoppingCartIcon from './components/ShoppingCartIcon';
 import useWindowSize from '@hooks/useWindowSize';
 import { SMALL_BR } from '@styles/variables';
+import Logo from './components/Logo';
+import ShoppingCartIcon from './components/ShoppingCartIcon';
+import * as Styled from './styles';
 
 function Header() {
   const { width } = useWindowSize();
 
   return (
-    <HeaderContainer>
+    <Styled.HeaderContainer>
       <div className="header-left">
         <Logo />
         {width >= SMALL_BR && (
@@ -21,7 +21,7 @@ function Header() {
       <button className="cart-icon" type="button">
         <ShoppingCartIcon />
       </button>
-    </HeaderContainer>
+    </Styled.HeaderContainer>
   );
 }
 

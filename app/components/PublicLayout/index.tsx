@@ -1,6 +1,6 @@
 import Footer from '@components/Footer';
 import Header from '@components/Header';
-import { PublicLayoutContainer, ChildrenContainer } from './styles';
+import * as Styled from './styles';
 
 type Props = {
   children: React.ReactNode;
@@ -8,11 +8,11 @@ type Props = {
 
 function PublicLayout({ children }: Props) {
   return (
-    <PublicLayoutContainer>
+    <Styled.PublicLayoutContainer>
       <Header />
-      <ChildrenContainer>{children}</ChildrenContainer>
+      <Styled.ChildrenContainer>{children}</Styled.ChildrenContainer>
       <Footer />
-    </PublicLayoutContainer>
+    </Styled.PublicLayoutContainer>
   );
 }
 

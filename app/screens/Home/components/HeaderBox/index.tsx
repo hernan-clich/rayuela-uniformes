@@ -1,6 +1,6 @@
 import CustomButton from '@components/CustomButton';
 import CustomText from '@components/CustomText';
-import HeaderBoxContainer from './styles';
+import * as Styled from './styles';
 import { TAlignment } from './types';
 
 type Props = {
@@ -12,7 +12,7 @@ type Props = {
 
 function HeaderBox({ alignment, buttonText, secondary, titleText }: Props) {
   return (
-    <HeaderBoxContainer alignment={alignment}>
+    <Styled.HeaderBoxContainer alignment={alignment}>
       <div className="inner-wrapper">
         <CustomText
           size="big"
@@ -26,7 +26,7 @@ function HeaderBox({ alignment, buttonText, secondary, titleText }: Props) {
           {buttonText}
         </CustomButton>
       </div>
-    </HeaderBoxContainer>
+    </Styled.HeaderBoxContainer>
   );
 }
 
