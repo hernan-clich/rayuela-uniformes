@@ -1,8 +1,8 @@
 import * as Styled from './styles';
 
-interface Props {
+type Props = {
   isActive?: boolean;
-}
+};
 
 function ArrowIcon({ isActive }: Props) {
   return (

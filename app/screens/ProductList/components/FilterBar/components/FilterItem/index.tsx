@@ -3,9 +3,9 @@ import ArrowIcon from '@components/ArrowIcon';
 import CustomText from '@components/CustomText';
 import * as Styled from './styles';
 
-interface Props {
+type Props = {
   name: string;
-}
+};
 
 function FilterItem({ name }: Props) {
   const [isFilterActive, setFilterActive] = useState(false);

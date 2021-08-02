@@ -1,7 +1,7 @@
 import { ReactNode, useEffect, useState } from 'react';
 import useWindowSize from '@hooks/useWindowSize';
 
-interface Props {
+type Props = {
   children: ReactNode;
   breakpoint: number;
   svgSizes: {
@@ -9,7 +9,7 @@ interface Props {
     minWidth: number;
     heightRatio: number;
   };
-}
+};
 
 function ResizableSvg({ breakpoint, children, svgSizes }: Props) {
   const { defaultWidth, minWidth, heightRatio } = svgSizes;

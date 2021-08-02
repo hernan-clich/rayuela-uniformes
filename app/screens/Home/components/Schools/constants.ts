@@ -1,6 +1,6 @@
-import type { HomeItem } from '@interfaces/homeInterfaces';
+import type { THomeItem } from '@interfaces/homeInterfaces';
 
-export const SCHOOL_DATA: HomeItem[] = [
+export const SCHOOL_DATA: THomeItem[] = [
   {
     id: 'CCDJ',
     name: 'Colegio Corazón de Jesús',

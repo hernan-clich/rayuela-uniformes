@@ -1,6 +1,6 @@
-import type { HomeItem } from '@interfaces/homeInterfaces';
+import type { THomeItem } from '@interfaces/homeInterfaces';
 
-export const FEATURED_DATA: HomeItem[] = [
+export const FEATURED_DATA: THomeItem[] = [
   {
     id: 'remeras',
     name: 'Remeras',
