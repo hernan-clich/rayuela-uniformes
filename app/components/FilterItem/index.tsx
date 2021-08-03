@@ -1,34 +1,29 @@
-import React, { useState, useRef } from 'react';
+import { useState, useRef } from 'react';
 import ArrowIcon from '@components/ArrowIcon';
 import CustomText from '@components/CustomText';
-import { SCHOOL_DATA } from '@constants/schools';
 import useOnClickOutside from '@hooks/useOnClickOutside';
+import { TSingleFilterItem } from '@interfaces/generalInterfaces';
 import * as Styled from './styles';
 
 type Props = {
-  name: string;
+  filtersToList: TSingleFilterItem[];
+  title: string;
 };
 
-type TFilteredFields = {
+export type TFilterQueries = {
   school: string;
-  category: string;
+  categories: string;
 };
 
-function FilterItem({ name }: Props) {
-  const [isFilterActive, setFilterActive] = useState(false);
-  const [, setFilteredFields] = useState<TFilteredFields>({
-    school: '',
-    category: ''
-  });
+function FilterItem({ filtersToList, title }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
+  // const initialFilters = { school: '', categories: '' };
+  // const [currentFilters, setCurrentFilters] = useState<TFilterQueries>(initialFilters);
+  const [isFilterActive, setFilterActive] = useState(false);
 
   const handleDivClickOutside = () => setFilterActive(false);
   const handleDivClickInside = () => setFilterActive((prevState) => !prevState);
-  const handleButtonClick = (id: string) => {
-    setFilteredFields((prevState) => {
-      return { ...prevState, school: id };
-    });
-  };
+  const handleButtonClick = (_alias: string, _id: string) => null;
 
   useOnClickOutside(containerRef, handleDivClickOutside);
 
@@ -38,15 +33,17 @@ function FilterItem({ name }: Props) {
       onClick={handleDivClickInside}
       $isActive={isFilterActive}>
       <CustomText as="span" isUnselectable size="xsmall" textTransform="uppercase" weight="bold">
-        {name}
+        {title}
       </CustomText>
       <ArrowIcon isActive={isFilterActive} />
       {isFilterActive && (
         <Styled.SingleListItem>
           <div>
-            {SCHOOL_DATA.map((school) => (
-              <button key={school.id} onClick={() => handleButtonClick(school.id)}>
-                {school.name}
+            {filtersToList.map((filterItem) => (
+              <button
+                key={filterItem.id}
+                onClick={() => handleButtonClick(filterItem.alias, filterItem.id)}>
+                {filterItem.name}
               </button>
             ))}
           </div>

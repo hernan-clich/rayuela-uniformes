@@ -10,6 +10,7 @@ export enum EHTMLTextElements {
   h4 = 'h4',
   h5 = 'h5',
   h6 = 'h6',
+  li = 'li',
   i = 'i',
   p = 'p',
   pre = 'pre',
@@ -22,3 +23,9 @@ export enum EHTMLTextElements {
 }
 
 export type THTMLTextElements = keyof typeof EHTMLTextElements;
+
+export type TSingleFilterItem = {
+  alias: string;
+  id: string;
+  name: string;
+};

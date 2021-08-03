@@ -28,6 +28,17 @@ export const FilterItemContainer = styled.div<FilterItemContainerProps>`
       $isActive ? `1px solid ${TRANSPARENT}` : `1px solid ${PRUSSIAN_BLUE}`};
   }
 
+  &::after {
+    background-color: ${({ $isActive }) => ($isActive ? WHITE : TRANSPARENT)};
+    bottom: -1px;
+    content: '';
+    height: 1px;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    z-index: 3;
+  }
+
   span {
     margin-right: 8px;
   }
@@ -36,14 +47,13 @@ export const FilterItemContainer = styled.div<FilterItemContainerProps>`
 export const SingleListItem = styled.div`
   background-color: ${WHITE};
   border: 1px solid ${PRUSSIAN_BLUE};
-  content: '';
   display: flex;
   flex-flow: column nowrap;
   left: -1px;
   position: absolute;
   top: calc(100%);
   width: 300px;
-  z-index: -1;
+  z-index: 1;
 
   div {
     padding: 0.5em 0 1em;
@@ -52,6 +62,7 @@ export const SingleListItem = styled.div`
   button {
     padding: 0.75em;
     text-align: left;
+    user-select: none;
     width: 100%;
 
     &:hover {
