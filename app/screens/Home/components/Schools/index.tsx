@@ -1,6 +1,6 @@
+import { SCHOOL_DATA } from '@constants/schools';
 import useWindowSize from '@hooks/useWindowSize';
 import SingleBox from '@screens/Home/components/SingleBox';
-import { SCHOOL_DATA } from './constants';
 import * as Styled from './styles';
 
 function Schools() {

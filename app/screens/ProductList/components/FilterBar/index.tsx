@@ -1,4 +1,4 @@
-import FilterItem from './components/FilterItem';
+import FilterItem from '@components/FilterItem';
 import * as Styled from './styles';
 
 function FilterBar() {

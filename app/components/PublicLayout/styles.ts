@@ -10,4 +10,5 @@ export const ChildrenContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
   margin-top: 10vh;
+  z-index: 2;
 `;

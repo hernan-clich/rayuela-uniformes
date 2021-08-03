@@ -7,9 +7,10 @@ export const FilterBarContainer = styled.div`
   border: 3px solid ${PRUSSIAN_BLUE};
   display: flex;
   flex-flow: row nowrap;
-  height: 7vh;
   margin: ${PRIMARY_SPACING_EM} auto calc(${PRIMARY_SPACING_EM} * 2);
+  min-height: 7vh;
   width: calc(100vw - ${PRIMARY_SPACING_EM} * 2);
+  z-index: 3;
 `;
 
 export const FilterCategories = styled.div`
