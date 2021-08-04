@@ -24,8 +24,15 @@ export enum EHTMLTextElements {
 
 export type THTMLTextElements = keyof typeof EHTMLTextElements;
 
+export enum ESingleFilterAlias {
+  school = 'school',
+  categories = 'categories'
+}
+
+export type TSingleFilterAlias = keyof typeof ESingleFilterAlias;
+
 export type TSingleFilterItem = {
-  alias: string;
+  alias: TSingleFilterAlias;
   id: string;
   name: string;
 };

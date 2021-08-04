@@ -1,8 +1,12 @@
-import { useState, useRef } from 'react';
+import React, { useState, useRef, useReducer } from 'react';
 import ArrowIcon from '@components/ArrowIcon';
 import CustomText from '@components/CustomText';
 import useOnClickOutside from '@hooks/useOnClickOutside';
-import { TSingleFilterItem } from '@interfaces/generalInterfaces';
+import {
+  ESingleFilterAlias,
+  TSingleFilterAlias,
+  TSingleFilterItem
+} from '@interfaces/generalInterfaces';
 import * as Styled from './styles';
 
 type Props = {
@@ -10,20 +14,35 @@ type Props = {
   title: string;
 };
 
-export type TFilterQueries = {
-  school: string;
-  categories: string;
+type State = {
+  [ESingleFilterAlias.categories]: string;
+  [ESingleFilterAlias.school]: string;
+};
+
+type Action = {
+  type: TSingleFilterAlias;
+  payload: string;
+};
+
+const queriesReducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case ESingleFilterAlias.categories:
+      return { ...state, categories: action.payload };
+    case ESingleFilterAlias.school:
+      return { ...state, school: action.payload };
+    default:
+      return state;
+  }
 };
 
 function FilterItem({ filtersToList, title }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
-  // const initialFilters = { school: '', categories: '' };
-  // const [currentFilters, setCurrentFilters] = useState<TFilterQueries>(initialFilters);
+  const initialReducerState = { categories: '', school: '' };
+  const [, dispatch] = useReducer(queriesReducer, initialReducerState);
   const [isFilterActive, setFilterActive] = useState(false);
 
   const handleDivClickOutside = () => setFilterActive(false);
   const handleDivClickInside = () => setFilterActive((prevState) => !prevState);
-  const handleButtonClick = (_alias: string, _id: string) => null;
 
   useOnClickOutside(containerRef, handleDivClickOutside);
 
@@ -42,7 +61,7 @@ function FilterItem({ filtersToList, title }: Props) {
             {filtersToList.map((filterItem) => (
               <button
                 key={filterItem.id}
-                onClick={() => handleButtonClick(filterItem.alias, filterItem.id)}>
+                onClick={() => dispatch({ type: filterItem.alias, payload: filterItem.id })}>
                 {filterItem.name}
               </button>
             ))}
