@@ -1,18 +1,21 @@
-import React, { useState, useRef, Dispatch } from 'react';
+import { useRouter } from 'next/router';
+import React, { useState, useRef } from 'react';
 import ArrowIcon from '@components/ArrowIcon';
 import CustomText from '@components/CustomText';
 import useOnClickOutside from '@hooks/useOnClickOutside';
 import { TSingleFilterItem } from '@interfaces/generalInterfaces';
-import { FilterAction } from '@interfaces/productInterfaces';
+import { TFilterState } from '@interfaces/productInterfaces';
 import * as Styled from './styles';
 
 type Props = {
-  dispatch: Dispatch<FilterAction>;
+  filterState: TFilterState;
   filtersToList: TSingleFilterItem[];
   title: string;
 };
 
-function FilterItem({ dispatch, filtersToList, title }: Props) {
+function FilterItem({ filterState, filtersToList, title }: Props) {
+  const router = useRouter();
+  const { categories, school } = filterState;
   const containerRef = useRef<HTMLDivElement>(null);
   const [isFilterActive, setFilterActive] = useState(false);
 
@@ -20,6 +23,12 @@ function FilterItem({ dispatch, filtersToList, title }: Props) {
   const handleDivClickInside = () => setFilterActive((prevState) => !prevState);
 
   useOnClickOutside(containerRef, handleDivClickOutside);
+
+  const handleClick = (filterItem: TSingleFilterItem) => {
+    if (categories || school)
+      router.replace({ query: { ...filterState, [filterItem.alias]: encodeURI(filterItem.id) } });
+    else router.replace({ query: { [filterItem.alias]: encodeURI(filterItem.id) } });
+  };
 
   return (
     <Styled.FilterItemContainer
@@ -34,9 +43,7 @@ function FilterItem({ dispatch, filtersToList, title }: Props) {
         <Styled.SingleListItem>
           <div>
             {filtersToList.map((filterItem) => (
-              <button
-                key={filterItem.id}
-                onClick={() => dispatch({ type: filterItem.alias, payload: filterItem.id })}>
+              <button key={filterItem.id} onClick={() => handleClick(filterItem)}>
                 {filterItem.name}
               </button>
             ))}

@@ -1,11 +1,6 @@
-import { ESingleFilterAlias, TSingleFilterAlias } from '@interfaces/generalInterfaces';
+import { ESingleFilterAlias } from '@interfaces/generalInterfaces';
 
-export type FilterState = {
+export type TFilterState = {
   [ESingleFilterAlias.categories]: string;
   [ESingleFilterAlias.school]: string;
-};
-
-export type FilterAction = {
-  type: TSingleFilterAlias;
-  payload: string;
 };
