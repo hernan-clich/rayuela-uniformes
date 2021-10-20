@@ -37,7 +37,6 @@
   "ignorePatterns": ["node_modules/", ".next/"],
   "rules": {    
     // General
-    "indent": "off",
     "no-console": "warn",
     "no-multi-spaces": "warn",
     "strict": "off",
@@ -52,6 +51,7 @@
       }
     ],
     "react/react-in-jsx-scope": "off",
+    "indent": ["error", 2, { "ignoredNodes": ["JSXElement", "JSXElement *"]}],
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "no-unused-vars": 0, 
     "@typescript-eslint/no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
