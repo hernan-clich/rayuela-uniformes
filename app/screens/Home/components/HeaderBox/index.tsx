@@ -22,7 +22,8 @@ function HeaderBox({ asHtmlElement, alignment, buttonText, secondary, titleText 
           textAlign={alignment.horizontal}
           textTransform="uppercase"
           weight="black"
-          secondary={secondary}>
+          secondary={secondary}
+        >
           {titleText}
         </CustomText>
         <CustomButton size="small" weight="bold" textTransform="uppercase">

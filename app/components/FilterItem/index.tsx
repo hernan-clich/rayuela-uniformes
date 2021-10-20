@@ -34,7 +34,8 @@ function FilterItem({ filterState, filtersToList, title }: Props) {
     <Styled.FilterItemContainer
       ref={containerRef}
       onClick={handleDivClickInside}
-      $isActive={isFilterActive}>
+      $isActive={isFilterActive}
+    >
       <CustomText as="span" isUnselectable size="xsmall" textTransform="uppercase" weight="bold">
         {title}
       </CustomText>

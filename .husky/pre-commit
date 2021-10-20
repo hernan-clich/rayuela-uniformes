@@ -1,8 +1,8 @@
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-npm run check-types
-npm run lint
-npm run check-format
-npm run format
-npm run build
+yarn check-types
+yarn lint
+yarn check-format
+yarn format
+yarn build

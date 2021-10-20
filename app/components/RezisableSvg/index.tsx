@@ -28,7 +28,8 @@ function ResizableSvg({ breakpoint, children, svgSizes }: Props) {
       height={svgWidth * heightRatio}
       viewBox={`0 0 ${defaultWidth} ${defaultWidth * heightRatio}`}
       fill="none"
-      xmlns="http://www.w3.org/2000/svg">
+      xmlns="http://www.w3.org/2000/svg"
+    >
       {children}
     </svg>
   );
