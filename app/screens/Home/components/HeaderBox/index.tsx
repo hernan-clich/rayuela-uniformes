@@ -23,10 +23,11 @@ function HeaderBox({ asHtmlElement, alignment, buttonText, secondary, titleText 
           textTransform="uppercase"
           weight="black"
           secondary={secondary}
+          className="title"
         >
           {titleText}
         </CustomText>
-        <CustomButton size="small" weight="bold" textTransform="uppercase">
+        <CustomButton size="small" weight="bold" textTransform="uppercase" className="btn">
           {buttonText}
         </CustomButton>
       </Styled.InnerWrapper>

@@ -14,10 +14,6 @@ export const HeaderBoxContainer = styled.div<Props>`
   margin: 0 auto;
   padding: calc(${PRIMARY_SPACING_EM} * 2) 0;
   width: calc(100% - ${PRIMARY_SPACING_EM} * 2);
-
-  button {
-    margin-top: 2em;
-  }
 `;
 
 export const InnerWrapper = styled.div<Props>`
@@ -25,4 +21,22 @@ export const InnerWrapper = styled.div<Props>`
   display: flex;
   flex-flow: column nowrap;
   width: 60%;
+
+  .title {
+    margin: 1em 0;
+  }
+
+  .btn {
+    margin-top: ${PRIMARY_SPACING_EM};
+  }
+
+  @media (max-width: 768px) {
+    .title {
+      margin: 0;
+    }
+
+    .btn {
+      margin-top: calc(${PRIMARY_SPACING_EM} / 2);
+    }
+  }
 `;

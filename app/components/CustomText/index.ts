@@ -17,6 +17,7 @@ const CustomText = styled.h1<Props>`
   font-family: ${PRIMARY_FONT};
   font-size: ${({ size }) => EFontSizes[size]};
   font-weight: ${({ weight }) => EFontWeights[weight]};
+  margin: 0;
   text-align: ${({ textAlign }) => (textAlign ? ETextAlign[textAlign] : ETextAlign.center)};
   text-transform: ${({ textTransform }) =>
     textTransform ? ETextTransform[textTransform] : ETextTransform.none};
