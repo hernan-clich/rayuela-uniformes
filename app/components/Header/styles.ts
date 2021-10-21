@@ -12,6 +12,7 @@ export const HeaderContainer = styled.div`
   padding: ${SECONDARY_SPACING_EM} clamp(2em, 5vw, 4em);
   position: fixed;
   width: calc(100vw - 15px);
+  z-index: 3;
 
   span {
     margin: 0 1em;
