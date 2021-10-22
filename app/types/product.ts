@@ -1,4 +1,4 @@
-import { ESingleFilterAlias } from '@interfaces/generalInterfaces';
+import { ESingleFilterAlias } from '~types/general';
 
 export type TFilterState = {
   [ESingleFilterAlias.categories]: string;

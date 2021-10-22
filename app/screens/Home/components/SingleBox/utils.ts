@@ -1,4 +1,4 @@
-import { SMALL_BR, MEDIUM_BR, SECONDARY_SPACING_EM } from '@styles/variables';
+import { SMALL_BR, MEDIUM_BR, SECONDARY_SPACING_EM } from '~styles/variables';
 
 export const defineHeight = (width: number, isSquared: boolean): string => {
   if (isSquared) {

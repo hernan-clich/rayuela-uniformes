@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { PRUSSIAN_BLUE } from '@styles/colors';
-import { PRIMARY_SPACING_EM } from '@styles/variables';
+import { PRUSSIAN_BLUE } from '~styles/colors';
+import { PRIMARY_SPACING_EM } from '~styles/variables';
 
 export const FilterBarContainer = styled.div`
   align-items: center;

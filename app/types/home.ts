@@ -1,5 +1,5 @@
-import { TFontColors } from './fontInterfaces';
-import { THTMLTextElements } from './generalInterfaces';
+import { TFontColors } from './fonts';
+import { THTMLTextElements } from './general';
 
 export type THomeItem = {
   id: string;

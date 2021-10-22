@@ -1,4 +1,4 @@
-import useWindowSize from '@hooks/useWindowSize';
+import useWindowSize from '~hooks/useWindowSize';
 import HeaderBox from '../HeaderBox';
 import * as Styled from './styles';
 

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { WHITE } from '@styles/colors';
+import { WHITE } from '~styles/colors';
 import { SECONDARY_SPACING_EM, PRIMARY_FONT } from 'app/styles/variables';
 
 export const HeaderContainer = styled.div`

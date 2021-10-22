@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { MEDIUM_BR, PRIMARY_SPACING_EM } from '@styles/variables';
+import { MEDIUM_BR, PRIMARY_SPACING_EM } from '~styles/variables';
 
 type Props = {
   readonly width: number;

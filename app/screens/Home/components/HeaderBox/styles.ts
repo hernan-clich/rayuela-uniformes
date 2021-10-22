@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRIMARY_SPACING_EM } from '@styles/variables';
+import { PRIMARY_SPACING_EM } from '~styles/variables';
 import { EHorizontal, EVertical, TAlignment } from './types';
 
 type Props = {

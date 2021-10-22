@@ -1,5 +1,5 @@
-import useWindowSize from '@hooks/useWindowSize';
-import SingleBox from '@screens/Home/components/SingleBox';
+import useWindowSize from '~hooks/useWindowSize';
+import SingleBox from '~screens/Home/components/SingleBox';
 import { FEATURED_DATA } from './constants';
 import * as Styled from './styles';
 

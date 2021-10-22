@@ -1,4 +1,4 @@
-import CustomText from '@components/CustomText';
+import CustomText from '~components/CustomText';
 import FbIcon from './components/FbIcon';
 import EmailIcon from './components/EmailIcon';
 import GoogIcon from './components/GoogIcon';

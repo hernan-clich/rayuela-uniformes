@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { PORCELAIN, PRUSSIAN_BLUE, TRANSPARENT, WHITE } from '@styles/colors';
-import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '@styles/variables';
+import { PORCELAIN, PRUSSIAN_BLUE, TRANSPARENT, WHITE } from '~styles/colors';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 
 type FilterItemContainerProps = {
   readonly $isActive: boolean;

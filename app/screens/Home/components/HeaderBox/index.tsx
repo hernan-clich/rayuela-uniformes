@@ -1,6 +1,6 @@
-import CustomButton from '@components/CustomButton';
-import CustomText from '@components/CustomText';
-import { THTMLTextElements } from '@interfaces/generalInterfaces';
+import CustomButton from '~components/CustomButton';
+import CustomText from '~components/CustomText';
+import { THTMLTextElements } from '~types/general';
 import * as Styled from './styles';
 import { TAlignment } from './types';
 

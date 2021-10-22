@@ -1,5 +1,5 @@
-import ResizableSvg from '@components/RezisableSvg';
-import { MOBILE_BR } from '@styles/variables';
+import ResizableSvg from '~components/RezisableSvg';
+import { MOBILE_BR } from '~styles/variables';
 
 function ShoppingCartIcon() {
   return (

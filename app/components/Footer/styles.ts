@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { ALABASTER } from '@styles/colors';
-import { PRIMARY_SPACING_EM } from '@styles/variables';
+import { ALABASTER } from '~styles/colors';
+import { PRIMARY_SPACING_EM } from '~styles/variables';
 
 export const FooterContainer = styled.div`
   background-color: ${ALABASTER};

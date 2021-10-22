@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import React, { useState, useRef } from 'react';
-import ArrowIcon from '@components/ArrowIcon';
-import CustomText from '@components/CustomText';
-import useOnClickOutside from '@hooks/useOnClickOutside';
-import { TSingleFilterItem } from '@interfaces/generalInterfaces';
-import { TFilterState } from '@interfaces/productInterfaces';
+import ArrowIcon from '~components/ArrowIcon';
+import CustomText from '~components/CustomText';
+import useOnClickOutside from '~hooks/useOnClickOutside';
+import { TSingleFilterItem } from '~types/general';
+import { TFilterState } from '~types/product';
 import * as Styled from './styles';
 
 type Props = {

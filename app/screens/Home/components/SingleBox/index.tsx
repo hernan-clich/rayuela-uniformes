@@ -1,7 +1,7 @@
-import HeaderBox from '@screens/Home/components/HeaderBox';
-import useWindowSize from '@hooks/useWindowSize';
-import { EFontColors, TFontColors } from '@interfaces/fontInterfaces';
-import { THTMLTextElements } from '@interfaces/generalInterfaces';
+import HeaderBox from '~screens/Home/components/HeaderBox';
+import useWindowSize from '~hooks/useWindowSize';
+import { EFontColors, TFontColors } from '~types/fonts';
+import { THTMLTextElements } from '~types/general';
 
 import * as Styled from './styles';
 import { defineHeight } from './utils';

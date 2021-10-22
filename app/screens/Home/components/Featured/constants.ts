@@ -1,4 +1,4 @@
-import type { THomeItem } from '@interfaces/homeInterfaces';
+import type { THomeItem } from '~types/home';
 
 export const FEATURED_DATA: THomeItem[] = [
   {

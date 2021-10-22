@@ -1,4 +1,4 @@
-import { TSingleFilterItem } from '@interfaces/generalInterfaces';
+import { TSingleFilterItem } from '~types/general';
 
 export const CATEGORIES: TSingleFilterItem[] = [
   { alias: 'categories', id: 'tshirts', name: 'Remeras' },

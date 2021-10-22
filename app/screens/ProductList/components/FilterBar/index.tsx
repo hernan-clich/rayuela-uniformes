@@ -1,10 +1,10 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import FilterItem from '@components/FilterItem';
-import { CATEGORIES } from '@constants/categories';
-import { SCHOOL_DATA } from '@constants/schools';
-import { TSingleFilterItem } from '@interfaces/generalInterfaces';
-import { TFilterState } from '@interfaces/productInterfaces';
+import FilterItem from '~components/FilterItem';
+import { CATEGORIES } from '~constants/categories';
+import { SCHOOL_DATA } from '~constants/schools';
+import { TSingleFilterItem } from '~types/general';
+import { TFilterState } from '~types/product';
 import * as Styled from './styles';
 
 function FilterBar() {

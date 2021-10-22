@@ -1,7 +1,7 @@
 import styled from 'styled-components';
-import { EFontSizes, EFontWeights, ETextAlign, ETextTransform } from '@interfaces/fontInterfaces';
-import { PRUSSIAN_BLUE, WHITE } from '@styles/colors';
-import { PRIMARY_FONT } from '@styles/variables';
+import { PRUSSIAN_BLUE, WHITE } from '~styles/colors';
+import { PRIMARY_FONT } from '~styles/variables';
+import { EFontSizes, EFontWeights, ETextAlign, ETextTransform } from '~types/fonts';
 
 type Props = {
   readonly size: keyof typeof EFontSizes;

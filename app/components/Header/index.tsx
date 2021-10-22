@@ -1,6 +1,6 @@
-import CustomText from '@components/CustomText';
-import useWindowSize from '@hooks/useWindowSize';
-import { SMALL_BR } from '@styles/variables';
+import CustomText from '~components/CustomText';
+import useWindowSize from '~hooks/useWindowSize';
+import { SMALL_BR } from '~styles/variables';
 import Logo from './components/Logo';
 import ShoppingCartIcon from './components/ShoppingCartIcon';
 import * as Styled from './styles';
