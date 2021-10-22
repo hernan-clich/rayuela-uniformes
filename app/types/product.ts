@@ -4,3 +4,21 @@ export type TFilterState = {
   [ESingleFilterAlias.categories]: string;
   [ESingleFilterAlias.school]: string;
 };
+
+export enum EProductSizes {
+  S = 'S',
+  M = 'M',
+  L = 'L',
+  XL = 'XL'
+}
+
+export type TProduct = {
+  id: string;
+  imageUrl: string;
+  name: string;
+  price: number;
+  school: string;
+  stockBySize: {
+    [key in EProductSizes]: boolean;
+  };
+};
