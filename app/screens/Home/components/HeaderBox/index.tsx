@@ -1,3 +1,5 @@
+import Link from 'next/link';
+import type { Url } from 'url';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import { THTMLTextElements } from '~types/general';
@@ -8,11 +10,12 @@ type Props = {
   asHtmlElement: THTMLTextElements;
   alignment: TAlignment;
   buttonText: string;
+  path: Partial<Url>;
   titleText: string;
   secondary?: boolean;
 };
 
-function HeaderBox({ asHtmlElement, alignment, buttonText, secondary, titleText }: Props) {
+function HeaderBox({ asHtmlElement, alignment, buttonText, path, secondary, titleText }: Props) {
   return (
     <Styled.HeaderBoxContainer alignment={alignment}>
       <Styled.InnerWrapper alignment={alignment}>
@@ -27,9 +30,11 @@ function HeaderBox({ asHtmlElement, alignment, buttonText, secondary, titleText 
         >
           {titleText}
         </CustomText>
-        <CustomButton size="small" weight="bold" textTransform="uppercase" className="btn">
-          {buttonText}
-        </CustomButton>
+        <Link href={path}>
+          <CustomButton size="small" weight="bold" textTransform="uppercase" className="btn">
+            {buttonText}
+          </CustomButton>
+        </Link>
       </Styled.InnerWrapper>
     </Styled.HeaderBoxContainer>
   );

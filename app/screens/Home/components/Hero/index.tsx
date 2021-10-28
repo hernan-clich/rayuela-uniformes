@@ -1,3 +1,4 @@
+import PATHS from '~constants/paths';
 import useWindowSize from '~hooks/useWindowSize';
 import HeaderBox from '../HeaderBox';
 import * as Styled from './styles';
@@ -12,6 +13,7 @@ function Hero() {
         alignment={{ horizontal: 'left', vertical: 'center' }}
         buttonText="Comprar"
         titleText="Lo último en uniformes"
+        path={{ pathname: PATHS.PRODUCTS }}
         secondary
       />
     </Styled.HeroContainer>

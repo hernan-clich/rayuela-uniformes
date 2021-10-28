@@ -1,3 +1,4 @@
+import type { Url } from 'url';
 import HeaderBox from '~screens/Home/components/HeaderBox';
 import useWindowSize from '~hooks/useWindowSize';
 import { EFontColors, TFontColors } from '~types/fonts';
@@ -11,10 +12,11 @@ type Props = {
   boxTitle: string;
   squaredShape: boolean;
   asHtmlElement: THTMLTextElements;
+  path: Partial<Url>;
   fontColor?: TFontColors;
 };
 
-function SingleBox({ asHtmlElement, bgImg, boxTitle, fontColor, squaredShape }: Props) {
+function SingleBox({ asHtmlElement, bgImg, boxTitle, fontColor, path, squaredShape }: Props) {
   const { width } = useWindowSize();
 
   const elementHeight = defineHeight(width, squaredShape);
@@ -27,6 +29,7 @@ function SingleBox({ asHtmlElement, bgImg, boxTitle, fontColor, squaredShape }: 
         asHtmlElement={asHtmlElement}
         buttonText="Comprar"
         titleText={boxTitle}
+        path={path}
         secondary={isSecondary}
       />
     </Styled.SingleBoxContainer>

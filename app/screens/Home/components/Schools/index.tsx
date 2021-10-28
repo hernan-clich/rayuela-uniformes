@@ -1,3 +1,4 @@
+import PATHS from '~constants/paths';
 import { SCHOOL_DATA } from '~constants/schools';
 import useWindowSize from '~hooks/useWindowSize';
 import SingleBox from '~screens/Home/components/SingleBox';
@@ -14,6 +15,7 @@ function Schools() {
           boxTitle={school.name}
           bgImg={school.img}
           fontColor={school.fontColor}
+          path={{ pathname: PATHS.PRODUCTS, query: { school: school.id } }}
           squaredShape
         />
       ))}

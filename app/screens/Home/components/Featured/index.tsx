@@ -1,3 +1,4 @@
+import PATHS from '~constants/paths';
 import useWindowSize from '~hooks/useWindowSize';
 import SingleBox from '~screens/Home/components/SingleBox';
 import { FEATURED_DATA } from './constants';
@@ -15,6 +16,7 @@ function Featured() {
           bgImg={featured.img}
           fontColor={featured.fontColor}
           squaredShape={false}
+          path={{ pathname: PATHS.PRODUCTS, query: { categories: featured.id } }}
         />
       ))}
     </Styled.FeaturedContainer>
