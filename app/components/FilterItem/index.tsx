@@ -4,18 +4,16 @@ import ArrowIcon from '~components/ArrowIcon';
 import CustomText from '~components/CustomText';
 import useOnClickOutside from '~hooks/useOnClickOutside';
 import { TSingleFilterItem } from '~types/general';
-import { TFilterState } from '~types/product';
 import * as Styled from './styles';
 
 type Props = {
-  filterState: Partial<TFilterState>;
   filtersToList: TSingleFilterItem[];
   title: string;
 };
 
-function FilterItem({ filterState, filtersToList, title }: Props) {
+function FilterItem({ filtersToList, title }: Props) {
   const router = useRouter();
-  const { categories, school } = filterState;
+  const { categories, school } = router.query;
   const containerRef = useRef<HTMLDivElement>(null);
   const [isFilterActive, setFilterActive] = useState(false);
 
@@ -26,7 +24,7 @@ function FilterItem({ filterState, filtersToList, title }: Props) {
 
   const handleClick = (filterItem: TSingleFilterItem) => {
     if (categories || school)
-      router.replace({ query: { ...filterState, [filterItem.alias]: encodeURI(filterItem.id) } });
+      router.replace({ query: { ...router.query, [filterItem.alias]: encodeURI(filterItem.id) } });
     else router.replace({ query: { [filterItem.alias]: encodeURI(filterItem.id) } });
   };
 
