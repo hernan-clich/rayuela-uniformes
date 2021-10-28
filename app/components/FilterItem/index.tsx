@@ -8,7 +8,7 @@ import { TFilterState } from '~types/product';
 import * as Styled from './styles';
 
 type Props = {
-  filterState: TFilterState;
+  filterState: Partial<TFilterState>;
   filtersToList: TSingleFilterItem[];
   title: string;
 };

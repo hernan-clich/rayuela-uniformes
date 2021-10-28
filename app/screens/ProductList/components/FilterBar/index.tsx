@@ -10,19 +10,17 @@ import * as Styled from './styles';
 function FilterBar() {
   const router = useRouter();
   const { categories, school } = router.query;
-  const [filterState, setFilterState] = useState<TFilterState>({ categories: '', school: '' });
+  const [filterState, setFilterState] = useState<Partial<TFilterState>>({});
   const SCHOOLS: TSingleFilterItem[] = SCHOOL_DATA.map((schoolItem) => {
     return { id: schoolItem.id, name: schoolItem.name, alias: 'school' };
   });
 
   // Listening for query param changes
   useEffect(() => {
-    if (categories || school) {
-      setFilterState({
-        categories: (categories as string) || '',
-        school: (school as string) || ''
-      });
-    }
+    if (categories && !school) setFilterState({ categories: categories as string });
+    else if (!categories && school) setFilterState({ school: school as string });
+    else if (categories && school)
+      setFilterState({ categories: categories as string, school: school as string });
   }, [categories, school]);
 
   return (
