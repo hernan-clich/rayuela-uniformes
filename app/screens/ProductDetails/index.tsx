@@ -1,13 +1,10 @@
-import { useRouter } from 'next/router';
 import PublicLayout from '~components/PublicLayout';
+import DetailsCard from './components/DetailsCard';
 
 function ProductDetails() {
-  const router = useRouter();
-  const { slug } = router.query;
-
   return (
     <PublicLayout>
-      <p>{slug}</p>
+      <DetailsCard />
     </PublicLayout>
   );
 }
