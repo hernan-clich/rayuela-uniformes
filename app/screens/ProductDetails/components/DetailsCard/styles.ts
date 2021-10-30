@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ALABASTER, PRUSSIAN_BLUE, WILD_SAND } from '~styles/colors';
+import { ALABASTER, WILD_SAND } from '~styles/colors';
 import { PRIMARY_SPACING_EM } from '~styles/variables';
 
 export const DetailsCardContainer = styled.div`
@@ -46,26 +46,6 @@ export const DetailsCardContainer = styled.div`
   .price {
     margin-bottom: 45px;
     opacity: 0.6;
-  }
-
-  .sizeSelect {
-    background-color: ${ALABASTER};
-    border: none;
-    border-bottom: 1px solid ${PRUSSIAN_BLUE};
-    color: ${PRUSSIAN_BLUE};
-    font-size: 1.1rem;
-    font-weight: 500;
-    padding: 6px 0;
-    width: 25%;
-  }
-
-  .quantity {
-    margin: 1em 1em;
-  }
-
-  .counter {
-    cursor: pointer;
-    font-size: 1.5rem;
   }
 
   .submit {

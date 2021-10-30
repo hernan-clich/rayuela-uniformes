@@ -1,5 +1,6 @@
 export enum EFontSizes {
   big = 'clamp(1.5rem, 2.8vw, 14rem)',
+  regular = 'clamp(1.25rem, 1.6vw, 9rem)',
   small = 'clamp(0.9rem, 1.1vw, 5rem)',
   xsmall = 'clamp(0.7rem, 0.8vw, 3rem)'
 }
