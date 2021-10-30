@@ -9,10 +9,12 @@ import * as Styled from './styles';
 function DetailsCard() {
   const router = useRouter();
   const { slug } = router.query;
-  const [currentSize, setCurrentSize] = useState<TProductSizes>('S');
+  const [currentSize, setCurrentSize] = useState<TProductSizes>('2');
 
   const [currentProduct] = MOCKED_PRODUCTS.filter((product) => product.id === slug);
-  const sizesArray = currentProduct ? Object.keys(currentProduct.stockBySize) : [];
+  const sizesArray = currentProduct
+    ? (Object.keys(currentProduct.stockBySize) as TProductSizes[])
+    : [];
   const [, doesCurrentSizeHaveStock] = currentProduct
     ? Object.entries(currentProduct?.stockBySize).filter((size) => size[0] === currentSize)[0]
     : [currentSize, false];
@@ -33,10 +35,14 @@ function DetailsCard() {
           <CustomText as="h2" size="big" weight="bold" className="price">
             {`$ ${currentProduct?.price.toLocaleString('de-DE')}`}
           </CustomText>
+          <CustomText as="label" htmlFor="size" size="small" weight="regular">
+            TALLE
+          </CustomText>
           <select
             name="size"
             id="size"
             className="sizeSelect"
+            value={currentSize}
             onChange={handleSizeChange}
             onBlur={handleSizeChange}
           >

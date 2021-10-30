@@ -5,14 +5,22 @@ export type TFilterState = {
   [ESingleFilterAlias.school]: string;
 };
 
-export enum EProductSizes {
-  S = 'S',
-  M = 'M',
-  L = 'L',
-  XL = 'XL'
-}
+export const CProductSizes = {
+  '2': '2',
+  '4': '4',
+  '6': '6',
+  '8': '8',
+  '10': '10',
+  '12': '12',
+  '14': '14',
+  '16': '16',
+  S: 'S',
+  M: 'M',
+  L: 'L',
+  XL: 'XL'
+};
 
-export type TProductSizes = keyof typeof EProductSizes;
+export type TProductSizes = keyof typeof CProductSizes;
 
 export type TProduct = {
   id: string;
@@ -21,6 +29,6 @@ export type TProduct = {
   price: number;
   school: string;
   stockBySize: {
-    [key in EProductSizes]: boolean;
+    [key in TProductSizes]: boolean;
   };
 };

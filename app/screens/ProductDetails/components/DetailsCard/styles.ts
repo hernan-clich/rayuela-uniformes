@@ -52,6 +52,7 @@ export const DetailsCardContainer = styled.div`
     background-color: ${ALABASTER};
     border: none;
     border-bottom: 1px solid ${PRUSSIAN_BLUE};
+    color: ${PRUSSIAN_BLUE};
     font-size: 1.1rem;
     font-weight: 500;
     padding: 6px 0;
