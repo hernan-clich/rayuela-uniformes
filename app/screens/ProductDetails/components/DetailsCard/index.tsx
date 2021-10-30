@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import { MOCKED_PRODUCTS } from '~constants/products';
 import { TProductSizes } from '~types/product';
@@ -19,12 +20,22 @@ function DetailsCard() {
   const [, doesCurrentSizeHaveStock] = currentProduct
     ? Object.entries(currentProduct?.stockBySize).filter((size) => size[0] === currentSize)[0]
     : [currentSize, false];
+
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setCurrentSize(e.target.value as TProductSizes);
   const handleQuantityClick = (action: 'incr' | 'decr') => {
     // The quantity should never be less than 1
     if (action === 'decr' && quantity > 1) setQuantity((prevQuantity) => prevQuantity - 1);
     else if (action === 'incr') setQuantity((prevQuantity) => prevQuantity + 1);
+  };
+  // @todo: Do something useful here! ;)
+  const handleSubmit = () => {
+    console.log({
+      currentSize,
+      quantity,
+      price: currentProduct?.price,
+      total: currentProduct?.price * quantity
+    });
   };
 
   return (
@@ -74,6 +85,9 @@ function DetailsCard() {
               ))}
             </optgroup>
           </select>
+          <CustomButton size="small" weight="regular" onClick={handleSubmit} className="submit">
+            AGREGAR AL CARRITO
+          </CustomButton>
         </div>
       </div>
     </Styled.DetailsCardContainer>

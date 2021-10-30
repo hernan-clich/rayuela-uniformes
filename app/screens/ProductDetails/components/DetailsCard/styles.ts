@@ -68,6 +68,10 @@ export const DetailsCardContainer = styled.div`
     font-size: 1.5rem;
   }
 
+  .submit {
+    max-width: unset;
+  }
+
   @media (min-width: 768px) {
     flex-direction: row;
 
