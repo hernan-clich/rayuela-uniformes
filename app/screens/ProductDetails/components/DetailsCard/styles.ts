@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ALABASTER, WILD_SAND } from '~styles/colors';
+import { ALABASTER, PRUSSIAN_BLUE, WILD_SAND } from '~styles/colors';
 import { PRIMARY_SPACING_EM } from '~styles/variables';
 
 export const DetailsCardContainer = styled.div`
@@ -37,6 +37,25 @@ export const DetailsCardContainer = styled.div`
     display: flex;
     flex-flow: column nowrap;
     margin: ${PRIMARY_SPACING_EM};
+  }
+
+  .name {
+    margin: 45px 0;
+  }
+
+  .price {
+    margin-bottom: 45px;
+    opacity: 0.6;
+  }
+
+  .sizeSelect {
+    background-color: ${ALABASTER};
+    border: none;
+    border-bottom: 1px solid ${PRUSSIAN_BLUE};
+    font-size: 1.1rem;
+    font-weight: 500;
+    padding: 6px 0;
+    width: 25%;
   }
 
   @media (min-width: 768px) {

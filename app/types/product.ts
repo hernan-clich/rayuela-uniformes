@@ -12,6 +12,8 @@ export enum EProductSizes {
   XL = 'XL'
 }
 
+export type TProductSizes = keyof typeof EProductSizes;
+
 export type TProduct = {
   id: string;
   imageUrl: string;
