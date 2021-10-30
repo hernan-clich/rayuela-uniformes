@@ -20,8 +20,8 @@ function QuantityCounter({ quantity, setQuantity }: Props) {
         CANTIDAD
       </CustomText>
       <div className="counterWrapper">
-        <button className="counter" onClick={() => handleQuantityClick('decr')}>
-          -
+        <button className="counter disabled" onClick={() => handleQuantityClick('decr')}>
+          –
         </button>
         <div className="quantityWrapper">
           <CustomText as="span" size="big" weight="regular" className="quantity">

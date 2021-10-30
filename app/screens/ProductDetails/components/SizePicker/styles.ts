@@ -7,13 +7,14 @@ export const SizePickerContainer = styled.div`
   flex-flow: column nowrap;
   margin-bottom: 45px;
   min-width: 100px;
-  width: 15%;
+  width: 10%;
 
   .sizeSelect {
     background-color: ${ALABASTER};
     border: none;
     border-bottom: 1px solid ${PRUSSIAN_BLUE};
     color: ${PRUSSIAN_BLUE};
+    cursor: pointer;
     font-size: ${EFontSizes.regular};
     font-weight: ${EFontWeights.regular};
     padding: 6px 0;
