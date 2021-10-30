@@ -9,6 +9,7 @@ import * as Styled from './styles';
 function DetailsCard() {
   const router = useRouter();
   const { slug } = router.query;
+  const [quantity, setQuantity] = useState(1);
   const [currentSize, setCurrentSize] = useState<TProductSizes>('2');
 
   const [currentProduct] = MOCKED_PRODUCTS.filter((product) => product.id === slug);
@@ -20,6 +21,11 @@ function DetailsCard() {
     : [currentSize, false];
   const handleSizeChange = (e: React.ChangeEvent<HTMLSelectElement>) =>
     setCurrentSize(e.target.value as TProductSizes);
+  const handleQuantityClick = (action: 'incr' | 'decr') => {
+    // The quantity should never be less than 1
+    if (action === 'decr' && quantity > 1) setQuantity((prevQuantity) => prevQuantity - 1);
+    else if (action === 'incr') setQuantity((prevQuantity) => prevQuantity + 1);
+  };
 
   return (
     <Styled.DetailsCardContainer>
@@ -35,6 +41,20 @@ function DetailsCard() {
           <CustomText as="h2" size="big" weight="bold" className="price">
             {`$ ${currentProduct?.price.toLocaleString('de-DE')}`}
           </CustomText>
+          <CustomText as="span" size="small" weight="regular">
+            CANTIDAD
+          </CustomText>
+          <div>
+            <button className="counter" onClick={() => handleQuantityClick('decr')}>
+              -
+            </button>
+            <CustomText as="span" size="big" weight="regular" className="quantity">
+              {quantity}
+            </CustomText>
+            <button className="counter" onClick={() => handleQuantityClick('incr')}>
+              +
+            </button>
+          </div>
           <CustomText as="label" htmlFor="size" size="small" weight="regular">
             TALLE
           </CustomText>

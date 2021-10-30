@@ -59,6 +59,15 @@ export const DetailsCardContainer = styled.div`
     width: 25%;
   }
 
+  .quantity {
+    margin: 1em 1em;
+  }
+
+  .counter {
+    cursor: pointer;
+    font-size: 1.5rem;
+  }
+
   @media (min-width: 768px) {
     flex-direction: row;
 
