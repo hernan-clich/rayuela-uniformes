@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import { Dispatch, SetStateAction } from 'react';
 import CustomText from '~components/CustomText';
 import * as Styled from './styles';
@@ -8,10 +9,14 @@ type Props = {
 };
 
 function QuantityCounter({ quantity, setQuantity }: Props) {
+  const COUNT_LIMITS = { MIN: 1, MAX: 19 };
+  const isQuantityGtMin = quantity > COUNT_LIMITS.MIN;
+  const isQuantityLtMax = quantity < COUNT_LIMITS.MAX;
+
   const handleQuantityClick = (action: 'incr' | 'decr') => {
-    // The quantity should never be less than 1 nor greater than 99
-    if (action === 'decr' && quantity > 1) setQuantity((prevQuantity) => prevQuantity - 1);
-    else if (action === 'incr' && quantity <= 99) setQuantity((prevQuantity) => prevQuantity + 1);
+    // The quantity should never be less than MIN nor greater than MAX
+    if (action === 'decr' && isQuantityGtMin) setQuantity((prevQuantity) => prevQuantity - 1);
+    else if (action === 'incr' && isQuantityLtMax) setQuantity((prevQuantity) => prevQuantity + 1);
   };
 
   return (
@@ -20,7 +25,10 @@ function QuantityCounter({ quantity, setQuantity }: Props) {
         CANTIDAD
       </CustomText>
       <div className="counterWrapper">
-        <button className="counter disabled" onClick={() => handleQuantityClick('decr')}>
+        <button
+          className={clsx('counter', { disabled: !isQuantityGtMin })}
+          onClick={() => handleQuantityClick('decr')}
+        >
           –
         </button>
         <div className="quantityWrapper">
@@ -28,7 +36,10 @@ function QuantityCounter({ quantity, setQuantity }: Props) {
             {quantity}
           </CustomText>
         </div>
-        <button className="counter" onClick={() => handleQuantityClick('incr')}>
+        <button
+          className={clsx('counter', { disabled: !isQuantityLtMax })}
+          onClick={() => handleQuantityClick('incr')}
+        >
           +
         </button>
       </div>
