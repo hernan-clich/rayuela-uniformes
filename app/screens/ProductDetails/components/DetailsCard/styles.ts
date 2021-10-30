@@ -52,6 +52,7 @@ export const DetailsCardContainer = styled.div`
     max-width: unset;
   }
 
+  /* @todo: We should be using a constant for these breakoints */
   @media (min-width: 768px) {
     flex-direction: row;
 

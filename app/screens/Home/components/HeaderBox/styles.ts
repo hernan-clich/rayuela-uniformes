@@ -30,6 +30,7 @@ export const InnerWrapper = styled.div<Props>`
     margin-top: ${PRIMARY_SPACING_EM};
   }
 
+  /* @todo: We should be using a constant for these breakoints */
   @media (max-width: 768px) {
     .title {
       margin: 0;
