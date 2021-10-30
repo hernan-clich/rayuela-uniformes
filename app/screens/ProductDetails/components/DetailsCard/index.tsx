@@ -3,6 +3,8 @@ import { useState } from 'react';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import { MOCKED_PRODUCTS } from '~constants/products';
+import useLocalStorage from '~hooks/useLocalStorage';
+import { TOrder } from '~types/order';
 import { TProductSizes } from '~types/product';
 import QuantityCounter from '../QuantityCounter';
 import SizePicker from '../SizePicker';
@@ -12,6 +14,7 @@ import * as Styled from './styles';
 function DetailsCard() {
   const router = useRouter();
   const { slug } = router.query;
+  const [localStorageCart, setLocalStorageCart] = useLocalStorage<TOrder[]>('cart', []);
   const [quantity, setQuantity] = useState(1);
   const [currentSize, setCurrentSize] = useState<TProductSizes>('2');
 
@@ -23,14 +26,33 @@ function DetailsCard() {
     ? Object.entries(currentProduct?.stockBySize).filter((size) => size[0] === currentSize)[0]
     : [currentSize, false];
 
-  // @todo: Do something useful here! ;)
+  // If everything goes well, we're placing the current order into LS 'cart'
+  // @todo: Open the cart sidebar after an update has been made to the cart
   const handleSubmit = () => {
-    console.log({
-      currentSize,
-      quantity,
-      price: currentProduct?.price,
-      total: currentProduct?.price * quantity
-    });
+    const isCartEmpty = Boolean(localStorageCart && !localStorageCart?.length);
+    const [currentProductInCart] = !isCartEmpty
+      ? localStorageCart?.filter(({ product }) => product.id === currentProduct.id)
+      : [];
+    const isProductAlreadyInCart = Boolean(currentProductInCart);
+    const restOfProducts = isCartEmpty
+      ? localStorageCart?.filter(({ product }) => product.id !== currentProduct.id)
+      : [];
+
+    // If the cart is empty or the product is not yet there, we're gonna add it
+    if (isCartEmpty || !isProductAlreadyInCart) {
+      setLocalStorageCart([
+        ...localStorageCart,
+        // @todo: Lets auto generate this with something like uuid
+        { id: 'random-id', product: currentProduct, quantity, size: currentSize }
+      ]);
+    }
+    // Else, if the product is already there, we'll just add the new quantity into the stored order
+    else if (isProductAlreadyInCart) {
+      setLocalStorageCart([
+        ...restOfProducts,
+        { ...currentProductInCart, quantity: currentProductInCart?.quantity + quantity }
+      ]);
+    }
   };
 
   return (
@@ -53,6 +75,7 @@ function DetailsCard() {
             setCurrentSize={setCurrentSize}
             sizesArray={sizesArray}
           />
+          {/* @todo: Let's disable this button when the product is out of stock  */}
           <CustomButton size="small" weight="regular" onClick={handleSubmit} className="submit">
             AGREGAR AL CARRITO
           </CustomButton>
