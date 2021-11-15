@@ -1,4 +1,6 @@
+import Link from 'next/link';
 import CustomText from '~components/CustomText';
+import PATHS from '~constants/paths';
 import useWindowSize from '~hooks/useWindowSize';
 import { SMALL_BR } from '~styles/variables';
 import Logo from './components/Logo';
@@ -23,9 +25,11 @@ function Header() {
           </Styled.NavContainer>
         )}
       </Styled.HeaderLeft>
-      <button type="button">
-        <ShoppingCartIcon />
-      </button>
+      <Link href={PATHS.CART}>
+        <a>
+          <ShoppingCartIcon />
+        </a>
+      </Link>
     </Styled.HeaderContainer>
   );
 }

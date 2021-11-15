@@ -31,9 +31,11 @@ function HeaderBox({ asHtmlElement, alignment, buttonText, path, secondary, titl
           {titleText}
         </CustomText>
         <Link href={path}>
-          <CustomButton size="small" weight="bold" textTransform="uppercase" className="btn">
-            {buttonText}
-          </CustomButton>
+          <a>
+            <CustomButton size="small" weight="bold" textTransform="uppercase" className="btn">
+              {buttonText}
+            </CustomButton>
+          </a>
         </Link>
       </Styled.InnerWrapper>
     </Styled.HeaderBoxContainer>
