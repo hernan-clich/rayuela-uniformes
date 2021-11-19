@@ -1,11 +1,10 @@
 import CustomText from '~components/CustomText';
-import useLocalStorage from '~hooks/useLocalStorage';
-import { TOrder } from '~types/order';
+import useOrder from '~hooks/useOrder';
 import CartCard from '../CartCard';
 import * as Styled from './styles';
 
 function CartDetails() {
-  const [localStorageCart] = useLocalStorage<TOrder[]>('cart', []);
+  const { localStorageCart } = useOrder();
 
   return (
     <Styled.CartDetailsContainer>

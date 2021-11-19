@@ -4,8 +4,7 @@ import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import QuantityCounter from '~components/QuantityCounter';
 import { MOCKED_PRODUCTS } from '~constants/products';
-import useLocalStorage from '~hooks/useLocalStorage';
-import { TOrder } from '~types/order';
+import useOrder from '~hooks/useOrder';
 import { TProductSizes } from '~types/product';
 import SizePicker from '../SizePicker';
 import StockTag from '../StockTag';
@@ -14,11 +13,18 @@ import * as Styled from './styles';
 function DetailsCard() {
   const router = useRouter();
   const { slug } = router.query;
-  const [localStorageCart, setLocalStorageCart] = useLocalStorage<TOrder[]>('cart', []);
+  const [currentProduct] = MOCKED_PRODUCTS.filter((product) => product.id === slug);
+  const {
+    currentProductInCart,
+    isCartEmpty,
+    isProductAlreadyInCart,
+    restOfProducts,
+    localStorageCart,
+    setLocalStorageCart
+  } = useOrder(currentProduct?.id);
   const [quantity, setQuantity] = useState(1);
   const [currentSize, setCurrentSize] = useState<TProductSizes>('2');
 
-  const [currentProduct] = MOCKED_PRODUCTS.filter((product) => product.id === slug);
   const sizesArray = currentProduct
     ? (Object.keys(currentProduct.stockBySize) as TProductSizes[])
     : [];
@@ -29,15 +35,6 @@ function DetailsCard() {
   // If everything goes well, we're placing the current order into LS 'cart'
   // @todo: Open the cart sidebar after an update has been made to the cart
   const handleSubmit = () => {
-    const isCartEmpty = Boolean(localStorageCart && !localStorageCart?.length);
-    const [currentProductInCart] = !isCartEmpty
-      ? localStorageCart?.filter(({ product }) => product.id === currentProduct.id)
-      : [];
-    const isProductAlreadyInCart = Boolean(currentProductInCart);
-    const restOfProducts = isCartEmpty
-      ? localStorageCart?.filter(({ product }) => product.id !== currentProduct.id)
-      : [];
-
     // If the cart is empty or the product is not yet there, we're gonna add it
     if (isCartEmpty || !isProductAlreadyInCart) {
       setLocalStorageCart([

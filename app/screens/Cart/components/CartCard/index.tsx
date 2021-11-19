@@ -8,13 +8,13 @@ type Props = {
   order: TOrder;
 };
 
-function CartCard({ order: product }: Props) {
-  const [quantity, setQuantity] = useState(product?.quantity);
+function CartCard({ order }: Props) {
+  const [quantity, setQuantity] = useState(order?.quantity);
 
   return (
     <Styled.CartCardContainer>
       <div className="imgContainer">
-        <img src={product?.product?.imageUrl} alt={product?.product?.name || 'Producto'} />
+        <img src={order?.product?.imageUrl} alt={order?.product?.name || 'Producto'} />
       </div>
       <div className="cartProd">
         <div className="cartProdTop">
@@ -26,7 +26,7 @@ function CartCard({ order: product }: Props) {
               textAlign="left"
               textTransform="uppercase"
             >
-              {product?.product?.name}
+              {order?.product?.name}
             </CustomText>
             <CustomText
               as="span"
@@ -35,12 +35,12 @@ function CartCard({ order: product }: Props) {
               textAlign="left"
               textTransform="uppercase"
             >
-              {`Talle: ${product?.size}`}
+              {`Talle: ${order?.size}`}
             </CustomText>
           </div>
           <div className="topRight">
             <CustomText as="span" size="regular" weight="bold" textTransform="uppercase">
-              {`$ ${product?.product?.price * quantity}`}
+              {`$ ${order?.product?.price * quantity}`}
             </CustomText>
           </div>
         </div>
