@@ -4,12 +4,11 @@ import CustomText from '~components/CustomText';
 import * as Styled from './styles';
 
 type Props = {
-  handlerFn?: () => void;
   quantity: number;
   setQuantity: Dispatch<SetStateAction<number>>;
 };
 
-function QuantityCounter({ handlerFn, quantity, setQuantity }: Props) {
+function QuantityCounter({ quantity, setQuantity }: Props) {
   const COUNT_LIMITS = { MIN: 1, MAX: 19 };
   const isQuantityGtMin = quantity > COUNT_LIMITS.MIN;
   const isQuantityLtMax = quantity < COUNT_LIMITS.MAX;
@@ -18,8 +17,6 @@ function QuantityCounter({ handlerFn, quantity, setQuantity }: Props) {
     // The quantity should never be less than MIN nor greater than MAX
     if (action === 'decr' && isQuantityGtMin) setQuantity((prevQuantity) => prevQuantity - 1);
     else if (action === 'incr' && isQuantityLtMax) setQuantity((prevQuantity) => prevQuantity + 1);
-
-    if (handlerFn) handlerFn();
   };
 
   return (

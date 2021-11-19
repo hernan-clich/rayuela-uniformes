@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import CustomText from '~components/CustomText';
 import QuantityCounter from '~components/QuantityCounter';
+import useOrder from '~hooks/useOrder';
 import { TOrder } from '~types/order';
 import * as Styled from './styles';
 
@@ -9,7 +10,15 @@ type Props = {
 };
 
 function CartCard({ order }: Props) {
+  const { currentProductInCart, restOfProducts, setLocalStorageCart } = useOrder(
+    order?.product?.id
+  );
   const [quantity, setQuantity] = useState(order?.quantity);
+
+  // Update LS cart after every quantity change
+  useEffect(() => {
+    setLocalStorageCart([...restOfProducts, { ...currentProductInCart, quantity }]);
+  }, [currentProductInCart, restOfProducts, setLocalStorageCart, quantity]);
 
   return (
     <Styled.CartCardContainer>
