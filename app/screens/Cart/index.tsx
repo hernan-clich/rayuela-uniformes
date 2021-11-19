@@ -1,7 +1,12 @@
 import PublicLayout from '~components/PublicLayout';
+import CartDetails from './components/CartDetails';
 
 function ProductList() {
-  return <PublicLayout>Cart</PublicLayout>;
+  return (
+    <PublicLayout>
+      <CartDetails />
+    </PublicLayout>
+  );
 }
 
 export default ProductList;
