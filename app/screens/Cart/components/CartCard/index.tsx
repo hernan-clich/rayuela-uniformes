@@ -18,7 +18,9 @@ function CartCard({ order }: Props) {
   // Update LS cart after every quantity change
   useEffect(() => {
     setLocalStorageCart([...restOfProducts, { ...currentProductInCart, quantity }]);
-  }, [currentProductInCart, restOfProducts, setLocalStorageCart, quantity]);
+    // Preventing Warning: Maximum update depth exceeded.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [quantity]);
 
   return (
     <Styled.CartCardContainer>
