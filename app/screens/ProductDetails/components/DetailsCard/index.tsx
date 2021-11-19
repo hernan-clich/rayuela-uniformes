@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import { v4 as uuid } from 'uuid';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import QuantityCounter from '~components/QuantityCounter';
@@ -39,8 +40,7 @@ function DetailsCard() {
     if (isCartEmpty || !isProductAlreadyInCart) {
       setLocalStorageCart([
         ...localStorageCart,
-        // @todo: Lets auto generate this with something like uuid
-        { id: 'random-id', product: currentProduct, quantity, size: currentSize }
+        { id: uuid(), product: currentProduct, quantity, size: currentSize }
       ]);
     }
     // Else, if the product is already there, we'll just add the new quantity into the stored order
