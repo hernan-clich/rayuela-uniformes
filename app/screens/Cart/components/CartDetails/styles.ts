@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 
 export const CartDetailsContainer = styled.div`
   display: flex;
@@ -7,15 +8,26 @@ export const CartDetailsContainer = styled.div`
   width: 100vw;
 
   .cartProdsWrapper {
-    flex-grow: 5;
+    width: 100%;
   }
 
-  .title {
-    margin: 1em clamp(0.9em, 2.2vw, 2em);
+  .heading,
+  .subheadings {
+    margin: ${SECONDARY_SPACING_EM} clamp(${SECONDARY_SPACING_EM}, 2.2vw, ${PRIMARY_SPACING_EM});
   }
 
-  .detailsContainer {
-    flex-grow: 5;
-    min-width: 230px;
+  .subheadings {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: ${PRIMARY_SPACING_EM};
+    padding: 8px;
+
+    span {
+      margin-right: ${SECONDARY_SPACING_EM};
+    }
+
+    button {
+      max-width: unset;
+    }
   }
 `;

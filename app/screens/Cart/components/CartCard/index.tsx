@@ -41,7 +41,7 @@ function CartCard({ order }: Props) {
           </div>
           <div className="topRight">
             <CustomText as="span" size="regular" weight="bold" textTransform="uppercase">
-              {`$ ${order?.product?.price * order?.quantity}`}
+              {`$ ${(order?.product?.price * order?.quantity).toLocaleString('de-DE')}`}
             </CustomText>
           </div>
         </div>
