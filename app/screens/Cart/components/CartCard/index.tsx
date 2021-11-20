@@ -1,3 +1,4 @@
+import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import QuantityCounter from '~components/QuantityCounter';
 import useOrder from '~hooks/useOrder';
@@ -9,7 +10,7 @@ type Props = {
 };
 
 function CartCard({ order }: Props) {
-  const { setCurrentProductQuantity } = useOrder(order?.product?.id);
+  const { deleteOrder, setCurrentProductQuantity } = useOrder(order?.product?.id);
 
   return (
     <Styled.CartCardContainer>
@@ -54,6 +55,15 @@ function CartCard({ order }: Props) {
           />
         </div>
       </div>
+      <CustomButton
+        size="regular"
+        weight="black"
+        className="deleteButton"
+        secondary
+        onClick={() => deleteOrder(order?.id)}
+      >
+        ✕
+      </CustomButton>
     </Styled.CartCardContainer>
   );
 }

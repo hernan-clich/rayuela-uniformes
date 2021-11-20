@@ -40,9 +40,14 @@ export const CartCardContainer = styled.div`
       flex-flow: column nowrap;
 
       span:nth-of-type(1) {
-        padding-bottom: ${SECONDARY_SPACING_EM};
+        padding-bottom: calc(${SECONDARY_SPACING_EM} - 8px);
       }
     }
+  }
+
+  .deleteButton {
+    height: fit-content;
+    padding: 12px;
   }
 
   .cartProdBottom {

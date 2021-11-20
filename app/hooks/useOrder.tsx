@@ -9,6 +9,7 @@ function useOrder(productId = ''): {
   localStorageCart: TOrder[];
   setCurrentProductQuantity: (action: 'incr' | 'decr' | number, currentSize: TProductSizes) => void;
   setNewOrder: (product: TOrder) => void;
+  deleteOrder: (orderId: string) => void;
 } {
   const [localStorageCart, setLocalStorageCart] = useLocalStorage<TOrder[]>('cart', []);
 
@@ -18,9 +19,9 @@ function useOrder(productId = ''): {
     : [];
   const checkIfProductIsInCart = (currentSize: TProductSizes) =>
     Boolean(currentProductInCart) && currentProductInCart.size === currentSize;
-  const setNewOrder = (product: TOrder) => {
-    setLocalStorageCart([...localStorageCart, product]);
-  };
+  const setNewOrder = (product: TOrder) => setLocalStorageCart([...localStorageCart, product]);
+  const deleteOrder = (orderId: string) =>
+    setLocalStorageCart(localStorageCart.filter((order) => order?.id !== orderId));
   const setCurrentProductQuantity = (
     action: 'incr' | 'decr' | number,
     currentSize: TProductSizes
@@ -45,9 +46,10 @@ function useOrder(productId = ''): {
   };
 
   return {
-    isCartEmpty,
     currentProductInCart,
     checkIfProductIsInCart,
+    deleteOrder,
+    isCartEmpty,
     localStorageCart,
     setCurrentProductQuantity,
     setNewOrder
