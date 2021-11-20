@@ -48,8 +48,8 @@ function CartCard({ order }: Props) {
           <QuantityCounter
             quantity={order?.quantity}
             localStorageQtyHandlers={{
-              decrease: () => setCurrentProductQuantity('decr'),
-              increase: () => setCurrentProductQuantity('incr')
+              decrease: () => setCurrentProductQuantity('decr', order?.size),
+              increase: () => setCurrentProductQuantity('incr', order?.size)
             }}
           />
         </div>

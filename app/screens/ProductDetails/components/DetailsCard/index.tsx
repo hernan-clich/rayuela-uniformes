@@ -42,7 +42,7 @@ function DetailsCard() {
     }
     // Else, if the product is already there, we'll just add the new quantity into the stored order
     else if (isProductAlreadyInCart) {
-      setCurrentProductQuantity(currentProductInCart?.quantity + quantity);
+      setCurrentProductQuantity(currentProductInCart?.quantity + quantity, currentSize);
     }
   };
 
