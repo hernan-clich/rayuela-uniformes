@@ -17,7 +17,7 @@ function useOrder(orderId = ''): {
     ? localStorageCart?.filter(({ product }) => product?.id === orderId)
     : [];
   const isProductAlreadyInCart = Boolean(currentProductInCart);
-  const restOfProducts = isCartEmpty
+  const restOfProducts = !isCartEmpty
     ? localStorageCart?.filter(({ product }) => product?.id !== orderId)
     : [];
 
