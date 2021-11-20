@@ -18,7 +18,13 @@ function CartDetails() {
   return (
     <Styled.CartDetailsContainer>
       <div className="cartProdsWrapper">
-        <CustomText size="regular" weight="black" textTransform="uppercase">
+        <CustomText
+          size="big"
+          weight="black"
+          textTransform="uppercase"
+          textAlign="left"
+          className="title"
+        >
           Mi Carrito
         </CustomText>
         {storedOrders && storedOrders.map((order) => <CartCard key={order.id} order={order} />)}
