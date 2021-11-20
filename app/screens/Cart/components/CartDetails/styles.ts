@@ -5,7 +5,8 @@ export const CartDetailsContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
   margin-bottom: 2em;
-  width: 100vw;
+  padding: ${SECONDARY_SPACING_EM} clamp(2em, 5vw, 4em);
+  width: calc(100vw - 15px);
 
   .cartProdsWrapper {
     width: 100%;

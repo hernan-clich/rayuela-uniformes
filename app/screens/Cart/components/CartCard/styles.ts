@@ -3,7 +3,8 @@ import { PRUSSIAN_BLUE, WILD_SAND } from '~styles/colors';
 import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 
 export const CartCardContainer = styled.div`
-  border: 1px solid ${PRUSSIAN_BLUE};
+  border-bottom: 1px solid ${PRUSSIAN_BLUE};
+  border-top: 1px solid ${PRUSSIAN_BLUE};
   display: flex;
   height: 240px;
   margin: 0 auto ${PRIMARY_SPACING_EM};
