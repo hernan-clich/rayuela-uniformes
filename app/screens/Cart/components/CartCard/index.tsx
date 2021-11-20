@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import CustomText from '~components/CustomText';
 import QuantityCounter from '~components/QuantityCounter';
 import useOrder from '~hooks/useOrder';
@@ -10,17 +9,7 @@ type Props = {
 };
 
 function CartCard({ order }: Props) {
-  const { currentProductInCart, restOfProducts, setLocalStorageCart } = useOrder(
-    order?.product?.id
-  );
-  const [quantity, setQuantity] = useState(order?.quantity);
-
-  // Update LS cart after every quantity change
-  useEffect(() => {
-    setLocalStorageCart([...restOfProducts, { ...currentProductInCart, quantity }]);
-    // Preventing Warning: Maximum update depth exceeded.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quantity]);
+  const { setCurrentProductQuantity } = useOrder(order?.product?.id);
 
   return (
     <Styled.CartCardContainer>
@@ -51,12 +40,18 @@ function CartCard({ order }: Props) {
           </div>
           <div className="topRight">
             <CustomText as="span" size="regular" weight="bold" textTransform="uppercase">
-              {`$ ${order?.product?.price * quantity}`}
+              {`$ ${order?.product?.price * order?.quantity}`}
             </CustomText>
           </div>
         </div>
         <div className="cartProdBottom">
-          <QuantityCounter quantity={quantity} setQuantity={setQuantity} />
+          <QuantityCounter
+            quantity={order?.quantity}
+            localStorageQtyHandlers={{
+              decrease: () => setCurrentProductQuantity('decr'),
+              increase: () => setCurrentProductQuantity('incr')
+            }}
+          />
         </div>
       </div>
     </Styled.CartCardContainer>

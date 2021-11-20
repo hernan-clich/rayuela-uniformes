@@ -5,18 +5,29 @@ import * as Styled from './styles';
 
 type Props = {
   quantity: number;
-  setQuantity: Dispatch<SetStateAction<number>>;
+  setQuantity?: Dispatch<SetStateAction<number>>;
+  localStorageQtyHandlers?: {
+    decrease: () => void;
+    increase: () => void;
+  };
 };
 
-function QuantityCounter({ quantity, setQuantity }: Props) {
+function QuantityCounter({ localStorageQtyHandlers, quantity, setQuantity }: Props) {
   const COUNT_LIMITS = { MIN: 1, MAX: 19 };
   const isQuantityGtMin = quantity > COUNT_LIMITS.MIN;
   const isQuantityLtMax = quantity < COUNT_LIMITS.MAX;
 
   const handleQuantityClick = (action: 'incr' | 'decr') => {
     // The quantity should never be less than MIN nor greater than MAX
-    if (action === 'decr' && isQuantityGtMin) setQuantity((prevQuantity) => prevQuantity - 1);
-    else if (action === 'incr' && isQuantityLtMax) setQuantity((prevQuantity) => prevQuantity + 1);
+    if (action === 'decr' && isQuantityGtMin) {
+      if (setQuantity) setQuantity((prevQuantity) => prevQuantity - 1);
+      else if (localStorageQtyHandlers) localStorageQtyHandlers.decrease();
+    }
+
+    if (action === 'incr' && isQuantityLtMax) {
+      if (setQuantity) setQuantity((prevQuantity) => prevQuantity + 1);
+      else if (localStorageQtyHandlers) localStorageQtyHandlers.increase();
+    }
   };
 
   return (
