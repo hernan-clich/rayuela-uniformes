@@ -18,14 +18,14 @@ function DetailsCard() {
   const {
     currentProductInCart,
     isCartEmpty,
-    isProductAlreadyInCart,
-    restOfProducts,
-    localStorageCart,
-    setLocalStorageCart
+    checkIfProductIsInCart,
+    setNewOrder,
+    setCurrentProductQuantity
   } = useOrder(currentProduct?.id);
   const [quantity, setQuantity] = useState(1);
   const [currentSize, setCurrentSize] = useState<TProductSizes>('2');
 
+  const isProductAlreadyInCart = checkIfProductIsInCart(currentSize);
   const sizesArray = currentProduct
     ? (Object.keys(currentProduct.stockBySize) as TProductSizes[])
     : [];
@@ -38,17 +38,11 @@ function DetailsCard() {
   const handleSubmit = () => {
     // If the cart is empty or the product is not yet there, we're gonna add it
     if (isCartEmpty || !isProductAlreadyInCart) {
-      setLocalStorageCart([
-        ...localStorageCart,
-        { id: uuid(), product: currentProduct, quantity, size: currentSize }
-      ]);
+      setNewOrder({ id: uuid(), product: currentProduct, quantity, size: currentSize });
     }
     // Else, if the product is already there, we'll just add the new quantity into the stored order
     else if (isProductAlreadyInCart) {
-      setLocalStorageCart([
-        ...restOfProducts,
-        { ...currentProductInCart, quantity: currentProductInCart?.quantity + quantity }
-      ]);
+      setCurrentProductQuantity(currentProductInCart?.quantity + quantity);
     }
   };
 

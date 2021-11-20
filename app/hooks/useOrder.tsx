@@ -1,15 +1,14 @@
-import { Dispatch, SetStateAction } from 'react';
 import useLocalStorage from '~hooks/useLocalStorage';
 import { TOrder } from '~types/order';
+import { TProductSizes } from '~types/product';
 
 function useOrder(productId = ''): {
   currentProductInCart: TOrder;
   isCartEmpty: boolean;
-  isProductAlreadyInCart: boolean;
-  restOfProducts: TOrder[];
+  checkIfProductIsInCart: (currentSize: TProductSizes) => boolean;
   localStorageCart: TOrder[];
-  setLocalStorageCart: Dispatch<SetStateAction<TOrder[]>>;
-  setCurrentProductQuantity: (action: 'incr' | 'decr') => void;
+  setCurrentProductQuantity: (action: 'incr' | 'decr' | number) => void;
+  setNewOrder: (product: TOrder) => void;
 } {
   const [localStorageCart, setLocalStorageCart] = useLocalStorage<TOrder[]>('cart', []);
 
@@ -17,18 +16,21 @@ function useOrder(productId = ''): {
   const [currentProductInCart] = !isCartEmpty
     ? localStorageCart?.filter(({ product }) => product?.id === productId)
     : [];
-  const isProductAlreadyInCart = Boolean(currentProductInCart);
-  const restOfProducts = !isCartEmpty
-    ? localStorageCart?.filter(({ product }) => product?.id !== productId)
-    : [];
-  const setCurrentProductQuantity = (action: 'incr' | 'decr'): void => {
+  const checkIfProductIsInCart = (currentSize: TProductSizes) =>
+    Boolean(currentProductInCart) && currentProductInCart.size === currentSize;
+  const setNewOrder = (product: TOrder) => {
+    setLocalStorageCart([...localStorageCart, product]);
+  };
+  const setCurrentProductQuantity = (action: 'incr' | 'decr' | number): void => {
     setLocalStorageCart(
       localStorageCart.map((order) =>
         order?.product?.id === productId
           ? {
               ...order,
               quantity:
-                action === 'incr'
+                typeof action === 'number'
+                  ? action
+                  : action === 'incr'
                   ? order?.quantity + 1
                   : action === 'decr'
                   ? order?.quantity - 1
@@ -42,11 +44,10 @@ function useOrder(productId = ''): {
   return {
     isCartEmpty,
     currentProductInCart,
-    isProductAlreadyInCart,
-    restOfProducts,
+    checkIfProductIsInCart,
     localStorageCart,
-    setLocalStorageCart,
-    setCurrentProductQuantity
+    setCurrentProductQuantity,
+    setNewOrder
   };
 }
 
