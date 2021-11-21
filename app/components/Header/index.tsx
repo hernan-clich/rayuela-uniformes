@@ -12,8 +12,7 @@ function Header() {
         <Logo />
       </Styled.HeaderLeft>
       <Styled.HeaderRight>
-        {/* Change this to /login */}
-        <Link href={PATHS.HOME}>
+        <Link href={PATHS.AUTH}>
           <a>
             <UserIcon />
           </a>

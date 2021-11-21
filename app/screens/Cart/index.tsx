@@ -1,7 +1,7 @@
 import PublicLayout from '~components/PublicLayout';
 import CartDetails from './components/CartDetails';
 
-function ProductList() {
+function Cart() {
   return (
     <PublicLayout>
       <CartDetails />
@@ -9,4 +9,4 @@ function ProductList() {
   );
 }
 
-export default ProductList;
+export default Cart;
