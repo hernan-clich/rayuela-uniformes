@@ -1,10 +1,11 @@
 import styled from 'styled-components';
-import { WHITE } from '~styles/colors';
-import { SECONDARY_SPACING_EM, PRIMARY_FONT } from 'app/styles/variables';
+import { PORCELAIN, WHITE } from '~styles/colors';
+import { SECONDARY_SPACING_EM } from 'app/styles/variables';
 
 export const HeaderContainer = styled.div`
   align-items: center;
   background-color: ${WHITE};
+  box-shadow: 0px 0px 5px 0px ${PORCELAIN};
   display: flex;
   flex-direction: row nowrap;
   justify-content: space-between;
@@ -36,9 +37,8 @@ export const HeaderLeft = styled.div`
   flex-direction: row nowrap;
 `;
 
-export const NavContainer = styled.nav`
-  font-family: ${PRIMARY_FONT};
-  font-weight: 900;
-  margin-left: 4em;
-  text-transform: uppercase;
+export const HeaderRight = styled.div`
+  a {
+    padding-left: 16px;
+  }
 `;
