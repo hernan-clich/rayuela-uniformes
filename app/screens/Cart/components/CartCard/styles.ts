@@ -1,13 +1,17 @@
 import styled from 'styled-components';
-import { PRUSSIAN_BLUE, WILD_SAND } from '~styles/colors';
+import { PORCELAIN, WILD_SAND } from '~styles/colors';
 import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 
-export const CartCardContainer = styled.div`
-  border-bottom: 1px solid ${PRUSSIAN_BLUE};
-  border-top: 1px solid ${PRUSSIAN_BLUE};
+type Props = {
+  readonly $isFirstItem?: boolean;
+};
+
+export const CartCardContainer = styled.div<Props>`
+  border-bottom: 1px solid ${PORCELAIN};
+  border-top: ${({ $isFirstItem }) => $isFirstItem && `1px solid ${PORCELAIN}`};
   display: flex;
   height: 240px;
-  margin: 0 auto ${PRIMARY_SPACING_EM};
+  margin: 0 auto;
   width: calc(100% - clamp(2em, 5vw, 4em));
 
   .imgContainer {

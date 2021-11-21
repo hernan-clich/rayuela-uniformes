@@ -6,14 +6,15 @@ import { TOrder } from '~types/order';
 import * as Styled from './styles';
 
 type Props = {
+  $isFirstItem: boolean;
   order: TOrder;
 };
 
-function CartCard({ order }: Props) {
+function CartCard({ $isFirstItem, order }: Props) {
   const { deleteOrder, setCurrentProductQuantity } = useOrder(order?.product?.id);
 
   return (
-    <Styled.CartCardContainer>
+    <Styled.CartCardContainer $isFirstItem={$isFirstItem}>
       <div className="imgContainer">
         <img src={order?.product?.imageUrl} alt={order?.product?.name || 'Producto'} />
       </div>

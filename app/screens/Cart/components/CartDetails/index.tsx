@@ -53,7 +53,10 @@ function CartDetails() {
             Continuar
           </CustomButton>
         </div>
-        {storedOrders && storedOrders.map((order) => <CartCard key={order.id} order={order} />)}
+        {storedOrders &&
+          storedOrders.map((order, i) => (
+            <CartCard key={order.id} order={order} $isFirstItem={i === 0} />
+          ))}
       </div>
     </Styled.CartDetailsContainer>
   );
