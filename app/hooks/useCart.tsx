@@ -5,7 +5,7 @@ import { TProductSizes } from '~types/product';
 function useCart(productId = ''): {
   currentProductInCart: TItem;
   isCartEmpty: boolean;
-  checkIfProductIsInCart: (currentSize: TProductSizes) => boolean;
+  checkIfItemIsInCart: (currentSize: TProductSizes) => boolean;
   localStorageCart: TItem[];
   itemsCount: number;
   totalCartAmt: number;
@@ -19,7 +19,7 @@ function useCart(productId = ''): {
   const [currentProductInCart] = !isCartEmpty
     ? localStorageCart?.filter(({ product }) => product?.id === productId)
     : [];
-  const checkIfProductIsInCart = (currentSize: TProductSizes) =>
+  const checkIfItemIsInCart = (currentSize: TProductSizes) =>
     Boolean(currentProductInCart) && currentProductInCart.size === currentSize;
   const itemsCount = localStorageCart.reduce((acc, item) => acc + item?.quantity, 0);
   const totalCartAmt = localStorageCart.reduce(
@@ -54,7 +54,7 @@ function useCart(productId = ''): {
 
   return {
     currentProductInCart,
-    checkIfProductIsInCart,
+    checkIfItemIsInCart,
     deleteItem,
     isCartEmpty,
     localStorageCart,

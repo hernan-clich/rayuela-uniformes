@@ -18,14 +18,14 @@ function DetailsCard() {
   const {
     currentProductInCart,
     isCartEmpty,
-    checkIfProductIsInCart,
+    checkIfItemIsInCart,
     setNewItem,
     setCurrentProductQuantity
   } = useCart(currentProduct?.id);
   const [quantity, setQuantity] = useState(1);
   const [currentSize, setCurrentSize] = useState<TProductSizes>('2');
 
-  const isProductAlreadyInCart = checkIfProductIsInCart(currentSize);
+  const isProductAlreadyInCart = checkIfItemIsInCart(currentSize);
   const sizesArray = currentProduct
     ? (Object.keys(currentProduct.stockBySize) as TProductSizes[])
     : [];
