@@ -1,6 +1,6 @@
 import { TProduct, TProductSizes } from './product';
 
-export type TOrder = {
+export type TItem = {
   id: string;
   product: TProduct;
   quantity: number;

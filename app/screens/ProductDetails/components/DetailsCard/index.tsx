@@ -5,7 +5,7 @@ import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import QuantityCounter from '~components/QuantityCounter';
 import { MOCKED_PRODUCTS } from '~constants/products';
-import useOrder from '~hooks/useOrder';
+import useCart from '~hooks/useCart';
 import { TProductSizes } from '~types/product';
 import SizePicker from '../SizePicker';
 import StockTag from '../StockTag';
@@ -19,9 +19,9 @@ function DetailsCard() {
     currentProductInCart,
     isCartEmpty,
     checkIfProductIsInCart,
-    setNewOrder,
+    setNewItem,
     setCurrentProductQuantity
-  } = useOrder(currentProduct?.id);
+  } = useCart(currentProduct?.id);
   const [quantity, setQuantity] = useState(1);
   const [currentSize, setCurrentSize] = useState<TProductSizes>('2');
 
@@ -33,14 +33,14 @@ function DetailsCard() {
     ? Object.entries(currentProduct?.stockBySize).filter((size) => size[0] === currentSize)[0]
     : [currentSize, false];
 
-  // If everything goes well, we're placing the current order into LS 'cart'
+  // If everything goes well, we're placing the current item into LS 'cart'
   // @todo: Open the cart sidebar after an update has been made to the cart
   const handleSubmit = () => {
     // If the cart is empty or the product is not yet there, we're gonna add it
     if (isCartEmpty || !isProductAlreadyInCart) {
-      setNewOrder({ id: uuid(), product: currentProduct, quantity, size: currentSize });
+      setNewItem({ id: uuid(), product: currentProduct, quantity, size: currentSize });
     }
-    // Else, if the product is already there, we'll just add the new quantity into the stored order
+    // Else, if the product is already there, we'll just add the new quantity into the stored item
     else if (isProductAlreadyInCart) {
       setCurrentProductQuantity(currentProductInCart?.quantity + quantity, currentSize);
     }

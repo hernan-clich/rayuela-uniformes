@@ -1,19 +1,19 @@
 import useLocalStorage from '~hooks/useLocalStorage';
-import { TOrder } from '~types/order';
+import { TItem } from '~types/item';
 import { TProductSizes } from '~types/product';
 
-function useOrder(productId = ''): {
-  currentProductInCart: TOrder;
+function useCart(productId = ''): {
+  currentProductInCart: TItem;
   isCartEmpty: boolean;
   checkIfProductIsInCart: (currentSize: TProductSizes) => boolean;
-  localStorageCart: TOrder[];
-  productsCount: number;
+  localStorageCart: TItem[];
+  itemsCount: number;
   totalCartAmt: number;
   setCurrentProductQuantity: (action: 'incr' | 'decr' | number, currentSize: TProductSizes) => void;
-  setNewOrder: (order: TOrder) => void;
-  deleteOrder: (orderId: string) => void;
+  setNewItem: (item: TItem) => void;
+  deleteItem: (itemId: string) => void;
 } {
-  const [localStorageCart, setLocalStorageCart] = useLocalStorage<TOrder[]>('cart', []);
+  const [localStorageCart, setLocalStorageCart] = useLocalStorage<TItem[]>('cart', []);
 
   const isCartEmpty = Boolean(localStorageCart && !localStorageCart?.length);
   const [currentProductInCart] = !isCartEmpty
@@ -21,33 +21,33 @@ function useOrder(productId = ''): {
     : [];
   const checkIfProductIsInCart = (currentSize: TProductSizes) =>
     Boolean(currentProductInCart) && currentProductInCart.size === currentSize;
-  const productsCount = localStorageCart.reduce((acc, order) => acc + order?.quantity, 0);
+  const itemsCount = localStorageCart.reduce((acc, item) => acc + item?.quantity, 0);
   const totalCartAmt = localStorageCart.reduce(
-    (acc, order) => acc + order?.product?.price * order?.quantity,
+    (acc, item) => acc + item?.product?.price * item?.quantity,
     0
   );
-  const setNewOrder = (order: TOrder) => setLocalStorageCart([...localStorageCart, order]);
-  const deleteOrder = (orderId: string) =>
-    setLocalStorageCart(localStorageCart.filter((order) => order?.id !== orderId));
+  const setNewItem = (item: TItem) => setLocalStorageCart([...localStorageCart, item]);
+  const deleteItem = (itemId: string) =>
+    setLocalStorageCart(localStorageCart.filter((item) => item?.id !== itemId));
   const setCurrentProductQuantity = (
     action: 'incr' | 'decr' | number,
     currentSize: TProductSizes
   ): void => {
     setLocalStorageCart(
-      localStorageCart.map((order) =>
-        order?.product?.id === productId && order?.size === currentSize
+      localStorageCart.map((item) =>
+        item?.product?.id === productId && item?.size === currentSize
           ? {
-              ...order,
+              ...item,
               quantity:
                 typeof action === 'number'
                   ? action
                   : action === 'incr'
-                  ? order?.quantity + 1
+                  ? item?.quantity + 1
                   : action === 'decr'
-                  ? order?.quantity - 1
-                  : order?.quantity
+                  ? item?.quantity - 1
+                  : item?.quantity
             }
-          : order
+          : item
       )
     );
   };
@@ -55,14 +55,14 @@ function useOrder(productId = ''): {
   return {
     currentProductInCart,
     checkIfProductIsInCart,
-    deleteOrder,
+    deleteItem,
     isCartEmpty,
     localStorageCart,
-    productsCount,
+    itemsCount,
     setCurrentProductQuantity,
-    setNewOrder,
+    setNewItem,
     totalCartAmt
   };
 }
 
-export default useOrder;
+export default useCart;

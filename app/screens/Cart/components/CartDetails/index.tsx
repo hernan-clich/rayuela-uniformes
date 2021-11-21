@@ -1,19 +1,19 @@
 import { useState, useEffect } from 'react';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
-import useOrder from '~hooks/useOrder';
-import { TOrder } from '~types/order';
+import useCart from '~hooks/useCart';
+import { TItem } from '~types/item';
 import CartCard from '../CartCard';
 import * as Styled from './styles';
 
 function CartDetails() {
-  const { localStorageCart, productsCount, totalCartAmt } = useOrder();
-  const [storedOrders, setStoredOrders] = useState<TOrder[]>([]);
+  const { localStorageCart, itemsCount, totalCartAmt } = useCart();
+  const [storedItems, setStoredItems] = useState<TItem[]>([]);
 
   // I had to resort to this in order to avoid the following error
   // Warning: Expected server HTML to contain a matching <div> in <div>.
   useEffect(() => {
-    if (typeof window !== 'undefined') setStoredOrders(localStorageCart);
+    if (typeof window !== 'undefined') setStoredItems(localStorageCart);
   }, [localStorageCart]);
 
   return (
@@ -37,7 +37,7 @@ function CartDetails() {
               textTransform="uppercase"
               textAlign="left"
             >
-              TOTAL ({`${productsCount} ${productsCount === 1 ? 'producto' : 'productos'}`})
+              TOTAL ({`${itemsCount} ${itemsCount === 1 ? 'producto' : 'productos'}`})
             </CustomText>
             <CustomText
               as="span"
@@ -53,9 +53,9 @@ function CartDetails() {
             Continuar
           </CustomButton>
         </div>
-        {storedOrders &&
-          storedOrders.map((order, i) => (
-            <CartCard key={order.id} order={order} $isFirstItem={i === 0} />
+        {storedItems &&
+          storedItems.map((item, i) => (
+            <CartCard key={item.id} item={item} $isFirstItem={i === 0} />
           ))}
       </div>
     </Styled.CartDetailsContainer>
