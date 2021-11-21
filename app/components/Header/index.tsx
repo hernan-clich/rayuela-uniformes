@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import PATHS from '~constants/paths';
-import Logo from './components/Logo';
+import Logo from '~components/Logo';
 import ShoppingCartIcon from './components/ShoppingCartIcon';
 import UserIcon from './components/UserIcon';
 import * as Styled from './styles';
