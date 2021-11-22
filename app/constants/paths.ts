@@ -1,4 +1,7 @@
 const PATHS = {
+  ADMIN_ORDERS: '/admin/orders',
+  ADMIN_PRODUCTS: '/admin/products',
+  ADMIN_USERS: '/admin/users',
   AUTH: '/auth',
   CART: '/cart',
   HOME: '/',
