@@ -1,36 +1,30 @@
-import { useState } from 'react';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import GoogIcon from '~components/GoogIcon';
+import { useAuth } from '~hooks/useAuth';
 import * as Styled from './styles';
 
 function AuthContent() {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const { logout, signInWithGoogle } = useAuth();
 
   return (
     <Styled.AuthContentContainer>
       <CustomText size="big" weight="regular" className="title">
-        {isLoggedIn ? 'Iniciar sesión con Google' : 'Crear cuenta con Google'}
+        Iniciar sesión con Google
       </CustomText>
-      <CustomButton size="regular" weight="regular">
+      <CustomButton size="regular" weight="regular" onClick={signInWithGoogle}>
         <div className="btnContents">
           <GoogIcon secondary />
-          {isLoggedIn ? 'Iniciar sesión' : 'Crear cuenta'}
+          Iniciar sesión
         </div>
       </CustomButton>
-      <div className="togglerContainer">
-        <CustomText as="span" size="xsmall" weight="regular">
-          {isLoggedIn ? 'Todavía no tenes una cuenta?' : 'Ya tenes una cuenta?'}
-        </CustomText>
-        <CustomText
-          as="span"
-          size="xsmall"
-          weight="black"
-          onClick={() => setIsLoggedIn((prevState) => !prevState)}
-        >
-          {isLoggedIn ? 'Registrate!' : 'Inicia sesión'}
-        </CustomText>
-      </div>
+      {/* @todo: put this in a better place, maybe the header?? */}
+      <CustomButton size="regular" weight="regular" onClick={logout}>
+        <div className="btnContents">
+          <GoogIcon secondary />
+          Logout
+        </div>
+      </CustomButton>
     </Styled.AuthContentContainer>
   );
 }

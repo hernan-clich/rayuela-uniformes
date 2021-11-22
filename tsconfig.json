@@ -3,6 +3,7 @@
     "baseUrl": ".",
     "paths": {
       "~components/*": ["app/components/*"],
+      "~config/*": ["app/config/*"],
       "~constants/*": ["app/constants/*"],
       "~hooks/*": ["app/hooks/*"],
       "~pages/*": ["pages/*"],

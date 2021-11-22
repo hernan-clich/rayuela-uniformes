@@ -27,16 +27,4 @@ export const AuthContentContainer = styled.div`
       margin-right: ${SECONDARY_SPACING_EM};
     }
   }
-
-  .togglerContainer {
-    span {
-      user-select: none;
-    }
-
-    span:nth-child(2) {
-      cursor: pointer;
-      margin-left: 4px;
-      user-select: none;
-    }
-  }
 `;
