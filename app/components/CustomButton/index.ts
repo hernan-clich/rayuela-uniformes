@@ -6,6 +6,7 @@ import { EFontSizes, EFontWeights, ETextTransform } from '~types/fonts';
 type Props = {
   readonly size: keyof typeof EFontSizes;
   readonly weight: keyof typeof EFontWeights;
+  readonly noMaxWidth?: boolean;
   readonly secondary?: boolean;
   readonly textTransform?: keyof typeof ETextTransform;
 };
@@ -15,7 +16,7 @@ const CustomButton = styled.button<Props>`
   color: ${({ secondary }) => (secondary ? PRUSSIAN_BLUE : WHITE)};
   font-size: ${({ size }) => EFontSizes[size]};
   font-weight: ${({ weight }) => EFontWeights[weight]};
-  max-width: 10em;
+  max-width: ${({ noMaxWidth }) => (noMaxWidth ? 'unset' : '10em')};
   padding: ${SECONDARY_SPACING_EM} ${PRIMARY_SPACING_EM};
   text-transform: ${({ textTransform }) =>
     textTransform ? ETextTransform[textTransform] : ETextTransform.none};

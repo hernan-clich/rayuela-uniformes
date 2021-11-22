@@ -48,10 +48,6 @@ export const DetailsCardContainer = styled.div`
     opacity: 0.6;
   }
 
-  .submit {
-    max-width: unset;
-  }
-
   /* @todo: We should be using a constant for these breakoints */
   @media (min-width: 768px) {
     flex-direction: row;

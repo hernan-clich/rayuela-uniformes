@@ -12,14 +12,14 @@ function AuthContent() {
       <CustomText size="big" weight="regular" className="title">
         Iniciar sesión con Google
       </CustomText>
-      <CustomButton size="regular" weight="regular" onClick={signInWithGoogle}>
+      <CustomButton size="regular" weight="regular" noMaxWidth onClick={signInWithGoogle}>
         <div className="btnContents">
           <GoogIcon secondary />
           Iniciar sesión
         </div>
       </CustomButton>
       {/* @todo: put this in a better place, maybe the header?? */}
-      <CustomButton size="regular" weight="regular" onClick={logout}>
+      <CustomButton size="regular" weight="regular" noMaxWidth onClick={logout}>
         <div className="btnContents">
           <GoogIcon secondary />
           Logout

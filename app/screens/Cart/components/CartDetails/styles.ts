@@ -26,9 +26,5 @@ export const CartDetailsContainer = styled.div`
     span {
       margin-right: ${SECONDARY_SPACING_EM};
     }
-
-    button {
-      max-width: unset;
-    }
   }
 `;

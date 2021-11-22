@@ -14,7 +14,6 @@ export const AuthContentContainer = styled.div`
   }
 
   button {
-    max-width: unset;
     margin-bottom: ${SECONDARY_SPACING_EM};
   }
 

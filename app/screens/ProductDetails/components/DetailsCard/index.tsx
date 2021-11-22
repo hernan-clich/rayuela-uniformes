@@ -67,7 +67,7 @@ function DetailsCard() {
             sizesArray={sizesArray}
           />
           {/* @todo: Let's disable this button when the product is out of stock  */}
-          <CustomButton size="small" weight="regular" onClick={handleSubmit} className="submit">
+          <CustomButton size="small" weight="regular" noMaxWidth onClick={handleSubmit}>
             AGREGAR AL CARRITO
           </CustomButton>
         </div>

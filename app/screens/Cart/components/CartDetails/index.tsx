@@ -49,7 +49,7 @@ function CartDetails() {
               {`$ ${totalCartAmt.toLocaleString('de-DE')}`}
             </CustomText>
           </div>
-          <CustomButton size="small" weight="regular" textTransform="uppercase">
+          <CustomButton size="small" weight="regular" textTransform="uppercase" noMaxWidth>
             Continuar
           </CustomButton>
         </div>
