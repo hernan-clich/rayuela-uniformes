@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import React, { useState, useRef } from 'react';
-import ArrowIcon from '~components/ArrowIcon';
+import ArrowIcon from '~components/Icons/ArrowIcon';
 import CustomText from '~components/CustomText';
 import useOnClickOutside from '~hooks/useOnClickOutside';
 import { TSingleFilterItem } from '~types/general';

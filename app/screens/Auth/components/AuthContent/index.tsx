@@ -1,6 +1,6 @@
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
-import GoogIcon from '~components/GoogIcon';
+import GoogIcon from '~components/Icons/GoogIcon';
 import { useAuth } from '~hooks/useAuth';
 import * as Styled from './styles';
 

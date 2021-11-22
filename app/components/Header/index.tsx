@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import PATHS from '~constants/paths';
+import ShoppingCartIcon from '~components/Icons/ShoppingCartIcon';
+import UserIcon from '~components/Icons/UserIcon';
 import Logo from '~components/Logo';
-import ShoppingCartIcon from './components/ShoppingCartIcon';
-import UserIcon from './components/UserIcon';
 import * as Styled from './styles';
 
 function Header() {

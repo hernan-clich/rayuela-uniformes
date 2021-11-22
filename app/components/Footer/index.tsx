@@ -1,8 +1,8 @@
 import CustomText from '~components/CustomText';
-import FbIcon from '~components/FbIcon';
-import EmailIcon from '~components/EmailIcon';
-import GoogIcon from '~components/GoogIcon';
-import WaIcon from '~components/WaIcon';
+import FbIcon from '~components/Icons/FbIcon';
+import EmailIcon from '~components/Icons/EmailIcon';
+import GoogIcon from '~components/Icons/GoogIcon';
+import WaIcon from '~components/Icons/WaIcon';
 import * as Styled from './styles';
 
 function Footer() {

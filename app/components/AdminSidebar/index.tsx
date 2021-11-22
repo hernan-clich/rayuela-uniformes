@@ -1,8 +1,8 @@
 import Link from 'next/link';
-import HomeIcon from '~components/HomeIcon';
-import OrdersIcon from '~components/OrdersIcon';
-import ProductsIcon from '~components/ProductsIcon';
-import UsersIcon from '~components/UsersIcon';
+import HomeIcon from '~components/Icons/HomeIcon';
+import OrdersIcon from '~components/Icons/OrdersIcon';
+import ProductsIcon from '~components/Icons/ProductsIcon';
+import UsersIcon from '~components/Icons/UsersIcon';
 import PATHS from '~constants/paths';
 import * as Styled from './styles';
 
