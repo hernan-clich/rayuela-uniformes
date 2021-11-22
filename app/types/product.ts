@@ -29,6 +29,6 @@ export type TProduct = {
   price: number;
   school: string;
   stockBySize: {
-    [key in TProductSizes]: boolean;
+    [key in TProductSizes]?: boolean;
   };
 };
