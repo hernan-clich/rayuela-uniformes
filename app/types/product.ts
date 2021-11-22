@@ -1,5 +1,8 @@
 import { ESingleFilterAlias } from '~types/general';
 
+export type TFeaturedId = 'tshirts' | 'pants' | 'socks';
+export type TFeaturedName = 'Remeras' | 'Pantalones' | 'Medias';
+
 export type TFilterState = {
   [ESingleFilterAlias.categories]: string;
   [ESingleFilterAlias.school]: string;
