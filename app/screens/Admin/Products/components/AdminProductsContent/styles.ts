@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
 export const AdminProductsContentContainer = styled.div`
-  padding: 2em;
-
   .headingContainer {
     align-items: center;
     display: flex;

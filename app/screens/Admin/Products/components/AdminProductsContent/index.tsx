@@ -1,5 +1,7 @@
+import Link from 'next/link';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
+import PATHS from '~constants/paths';
 import * as Styled from './styles';
 
 function AdminProductsContent() {
@@ -9,9 +11,13 @@ function AdminProductsContent() {
         <CustomText size="regular" weight="bold">
           Productos
         </CustomText>
-        <CustomButton size="small" weight="bold" noMaxWidth>
-          Nuevo producto
-        </CustomButton>
+        <Link href={PATHS.ADMIN_ADD_NEW_PRODUCT}>
+          <a>
+            <CustomButton size="small" weight="bold" noMaxWidth>
+              Nuevo producto
+            </CustomButton>
+          </a>
+        </Link>
       </div>
     </Styled.AdminProductsContentContainer>
   );
