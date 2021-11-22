@@ -24,7 +24,7 @@ function Header() {
           </a>
         </Link>
         {/* @todo: only admin users should be able to see this */}
-        <Link href={PATHS.ADMIN_ORDERS}>
+        <Link href={PATHS.ADMIN_PRODUCTS}>
           <a>
             <SettingsIcon />
           </a>

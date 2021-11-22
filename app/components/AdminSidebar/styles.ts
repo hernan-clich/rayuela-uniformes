@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRUSSIAN_BLUE } from '~styles/colors';
+import { BAHAMA_BLUE, PRUSSIAN_BLUE } from '~styles/colors';
 import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 
 export const AdminSidebarContainer = styled.div`
@@ -18,8 +18,21 @@ export const AdminSidebarContainer = styled.div`
     justify-content: center;
     width: 100%;
 
-    svg {
-      margin: ${SECONDARY_SPACING_EM} auto;
+    .icon {
+      border-radius: 10px;
+      margin: 0.5em 0;
+      padding: 8px;
+      transition: transform 200ms ease-out;
+    }
+
+    .hovered {
+      &:hover {
+        transform: scale(1.15);
+      }
+    }
+
+    .current {
+      background-color: ${BAHAMA_BLUE};
     }
   }
 `;

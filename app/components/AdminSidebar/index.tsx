@@ -1,35 +1,22 @@
+import clsx from 'clsx';
 import Link from 'next/link';
-import HomeIcon from '~components/Icons/HomeIcon';
-import OrdersIcon from '~components/Icons/OrdersIcon';
-import ProductsIcon from '~components/Icons/ProductsIcon';
-import UsersIcon from '~components/Icons/UsersIcon';
-import PATHS from '~constants/paths';
+import { useRouter } from 'next/router';
+import { NAV_CONTENT } from './constants';
 import * as Styled from './styles';
 
 function AdminSidebar() {
+  const { asPath } = useRouter();
+
   return (
     <Styled.AdminSidebarContainer>
       <nav className="nav">
-        <Link href={PATHS.HOME}>
-          <a>
-            <HomeIcon />
-          </a>
-        </Link>
-        <Link href={PATHS.ADMIN_ORDERS}>
-          <a>
-            <OrdersIcon />
-          </a>
-        </Link>
-        <Link href={PATHS.ADMIN_PRODUCTS}>
-          <a>
-            <ProductsIcon />
-          </a>
-        </Link>
-        <Link href={PATHS.ADMIN_USERS}>
-          <a>
-            <UsersIcon />
-          </a>
-        </Link>
+        {NAV_CONTENT.map(({ href, children }, i) => (
+          <Link key={i} href={href}>
+            <a className={clsx('icon', { current: asPath === href, hovered: asPath !== href })}>
+              {children}
+            </a>
+          </Link>
+        ))}
       </nav>
     </Styled.AdminSidebarContainer>
   );

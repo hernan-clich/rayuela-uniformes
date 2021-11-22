@@ -1,4 +1,5 @@
 export const ALABASTER = '#FCFCFC';
+export const BAHAMA_BLUE = '#005794';
 export const GREEN_HAZE = '#009B35';
 export const MONZA = '#B30023';
 export const PORCELAIN = '#EBEDEE';
