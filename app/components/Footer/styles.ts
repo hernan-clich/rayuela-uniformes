@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ALABASTER } from '~styles/colors';
-import { PRIMARY_SPACING_EM } from '~styles/variables';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 
 export const FooterContainer = styled.div`
   background-color: ${ALABASTER};
@@ -20,7 +20,7 @@ export const FooterContainer = styled.div`
 
 export const FooterText = styled.div`
   flex-grow: 1;
-  padding: 0 1em;
+  padding: 0 ${SECONDARY_SPACING_EM};
 
   div {
     padding-bottom: ${PRIMARY_SPACING_EM};
@@ -58,6 +58,6 @@ export const FooterSocial = styled.div`
     flex-grow: 0;
     height: auto;
     justify-content: center;
-    padding: 2em 0;
+    padding: ${PRIMARY_SPACING_EM} 0;
   }
 `;

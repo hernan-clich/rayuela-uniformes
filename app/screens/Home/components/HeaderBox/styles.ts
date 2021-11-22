@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRIMARY_SPACING_EM } from '~styles/variables';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 import { EHorizontal, EVertical, TAlignment } from './types';
 
 type Props = {
@@ -23,7 +23,7 @@ export const InnerWrapper = styled.div<Props>`
   width: 60%;
 
   .title {
-    margin: 1em 0;
+    margin: ${SECONDARY_SPACING_EM} 0;
   }
 
   .btn {

@@ -4,8 +4,8 @@ import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 export const CartDetailsContainer = styled.div`
   display: flex;
   flex-flow: row wrap;
-  margin-bottom: 2em;
-  padding: ${SECONDARY_SPACING_EM} clamp(2em, 5vw, 4em);
+  margin-bottom: ${PRIMARY_SPACING_EM};
+  padding: ${SECONDARY_SPACING_EM} clamp(${PRIMARY_SPACING_EM}, 5vw, 4em);
   width: calc(100vw - 15px);
 
   .cartProdsWrapper {

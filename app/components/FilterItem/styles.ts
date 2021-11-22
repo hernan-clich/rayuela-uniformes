@@ -56,7 +56,7 @@ export const SingleListItem = styled.div`
   z-index: 1;
 
   div {
-    padding: 0.5em 0 1em;
+    padding: 0.5em 0 ${SECONDARY_SPACING_EM};
   }
 
   button {

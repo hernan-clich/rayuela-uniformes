@@ -12,7 +12,7 @@ export const CartCardContainer = styled.div<Props>`
   display: flex;
   height: 240px;
   margin: 0 auto;
-  width: calc(100% - clamp(2em, 5vw, 4em));
+  width: calc(100% - clamp(${PRIMARY_SPACING_EM}, 5vw, 4em));
 
   .imgContainer {
     align-items: center;

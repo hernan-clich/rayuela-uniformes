@@ -1,13 +1,14 @@
 import styled from 'styled-components';
 import { PRUSSIAN_BLUE } from '~styles/colors';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 
 export const AdminSidebarContainer = styled.div`
   align-items: center;
   background-color: ${PRUSSIAN_BLUE};
   border-radius: 10px;
   display: flex;
-  height: calc(100vh - 2em);
-  margin: 1em;
+  height: calc(100vh - ${PRIMARY_SPACING_EM});
+  margin: ${SECONDARY_SPACING_EM};
   width: 90px;
 
   .nav {
@@ -18,7 +19,7 @@ export const AdminSidebarContainer = styled.div`
     width: 100%;
 
     svg {
-      margin: 1em auto;
+      margin: ${SECONDARY_SPACING_EM} auto;
     }
   }
 `;

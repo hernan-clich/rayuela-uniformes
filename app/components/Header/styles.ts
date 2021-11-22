@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PORCELAIN, WHITE } from '~styles/colors';
-import { SECONDARY_SPACING_EM } from 'app/styles/variables';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from 'app/styles/variables';
 
 export const HeaderContainer = styled.div`
   align-items: center;
@@ -10,13 +10,13 @@ export const HeaderContainer = styled.div`
   flex-direction: row nowrap;
   justify-content: space-between;
   height: 10vh;
-  padding: ${SECONDARY_SPACING_EM} clamp(2em, 5vw, 4em);
+  padding: ${SECONDARY_SPACING_EM} clamp(${PRIMARY_SPACING_EM}, 5vw, 4em);
   position: fixed;
   width: 100vw;
   z-index: 3;
 
   span {
-    margin: 0 1em;
+    margin: 0 ${SECONDARY_SPACING_EM};
     padding: 0.25em;
 
     &:hover {
