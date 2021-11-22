@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import PATHS from '~constants/paths';
+import SettingsIcon from '~components/Icons/SettingsIcon';
 import ShoppingCartIcon from '~components/Icons/ShoppingCartIcon';
 import UserIcon from '~components/Icons/UserIcon';
 import Logo from '~components/Logo';
@@ -12,14 +13,20 @@ function Header() {
         <Logo />
       </Styled.HeaderLeft>
       <Styled.HeaderRight>
+        <Link href={PATHS.CART}>
+          <a>
+            <ShoppingCartIcon />
+          </a>
+        </Link>
         <Link href={PATHS.AUTH}>
           <a>
             <UserIcon />
           </a>
         </Link>
-        <Link href={PATHS.CART}>
+        {/* @todo: only admin users should be able to see this */}
+        <Link href={PATHS.ADMIN_ORDERS}>
           <a>
-            <ShoppingCartIcon />
+            <SettingsIcon />
           </a>
         </Link>
       </Styled.HeaderRight>
