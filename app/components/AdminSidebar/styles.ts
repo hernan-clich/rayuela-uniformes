@@ -4,8 +4,10 @@ import { PRUSSIAN_BLUE } from '~styles/colors';
 export const AdminSidebarContainer = styled.div`
   align-items: center;
   background-color: ${PRUSSIAN_BLUE};
+  border-radius: 10px;
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 2em);
+  margin: 1em;
   width: 90px;
 
   .nav {
