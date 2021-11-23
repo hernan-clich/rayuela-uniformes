@@ -6,6 +6,9 @@ import { CSchools, TSchoolIds } from '~types/schools';
 import * as Styled from './styles';
 
 type TFormData = {
+  img: File;
+  name: string;
+  price: string;
   school: TSchoolIds;
 };
 
@@ -17,7 +20,7 @@ function AddNewProductForm() {
   const sizesOptions = Object.values(CProductSizes).map((size) => ({ value: size, label: size }));
 
   const methods = useForm<TFormData>();
-  const { handleSubmit } = methods;
+  const { handleSubmit, register } = methods;
 
   // @todo: Remove console.log and do something useful please
   // eslint-disable-next-line no-console
@@ -27,14 +30,14 @@ function AddNewProductForm() {
     <Styled.AddNewProductFormContainer>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <label htmlFor="name">Nombre</label>
-        <input type="text" name="name" />
+        <input type="text" {...register('name', { required: true, minLength: 8 })} />
         <label htmlFor="price">Precio</label>
-        <input type="text" name="price" />
+        <input type="text" {...register('price', { required: true, minLength: 8 })} />
         <label htmlFor="school">Escuela</label>
         <Controller
           control={methods.control}
-          defaultValue={schoolOptions[0]?.value}
           name="school"
+          rules={{ required: true }}
           render={({ field: { onChange } }) => (
             <Select
               options={schoolOptions}
@@ -47,17 +50,25 @@ function AddNewProductForm() {
             />
           )}
         />
-        <label htmlFor="photo">Escuela</label>
-        <input id="photo" type="file" name="photo" accept="image/png" style={{ display: 'none' }} />
+        <label htmlFor="img">IMG</label>
+        <input
+          id="img"
+          type="file"
+          {...register('img', { required: true })}
+          accept="image/png"
+          style={{ display: 'none' }}
+        />
+        <label htmlFor="available-sizes">Talles en los que viene el producto</label>
         <Select
           options={sizesOptions}
           instanceId="sizeId"
+          name="available-sizes"
           isMulti
           closeMenuOnSelect={false}
           placeholder="Talles"
           noOptionsMessage={() => 'No hay más opciones'}
         />
-        <CustomButton size="small" weight="regular">
+        <CustomButton type="submit" size="small" weight="regular">
           Añadir
         </CustomButton>
       </form>
