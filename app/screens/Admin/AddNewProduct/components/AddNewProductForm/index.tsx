@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
+import useDbMutation from '~hooks/useDbMutation';
+import { EDbCollections } from '~types/db';
 import { CProductSizes } from '~types/product';
 import { CSchools, TSchoolIds } from '~types/schools';
 import * as Styled from './styles';
@@ -17,6 +19,7 @@ type TFormData = {
 };
 
 function AddNewProductForm() {
+  const { addDocument } = useDbMutation(EDbCollections.products);
   const schoolOptions = Object.entries(CSchools).map((school) => {
     const [id, name] = school;
     return { value: id as TSchoolIds, label: name };
@@ -31,7 +34,9 @@ function AddNewProductForm() {
 
   // @todo: Remove console.log and do something useful please
   // eslint-disable-next-line no-console
-  const onSubmit = (data: TFormData) => console.log(data);
+  const onSubmit = (data: TFormData) => {
+    addDocument({ name: data.name, school: data.school, price: data.price });
+  };
 
   return (
     <Styled.AddNewProductFormContainer>
