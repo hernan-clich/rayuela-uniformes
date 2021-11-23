@@ -6,14 +6,15 @@ import { CProductSizes } from '~types/product';
 import { CSchools, TSchoolIds } from '~types/schools';
 import * as Styled from './styles';
 
+type TMultiOptions = MultiValue<{ value: string; label: string }>;
+
 type TFormData = {
   img: File;
   name: string;
   price: string;
   school: TSchoolIds;
+  stockBySize: TMultiOptions;
 };
-
-type TMultiOptions = MultiValue<{ value: string; label: string }>;
 
 function AddNewProductForm() {
   const schoolOptions = Object.entries(CSchools).map((school) => {
@@ -21,7 +22,7 @@ function AddNewProductForm() {
     return { value: id as TSchoolIds, label: name };
   });
   const sizesOptions = Object.values(CProductSizes).map((size) => ({ value: size, label: size }));
-  const [, setAvailableSizes] = useState<TMultiOptions>([]);
+  const [availableSizes, setAvailableSizes] = useState<TMultiOptions>([]);
 
   const methods = useForm<TFormData>();
   const { handleSubmit, register } = methods;
@@ -38,7 +39,7 @@ function AddNewProductForm() {
         <label htmlFor="name">Nombre</label>
         <input type="text" {...register('name', { required: true, minLength: 8 })} />
         <label htmlFor="price">Precio</label>
-        <input type="text" {...register('price', { required: true, minLength: 8 })} />
+        <input type="text" {...register('price', { required: true })} />
         <label htmlFor="school">Escuela</label>
         <Controller
           control={methods.control}
@@ -51,7 +52,6 @@ function AddNewProductForm() {
               isMulti={false}
               closeMenuOnSelect
               placeholder="Escuela"
-              noOptionsMessage={() => 'No hay más opciones'}
               onChange={(e) => onChange(e?.value)}
             />
           )}
@@ -75,6 +75,27 @@ function AddNewProductForm() {
           noOptionsMessage={() => 'No hay más opciones'}
           onChange={handleAvailableSizesChange}
         />
+        {Boolean(availableSizes?.length) && (
+          <>
+            <label htmlFor="available-sizes">Talles con stock</label>
+            <Controller
+              control={methods.control}
+              name="stockBySize"
+              rules={{ required: true }}
+              render={({ field: { onChange } }) => (
+                <Select
+                  options={availableSizes}
+                  instanceId="stockBySizeId"
+                  isMulti
+                  closeMenuOnSelect={false}
+                  placeholder="Stock"
+                  noOptionsMessage={() => 'No hay más opciones'}
+                  onChange={(e) => onChange(e)}
+                />
+              )}
+            />
+          </>
+        )}
         <CustomButton type="submit" size="small" weight="regular">
           Añadir
         </CustomButton>
