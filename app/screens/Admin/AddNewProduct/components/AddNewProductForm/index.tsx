@@ -1,5 +1,6 @@
+import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
-import Select from 'react-select';
+import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
 import { CProductSizes } from '~types/product';
 import { CSchools, TSchoolIds } from '~types/schools';
@@ -12,15 +13,20 @@ type TFormData = {
   school: TSchoolIds;
 };
 
+type TMultiOptions = MultiValue<{ value: string; label: string }>;
+
 function AddNewProductForm() {
   const schoolOptions = Object.entries(CSchools).map((school) => {
     const [id, name] = school;
     return { value: id as TSchoolIds, label: name };
   });
   const sizesOptions = Object.values(CProductSizes).map((size) => ({ value: size, label: size }));
+  const [, setAvailableSizes] = useState<TMultiOptions>([]);
 
   const methods = useForm<TFormData>();
   const { handleSubmit, register } = methods;
+
+  const handleAvailableSizesChange = (newValue: TMultiOptions): void => setAvailableSizes(newValue);
 
   // @todo: Remove console.log and do something useful please
   // eslint-disable-next-line no-console
@@ -67,6 +73,7 @@ function AddNewProductForm() {
           closeMenuOnSelect={false}
           placeholder="Talles"
           noOptionsMessage={() => 'No hay más opciones'}
+          onChange={handleAvailableSizesChange}
         />
         <CustomButton type="submit" size="small" weight="regular">
           Añadir
