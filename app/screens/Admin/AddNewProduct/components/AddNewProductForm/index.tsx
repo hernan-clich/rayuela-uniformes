@@ -4,14 +4,14 @@ import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
 import useDbMutation from '~hooks/useDbMutation';
 import { EDbCollections } from '~types/db';
-import { CProductSizes } from '~types/product';
+import { CProductSizes, TProduct } from '~types/product';
 import { CSchools, TSchoolIds } from '~types/schools';
 import * as Styled from './styles';
 
 type TMultiOptions = MultiValue<{ value: string; label: string }>;
 
 type TFormData = {
-  img: File;
+  img: FileList;
   name: string;
   price: string;
   school: TSchoolIds;
@@ -19,7 +19,7 @@ type TFormData = {
 };
 
 function AddNewProductForm() {
-  const { addDocument } = useDbMutation(EDbCollections.products);
+  const { addStorageFile } = useDbMutation(EDbCollections.products);
   const schoolOptions = Object.entries(CSchools).map((school) => {
     const [id, name] = school;
     return { value: id as TSchoolIds, label: name };
@@ -32,10 +32,24 @@ function AddNewProductForm() {
 
   const handleAvailableSizesChange = (newValue: TMultiOptions): void => setAvailableSizes(newValue);
 
-  // @todo: Remove console.log and do something useful please
-  // eslint-disable-next-line no-console
-  const onSubmit = (data: TFormData) => {
-    addDocument({ name: data.name, school: data.school, price: data.price });
+  const onSubmit = ({ img, name, price, school, stockBySize }: TFormData) => {
+    const image = img[0];
+    const parsedPrice = parseInt(price, 10);
+    const stockBySizeValues = stockBySize?.map((size) => size.value);
+    const reducedStockBySize: TProduct['stockBySize'] = availableSizes.reduce(
+      (acc, size) => ({
+        ...acc,
+        [size.value]: stockBySizeValues.includes(size.value)
+      }),
+      {}
+    );
+
+    addStorageFile(image, 'products', {
+      name,
+      school,
+      price: parsedPrice,
+      stockBySize: reducedStockBySize
+    });
   };
 
   return (
