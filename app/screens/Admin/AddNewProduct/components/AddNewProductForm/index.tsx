@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
+import CustomText from '~components/CustomText';
 import useDbMutation from '~hooks/useDbMutation';
 import { EDbCollections } from '~types/db';
 import { CProductSizes, TProduct } from '~types/product';
@@ -55,7 +56,9 @@ function AddNewProductForm() {
   return (
     <Styled.AddNewProductFormContainer>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <label htmlFor="name">Nombre</label>
+        <CustomText as="label" htmlFor="name" size="small" weight="regular" textAlign="left">
+          Nombre
+        </CustomText>
         <input type="text" {...register('name', { required: true, minLength: 8 })} />
         <label htmlFor="price">Precio</label>
         <input type="text" {...register('price', { required: true })} />
