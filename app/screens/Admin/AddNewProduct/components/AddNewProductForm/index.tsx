@@ -56,71 +56,84 @@ function AddNewProductForm() {
   return (
     <Styled.AddNewProductFormContainer>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <CustomText as="label" htmlFor="name" size="small" weight="regular" textAlign="left">
-          Nombre
-        </CustomText>
-        <input type="text" {...register('name', { required: true, minLength: 8 })} />
-        <label htmlFor="price">Precio</label>
-        <input type="text" {...register('price', { required: true })} />
-        <label htmlFor="school">Escuela</label>
-        <Controller
-          control={methods.control}
-          name="school"
-          rules={{ required: true }}
-          render={({ field: { onChange } }) => (
-            <Select
-              options={schoolOptions}
-              instanceId="schoolId"
-              isMulti={false}
-              closeMenuOnSelect
-              placeholder="Escuela"
-              onChange={(e) => onChange(e?.value)}
-            />
+        <div className="leftContainer">
+          <CustomText as="label" htmlFor="name" size="small" weight="regular" textAlign="left">
+            Nombre
+          </CustomText>
+          <input type="text" {...register('name', { required: true, minLength: 8 })} />
+          <label htmlFor="price">Precio</label>
+          <input type="text" {...register('price', { required: true })} />
+          <label htmlFor="school">Escuela</label>
+          <Controller
+            control={methods.control}
+            name="school"
+            rules={{ required: true }}
+            render={({ field: { onChange } }) => (
+              <Select
+                options={schoolOptions}
+                instanceId="schoolId"
+                isMulti={false}
+                closeMenuOnSelect
+                placeholder="Escuela"
+                onChange={(e) => onChange(e?.value)}
+              />
+            )}
+          />
+          <label htmlFor="available-sizes">Talles en los que viene el producto</label>
+          <Select
+            options={sizesOptions}
+            instanceId="sizeId"
+            name="available-sizes"
+            isMulti
+            closeMenuOnSelect={false}
+            placeholder="Talles"
+            noOptionsMessage={() => 'No hay más opciones'}
+            onChange={handleAvailableSizesChange}
+          />
+          {Boolean(availableSizes?.length) && (
+            <>
+              <label htmlFor="available-sizes">Talles con stock</label>
+              <Controller
+                control={methods.control}
+                name="stockBySize"
+                rules={{ required: true }}
+                render={({ field: { onChange } }) => (
+                  <Select
+                    options={availableSizes}
+                    instanceId="stockBySizeId"
+                    isMulti
+                    closeMenuOnSelect={false}
+                    placeholder="Stock"
+                    noOptionsMessage={() => 'No hay más opciones'}
+                    onChange={(e) => onChange(e)}
+                  />
+                )}
+              />
+            </>
           )}
-        />
-        <label htmlFor="img">IMG</label>
-        <input
-          id="img"
-          type="file"
-          {...register('img', { required: true })}
-          accept="image/png"
-          style={{ display: 'none' }}
-        />
-        <label htmlFor="available-sizes">Talles en los que viene el producto</label>
-        <Select
-          options={sizesOptions}
-          instanceId="sizeId"
-          name="available-sizes"
-          isMulti
-          closeMenuOnSelect={false}
-          placeholder="Talles"
-          noOptionsMessage={() => 'No hay más opciones'}
-          onChange={handleAvailableSizesChange}
-        />
-        {Boolean(availableSizes?.length) && (
-          <>
-            <label htmlFor="available-sizes">Talles con stock</label>
-            <Controller
-              control={methods.control}
-              name="stockBySize"
-              rules={{ required: true }}
-              render={({ field: { onChange } }) => (
-                <Select
-                  options={availableSizes}
-                  instanceId="stockBySizeId"
-                  isMulti
-                  closeMenuOnSelect={false}
-                  placeholder="Stock"
-                  noOptionsMessage={() => 'No hay más opciones'}
-                  onChange={(e) => onChange(e)}
-                />
-              )}
+          <CustomButton type="submit" size="small" weight="regular">
+            Añadir
+          </CustomButton>
+        </div>
+        <div className="rightContainer">
+          <CustomText
+            as="label"
+            htmlFor="img"
+            className="fileInput"
+            size="small"
+            weight="regular"
+            textAlign="left"
+          >
+            <img src="/assets/placeholder_shirt.png" alt="placeholder shirt" />
+            <input
+              id="img"
+              type="file"
+              {...register('img', { required: true })}
+              accept="image/png"
+              style={{ display: 'none' }}
             />
-          </>
-        )}
-        <CustomButton type="submit" size="small" weight="regular">
-          Añadir
-        </CustomButton>
+          </CustomText>
+        </div>
       </form>
     </Styled.AddNewProductFormContainer>
   );
