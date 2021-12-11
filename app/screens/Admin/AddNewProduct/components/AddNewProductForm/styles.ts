@@ -7,14 +7,16 @@ export const AddNewProductFormContainer = styled.div`
   .form {
     align-items: flex-start;
     display: flex;
-    flex-flow: row nowrap;
+    flex-direction: row;
     justify-content: space-between;
+    margin-top: ${SECONDARY_SPACING_EM};
   }
 
   .leftContainer {
     display: flex;
     flex-flow: column nowrap;
     max-width: 700px;
+    padding-right: ${SECONDARY_SPACING_EM};
     width: 75%;
   }
 
@@ -33,6 +35,7 @@ export const AddNewProductFormContainer = styled.div`
   }
 
   .rightContainer {
+    margin-bottom: ${SECONDARY_SPACING_EM};
     width: 25%;
   }
 
@@ -55,7 +58,7 @@ export const AddNewProductFormContainer = styled.div`
       align-items: center;
       background-color: ${PRUSSIAN_BLUE};
       color: ${WHITE};
-      content: 'Click para añadir foto';
+      content: 'Añadir foto';
       display: flex;
       font-size: 20px;
       height: 100%;
@@ -69,12 +72,19 @@ export const AddNewProductFormContainer = styled.div`
     }
 
     img {
-      width: 250px;
+      width: 200px;
     }
   }
 
   .errorMsg {
     color: ${MONZA};
     margin-bottom: 16px;
+  }
+
+  /* @todo: We should be using a constant for these breakoints */
+  @media (max-width: 992px) {
+    .form {
+      flex-direction: column-reverse;
+    }
   }
 `;

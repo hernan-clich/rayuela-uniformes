@@ -1,3 +1,4 @@
+import { ChangeEvent, useState } from 'react';
 import { useForm, Controller, FieldError } from 'react-hook-form';
 import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
@@ -31,9 +32,18 @@ function AddNewProductForm() {
   const {
     formState: { errors },
     getValues,
+    setValue,
     handleSubmit,
     register
   } = methods;
+
+  const [image, setImage] = useState('');
+  const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setImage(URL.createObjectURL(e.target.files[0]));
+      setValue('img', e.target.files);
+    }
+  };
 
   const availableSizes = getValues('availableSizes');
 
@@ -165,13 +175,14 @@ function AddNewProductForm() {
             weight="regular"
             textAlign="left"
           >
-            <img src="/assets/placeholder_shirt.png" alt="placeholder shirt" />
+            <img src={image || '/assets/placeholder_shirt.png'} alt="placeholder shirt" />
             <input
               id="img"
               type="file"
               {...register('img', { required: 'Campo obligatorio' })}
               accept="image/png"
               style={{ display: 'none' }}
+              onChange={onImageChange}
             />
           </CustomText>
           <CustomText as="span" size="xsmall" weight="bold" className="errorMsg">
