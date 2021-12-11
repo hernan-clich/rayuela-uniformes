@@ -54,7 +54,7 @@ function AddNewProductForm() {
     const reducedStockBySize: TProduct['stockBySize'] = availableSizes.reduce(
       (acc, size) => ({
         ...acc,
-        [size.value]: stockBySizeValues.includes(size.value)
+        [size.value]: stockBySizeValues?.includes(size.value)
       }),
       {}
     );
@@ -85,7 +85,13 @@ function AddNewProductForm() {
             {errors?.name?.message || ''}
           </CustomText>
           <label htmlFor="price">Precio</label>
-          <input type="text" {...register('price', { required: 'Campo obligatorio' })} />
+          <input
+            type="text"
+            {...register('price', {
+              required: 'Campo obligatorio',
+              pattern: { value: /^-?[0-9]\d*\.?\d*$/, message: 'Solo se aceptan numeros' }
+            })}
+          />
           <CustomText as="span" size="xsmall" weight="bold" className="errorMsg" textAlign="left">
             {errors?.price?.message || ''}
           </CustomText>
