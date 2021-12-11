@@ -3,6 +3,7 @@ import { useForm, Controller, FieldError } from 'react-hook-form';
 import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
+import Modal from '~components/Modal';
 import useDbMutation from '~hooks/useDbMutation';
 import { EDbCollections } from '~types/db';
 import { CProductSizes, TProduct } from '~types/product';
@@ -36,6 +37,7 @@ function AddNewProductForm() {
     register
   } = methods;
 
+  const [showModal, setShowModal] = useState(false);
   const [availableSizes, setAvailableSizes] = useState<TMultiOptions>();
   const [image, setImage] = useState('');
   const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -197,6 +199,25 @@ function AddNewProductForm() {
           </CustomText>
         </div>
       </form>
+
+      <Modal onClose={() => setShowModal(false)} showModal={showModal} closeOnClickOutside={false}>
+        <Styled.ModalBodyContainer>
+          <CustomText as="span" size="big" weight="bold" className="modalHeading">
+            Producto añadido! ✔︎
+          </CustomText>
+          <CustomText as="span" size="regular" weight="bold" className="modalSubheading">
+            Deseas añadir un nuevo producto?
+          </CustomText>
+          <div className="ctaContainer">
+            <CustomButton size="small" weight="regular">
+              Volver a la tabla de productos
+            </CustomButton>
+            <CustomButton size="small" weight="regular">
+              Crear nuevo producto
+            </CustomButton>
+          </div>
+        </Styled.ModalBodyContainer>
+      </Modal>
     </Styled.AddNewProductFormContainer>
   );
 }

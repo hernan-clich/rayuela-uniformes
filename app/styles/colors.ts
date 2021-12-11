@@ -4,6 +4,7 @@ export const GREEN_HAZE = '#009B35';
 export const MONZA = '#B30023';
 export const PORCELAIN = '#EBEDEE';
 export const PRUSSIAN_BLUE = '#001F47';
+export const PRUSSIAN_BLUE_OVERLAY = '#001F4780';
 export const SILVER = '#CCC';
 export const TRANSPARENT = '#FFFFFF00';
 export const WHITE = '#FFF';
