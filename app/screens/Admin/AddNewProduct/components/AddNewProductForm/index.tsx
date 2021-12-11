@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, FieldError } from 'react-hook-form';
 import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
@@ -16,6 +15,7 @@ type TFormData = {
   name: string;
   price: string;
   school: TSchoolIds;
+  availableSizes: TMultiOptions;
   stockBySize: TMultiOptions;
 };
 
@@ -26,14 +26,18 @@ function AddNewProductForm() {
     return { value: id as TSchoolIds, label: name };
   });
   const sizesOptions = Object.values(CProductSizes).map((size) => ({ value: size, label: size }));
-  const [availableSizes, setAvailableSizes] = useState<TMultiOptions>([]);
 
   const methods = useForm<TFormData>();
-  const { handleSubmit, register } = methods;
+  const {
+    formState: { errors },
+    getValues,
+    handleSubmit,
+    register
+  } = methods;
 
-  const handleAvailableSizesChange = (newValue: TMultiOptions): void => setAvailableSizes(newValue);
+  const availableSizes = getValues('availableSizes');
 
-  const onSubmit = ({ img, name, price, school, stockBySize }: TFormData) => {
+  const onSubmit = ({ availableSizes, img, name, price, school, stockBySize }: TFormData) => {
     const image = img[0];
     const parsedPrice = parseInt(price, 10);
     const stockBySizeValues = stockBySize?.map((size) => size.value);
@@ -60,17 +64,30 @@ function AddNewProductForm() {
           <CustomText as="label" htmlFor="name" size="small" weight="regular" textAlign="left">
             Nombre
           </CustomText>
-          <input type="text" {...register('name', { required: true, minLength: 8 })} />
+          <input
+            type="text"
+            {...register('name', {
+              required: 'Campo obligatorio',
+              minLength: { value: 8, message: 'El valor debe ser mas largo' }
+            })}
+          />
+          <CustomText as="span" size="xsmall" weight="bold" className="errorMsg" textAlign="left">
+            {errors?.name?.message || ''}
+          </CustomText>
           <label htmlFor="price">Precio</label>
-          <input type="text" {...register('price', { required: true })} />
+          <input type="text" {...register('price', { required: 'Campo obligatorio' })} />
+          <CustomText as="span" size="xsmall" weight="bold" className="errorMsg" textAlign="left">
+            {errors?.price?.message || ''}
+          </CustomText>
           <label htmlFor="school">Escuela</label>
           <Controller
             control={methods.control}
             name="school"
-            rules={{ required: true }}
+            rules={{ required: 'Campo obligatorio' }}
             render={({ field: { onChange } }) => (
               <Select
                 options={schoolOptions}
+                className="formInput"
                 instanceId="schoolId"
                 isMulti={false}
                 closeMenuOnSelect
@@ -79,36 +96,60 @@ function AddNewProductForm() {
               />
             )}
           />
+          <CustomText as="span" size="xsmall" weight="bold" className="errorMsg" textAlign="left">
+            {errors?.school?.message || ''}
+          </CustomText>
           <label htmlFor="available-sizes">Talles en los que viene el producto</label>
-          <Select
-            options={sizesOptions}
-            instanceId="sizeId"
-            name="available-sizes"
-            isMulti
-            closeMenuOnSelect={false}
-            placeholder="Talles"
-            noOptionsMessage={() => 'No hay más opciones'}
-            onChange={handleAvailableSizesChange}
+          <Controller
+            control={methods.control}
+            name="availableSizes"
+            rules={{ required: 'Campo obligatorio' }}
+            render={({ field: { onChange } }) => (
+              <Select
+                options={sizesOptions}
+                instanceId="sizeId"
+                name="available-sizes"
+                isMulti
+                closeMenuOnSelect={false}
+                className="formInput"
+                placeholder="Talles"
+                noOptionsMessage={() => 'No hay más opciones'}
+                onChange={(e) => onChange(e)}
+              />
+            )}
           />
+          <CustomText as="span" size="xsmall" weight="bold" className="errorMsg" textAlign="left">
+            {(errors?.availableSizes as unknown as FieldError)?.message || ''}
+          </CustomText>
           {Boolean(availableSizes?.length) && (
             <>
               <label htmlFor="available-sizes">Talles con stock</label>
               <Controller
                 control={methods.control}
                 name="stockBySize"
-                rules={{ required: true }}
+                rules={{ required: 'Campo obligatorio' }}
                 render={({ field: { onChange } }) => (
                   <Select
                     options={availableSizes}
                     instanceId="stockBySizeId"
                     isMulti
                     closeMenuOnSelect={false}
+                    className="formInput"
                     placeholder="Stock"
                     noOptionsMessage={() => 'No hay más opciones'}
                     onChange={(e) => onChange(e)}
                   />
                 )}
               />
+              <CustomText
+                as="span"
+                size="xsmall"
+                weight="bold"
+                className="errorMsg"
+                textAlign="left"
+              >
+                {(errors?.stockBySize as unknown as FieldError)?.message || ''}
+              </CustomText>
             </>
           )}
           <CustomButton type="submit" size="small" weight="regular">
@@ -128,10 +169,13 @@ function AddNewProductForm() {
             <input
               id="img"
               type="file"
-              {...register('img', { required: true })}
+              {...register('img', { required: 'Campo obligatorio' })}
               accept="image/png"
               style={{ display: 'none' }}
             />
+          </CustomText>
+          <CustomText as="span" size="xsmall" weight="bold" className="errorMsg">
+            {errors?.img?.message || ''}
           </CustomText>
         </div>
       </form>

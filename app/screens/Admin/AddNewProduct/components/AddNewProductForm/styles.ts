@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRUSSIAN_BLUE, SILVER, WHITE } from '~styles/colors';
+import { MONZA, PRUSSIAN_BLUE, SILVER, WHITE } from '~styles/colors';
 import { PRIMARY_FONT, SECONDARY_SPACING_EM } from '~styles/variables';
 import { EFontSizes } from '~types/fonts';
 
@@ -16,6 +16,10 @@ export const AddNewProductFormContainer = styled.div`
     flex-flow: column nowrap;
     max-width: 700px;
     width: 75%;
+  }
+
+  .formInput {
+    margin-bottom: ${SECONDARY_SPACING_EM};
   }
 
   input[type='text'] {
@@ -67,5 +71,10 @@ export const AddNewProductFormContainer = styled.div`
     img {
       width: 250px;
     }
+  }
+
+  .errorMsg {
+    color: ${MONZA};
+    margin-bottom: 16px;
   }
 `;
