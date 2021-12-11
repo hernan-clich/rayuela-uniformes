@@ -31,12 +31,12 @@ function AddNewProductForm() {
   const methods = useForm<TFormData>();
   const {
     formState: { errors },
-    getValues,
     setValue,
     handleSubmit,
     register
   } = methods;
 
+  const [availableSizes, setAvailableSizes] = useState<TMultiOptions>();
   const [image, setImage] = useState('');
   const onImageChange = (e: ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files[0]) {
@@ -44,8 +44,6 @@ function AddNewProductForm() {
       setValue('img', e.target.files);
     }
   };
-
-  const availableSizes = getValues('availableSizes');
 
   const onSubmit = ({ availableSizes, img, name, price, school, stockBySize }: TFormData) => {
     const image = img[0];
@@ -130,7 +128,10 @@ function AddNewProductForm() {
                 className="formInput"
                 placeholder="Talles"
                 noOptionsMessage={() => 'No hay más opciones'}
-                onChange={(e) => onChange(e)}
+                onChange={(e) => {
+                  onChange(e);
+                  setAvailableSizes(e);
+                }}
               />
             )}
           />
