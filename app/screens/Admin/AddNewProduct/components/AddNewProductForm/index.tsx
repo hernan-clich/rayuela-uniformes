@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { useForm, Controller, FieldError } from 'react-hook-form';
 import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
@@ -22,7 +22,7 @@ type TFormData = {
 };
 
 function AddNewProductForm() {
-  const { addStorageFile } = useDbMutation(EDbCollections.products);
+  const { addStorageFile, storageUploadState } = useDbMutation(EDbCollections.products);
   const schoolOptions = Object.entries(CSchools).map((school) => {
     const [id, name] = school;
     return { value: id as TSchoolIds, label: name };
@@ -66,6 +66,10 @@ function AddNewProductForm() {
       stockBySize: reducedStockBySize
     });
   };
+
+  useEffect(() => {
+    if (storageUploadState === 'success') setShowModal(true);
+  }, [storageUploadState]);
 
   return (
     <Styled.AddNewProductFormContainer>
