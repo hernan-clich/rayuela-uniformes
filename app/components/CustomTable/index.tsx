@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import CustomText from '~components/CustomText';
 import * as Styled from './styles';
 
@@ -5,11 +6,10 @@ type Props = {
   columnHeaders: { propertyName: string; displayName: string }[];
   tableContent: (string | number)[][];
   thumbnailUrl?: string[];
+  stockBySizeData?: [string, boolean][][];
 };
 
-// `$ ${price.toLocaleString('de-DE')}`
-
-function CustomTable({ columnHeaders, tableContent, thumbnailUrl }: Props) {
+function CustomTable({ columnHeaders, stockBySizeData, tableContent, thumbnailUrl }: Props) {
   return (
     <Styled.CustomTableContainer fieldsLength={columnHeaders.length}>
       <header className="tableHeader">
@@ -36,6 +36,25 @@ function CustomTable({ columnHeaders, tableContent, thumbnailUrl }: Props) {
                 </CustomText>
               </div>
             ))}
+            {stockBySizeData && (
+              <div className="tableTd">
+                <div className="sizesContainer">
+                  {stockBySizeData[i].map(([size, hasStock]) => (
+                    <div
+                      key={size}
+                      className={clsx('size', {
+                        red: !hasStock,
+                        green: hasStock
+                      })}
+                    >
+                      <CustomText as="span" size="xsmall" weight="bold">
+                        {size}
+                      </CustomText>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </Styled.TableRowContainer>
         ))}
       </main>

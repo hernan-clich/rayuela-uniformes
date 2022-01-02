@@ -24,6 +24,10 @@ const COLUMN_HEADERS = [
   {
     displayName: 'Escuela',
     propertyName: 'school'
+  },
+  {
+    displayName: 'Talles',
+    propertyName: 'sizes'
   }
 ];
 
@@ -35,6 +39,7 @@ function AdminProductsContent() {
     ESchools[data.school]
   ]);
   const thumbnailArr = data?.map((data) => data.imageUrl);
+  const stockBySizeData = data?.map((data) => Object.entries(data.stockBySize));
 
   return (
     <Styled.AdminProductsContentContainer>
@@ -54,6 +59,7 @@ function AdminProductsContent() {
         columnHeaders={COLUMN_HEADERS}
         tableContent={tableContent}
         thumbnailUrl={thumbnailArr}
+        stockBySizeData={stockBySizeData}
       />
     </Styled.AdminProductsContentContainer>
   );
