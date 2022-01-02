@@ -7,6 +7,8 @@ type Props = {
   thumbnailUrl?: string[];
 };
 
+// `$ ${price.toLocaleString('de-DE')}`
+
 function CustomTable({ columnHeaders, tableContent, thumbnailUrl }: Props) {
   return (
     <Styled.CustomTableContainer fieldsLength={columnHeaders.length}>

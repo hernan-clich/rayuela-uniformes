@@ -1,5 +1,13 @@
 import type { THomeItem } from '~types/home';
 
+export enum ESchools {
+  'ccdj' = 'Colegio Corazón de Jesús',
+  'cesc' = 'Colegio Esclavas',
+  'csml' = 'Instituto Santa María de Luján',
+  'cl13' = 'Colegio León XIII',
+  'generic' = 'generic'
+}
+
 export const SCHOOL_DATA: THomeItem[] = [
   {
     id: 'ccdj',

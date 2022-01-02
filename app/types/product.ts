@@ -1,3 +1,4 @@
+import { ESchools } from '~constants/schools';
 import { ESingleFilterAlias } from '~types/general';
 
 export type TFeaturedId = 'tshirts' | 'pants' | 'socks';
@@ -30,7 +31,7 @@ export type TProduct = {
   imageUrl: string;
   name: string;
   price: number;
-  school: string;
+  school: keyof typeof ESchools;
   stockBySize: {
     [key in TProductSizes]?: boolean;
   };

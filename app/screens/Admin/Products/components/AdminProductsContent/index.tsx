@@ -3,6 +3,7 @@ import CustomButton from '~components/CustomButton';
 import CustomTable from '~components/CustomTable';
 import CustomText from '~components/CustomText';
 import PATHS from '~constants/paths';
+import { ESchools } from '~constants/schools';
 import useDbQuery from '~hooks/useDbQuery';
 import { TProduct } from '~types/product';
 import * as Styled from './styles';
@@ -28,6 +29,11 @@ const COLUMN_HEADERS = [
 
 function AdminProductsContent() {
   const [data] = useDbQuery<TProduct>('products');
+  const tableContent = data?.map((data) => [
+    data.name,
+    `$ ${data.price.toLocaleString('de-DE')}`,
+    ESchools[data.school]
+  ]);
   const thumbnailArr = data?.map((data) => data.imageUrl);
 
   return (
@@ -46,10 +52,7 @@ function AdminProductsContent() {
       </div>
       <CustomTable
         columnHeaders={COLUMN_HEADERS}
-        tableContent={[
-          ['Remera', 1500, 'Leon XIII'],
-          ['Pollera', 2000, 'Esclavas']
-        ]}
+        tableContent={tableContent}
         thumbnailUrl={thumbnailArr}
       />
     </Styled.AdminProductsContentContainer>
