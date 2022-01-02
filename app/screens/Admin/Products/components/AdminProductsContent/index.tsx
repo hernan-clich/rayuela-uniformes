@@ -1,10 +1,35 @@
 import Link from 'next/link';
 import CustomButton from '~components/CustomButton';
+import CustomTable from '~components/CustomTable';
 import CustomText from '~components/CustomText';
 import PATHS from '~constants/paths';
+import useDbQuery from '~hooks/useDbQuery';
+import { TProduct } from '~types/product';
 import * as Styled from './styles';
 
+const COLUMN_HEADERS = [
+  {
+    displayName: '',
+    propertyName: 'thumbnail'
+  },
+  {
+    displayName: 'Nombre',
+    propertyName: 'name'
+  },
+  {
+    displayName: 'Precio',
+    propertyName: 'price'
+  },
+  {
+    displayName: 'Escuela',
+    propertyName: 'school'
+  }
+];
+
 function AdminProductsContent() {
+  const [data] = useDbQuery<TProduct>('products');
+  const thumbnailArr = data?.map((data) => data.imageUrl);
+
   return (
     <Styled.AdminProductsContentContainer>
       <div className="headingContainer">
@@ -19,6 +44,14 @@ function AdminProductsContent() {
           </a>
         </Link>
       </div>
+      <CustomTable
+        columnHeaders={COLUMN_HEADERS}
+        tableContent={[
+          ['Remera', 1500, 'Leon XIII'],
+          ['Pollera', 2000, 'Esclavas']
+        ]}
+        thumbnailUrl={thumbnailArr}
+      />
     </Styled.AdminProductsContentContainer>
   );
 }
