@@ -9,22 +9,30 @@ type Props = {
 
 function CustomTable({ columnHeaders, tableContent, thumbnailUrl }: Props) {
   return (
-    <Styled.CustomTableContainer>
+    <Styled.CustomTableContainer fieldsLength={columnHeaders.length}>
       <header className="tableHeader">
         {columnHeaders.map(({ propertyName, displayName }) => (
-          <CustomText as="span" key={propertyName} size="xsmall" weight="bold">
-            {displayName}
-          </CustomText>
+          <div key={propertyName} className="tableTd">
+            <CustomText as="span" size="xsmall" weight="bold">
+              {displayName}
+            </CustomText>
+          </div>
         ))}
       </header>
       <main className="tableBody">
         {tableContent.map((body, i) => (
           <Styled.TableRowContainer key={body[0]} isLastRow={i === tableContent.length - 1}>
-            {thumbnailUrl && <img src={thumbnailUrl[i]} alt="Thumbnail" className="thumbnail" />}
+            {thumbnailUrl && (
+              <div className="tableTd">
+                <img src={thumbnailUrl[i]} alt="Thumbnail" className="thumbnail" />
+              </div>
+            )}
             {body.map((char) => (
-              <CustomText as="span" key={char} size="xsmall" weight="bold">
-                {char}
-              </CustomText>
+              <div key={char} className="tableTd">
+                <CustomText as="span" size="xsmall" weight="bold">
+                  {char}
+                </CustomText>
+              </div>
             ))}
           </Styled.TableRowContainer>
         ))}
