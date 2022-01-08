@@ -1,14 +1,14 @@
 import CustomText from '~components/CustomText';
 import * as Styled from './styles';
 
-function AddNewProductHeading() {
+function ProductHeading() {
   return (
-    <Styled.AddNewProductHeadingContainer>
+    <Styled.ProductHeadingContainer>
       <CustomText size="regular" weight="bold" textAlign="left">
         Agregar nuevo producto
       </CustomText>
-    </Styled.AddNewProductHeadingContainer>
+    </Styled.ProductHeadingContainer>
   );
 }
 
-export default AddNewProductHeading;
+export default ProductHeading;

@@ -21,7 +21,7 @@ type TFormData = {
   stockBySize: TMultiOptions;
 };
 
-function AddNewProductForm() {
+function ProductForm() {
   const { addStorageFile, storageUploadState } = useDbMutation(EDbCollections.products);
   const schoolOptions = Object.entries(CSchools).map((school) => {
     const [id, name] = school;
@@ -72,7 +72,7 @@ function AddNewProductForm() {
   }, [storageUploadState]);
 
   return (
-    <Styled.AddNewProductFormContainer>
+    <Styled.ProductFormContainer>
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="leftContainer">
           <CustomText as="label" htmlFor="name" size="small" weight="regular" textAlign="left">
@@ -222,8 +222,8 @@ function AddNewProductForm() {
           </div>
         </Styled.ModalBodyContainer>
       </Modal>
-    </Styled.AddNewProductFormContainer>
+    </Styled.ProductFormContainer>
   );
 }
 
-export default AddNewProductForm;
+export default ProductForm;

@@ -50,7 +50,7 @@ function AdminProductsContent() {
         <CustomText size="regular" weight="bold">
           Productos
         </CustomText>
-        <Link href={PATHS.ADMIN_ADD_NEW_PRODUCT}>
+        <Link href={PATHS.ADMIN_PRODUCT_FORM}>
           <a>
             <CustomButton size="small" weight="bold" noMaxWidth>
               Nuevo producto

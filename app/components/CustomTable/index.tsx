@@ -1,7 +1,9 @@
 import clsx from 'clsx';
+import Link from 'next/link';
 import CustomText from '~components/CustomText';
 import DeleteIcon from '~components/Icons/DeleteIcon';
 import EditIcon from '~components/Icons/EditIcon';
+import PATHS from '~constants/paths';
 import useDbMutation from '~hooks/useDbMutation';
 import { EDbCollections } from '~types/db';
 import { TProduct } from '~types/product';
@@ -77,7 +79,13 @@ function CustomTable({
             )}
             {rowActions && (
               <div className="tableTd">
-                {rowActions.edit && <EditIcon />}
+                {rowActions.edit && (
+                  <Link href={{ pathname: PATHS.ADMIN_PRODUCT_FORM_EDIT, query: { id: body.id } }}>
+                    <a>
+                      <EditIcon />
+                    </a>
+                  </Link>
+                )}
                 {rowActions.delete && (
                   <button type="button" onClick={() => deleteDbDocument(body.id)}>
                     <DeleteIcon />

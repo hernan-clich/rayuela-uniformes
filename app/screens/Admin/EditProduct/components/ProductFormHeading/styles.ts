@@ -1,5 +1,5 @@
 import styled from 'styled-components';
 
-export const AddNewProductHeadingContainer = styled.div`
+export const ProductHeadingContainer = styled.div`
   width: 100%;
 `;

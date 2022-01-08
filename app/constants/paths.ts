@@ -1,6 +1,7 @@
 const PATHS = {
-  ADMIN_ADD_NEW_PRODUCT: '/admin/products/add-new-product',
   ADMIN_ORDERS: '/admin/orders',
+  ADMIN_PRODUCT_FORM: '/admin/products/product-form',
+  ADMIN_PRODUCT_FORM_EDIT: '/admin/products/product-form/[id]',
   ADMIN_PRODUCTS: '/admin/products',
   ADMIN_USERS: '/admin/users',
   AUTH: '/auth',

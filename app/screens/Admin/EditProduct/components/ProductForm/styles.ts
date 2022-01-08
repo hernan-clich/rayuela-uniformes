@@ -3,7 +3,7 @@ import { MONZA, PRUSSIAN_BLUE, SILVER, WHITE } from '~styles/colors';
 import { PRIMARY_FONT, SECONDARY_SPACING_EM } from '~styles/variables';
 import { EFontSizes } from '~types/fonts';
 
-export const AddNewProductFormContainer = styled.div`
+export const ProductFormContainer = styled.div`
   .form {
     align-items: flex-start;
     display: flex;
