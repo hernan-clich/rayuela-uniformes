@@ -1,15 +1,27 @@
 import clsx from 'clsx';
 import CustomText from '~components/CustomText';
+import DeleteIcon from '~components/Icons/DeleteIcon';
+import EditIcon from '~components/Icons/EditIcon';
 import * as Styled from './styles';
 
 type Props = {
   columnHeaders: { propertyName: string; displayName: string }[];
+  rowActions?: {
+    delete: boolean;
+    edit: boolean;
+  };
+  stockBySizeData?: [string, boolean][][];
   tableContent: (string | number)[][];
   thumbnailUrl?: string[];
-  stockBySizeData?: [string, boolean][][];
 };
 
-function CustomTable({ columnHeaders, stockBySizeData, tableContent, thumbnailUrl }: Props) {
+function CustomTable({
+  columnHeaders,
+  stockBySizeData,
+  tableContent,
+  thumbnailUrl,
+  rowActions = { delete: true, edit: true }
+}: Props) {
   return (
     <Styled.CustomTableContainer fieldsLength={columnHeaders.length}>
       <header className="tableHeader">
@@ -53,6 +65,16 @@ function CustomTable({ columnHeaders, stockBySizeData, tableContent, thumbnailUr
                     </div>
                   ))}
                 </div>
+              </div>
+            )}
+            {rowActions && (
+              <div className="tableTd">
+                {rowActions.edit && <EditIcon />}
+                {rowActions.delete && (
+                  <button type="button">
+                    <DeleteIcon />
+                  </button>
+                )}
               </div>
             )}
           </Styled.TableRowContainer>

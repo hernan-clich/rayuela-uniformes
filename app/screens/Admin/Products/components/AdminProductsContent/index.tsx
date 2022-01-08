@@ -28,15 +28,19 @@ const COLUMN_HEADERS = [
   {
     displayName: 'Talles',
     propertyName: 'sizes'
+  },
+  {
+    displayName: 'Acciones',
+    propertyName: 'actions'
   }
 ];
 
 function AdminProductsContent() {
   const [data] = useDbQuery<TProduct>('products');
   const tableContent = data?.map((data) => [
-    data.name,
-    `$ ${data.price.toLocaleString('de-DE')}`,
-    ESchools[data.school]
+    data?.name,
+    `$ ${data?.price.toLocaleString('de-DE')}`,
+    ESchools[data?.school]
   ]);
   const thumbnailArr = data?.map((data) => data.imageUrl);
   const stockBySizeData = data?.map((data) => Object.entries(data.stockBySize));
