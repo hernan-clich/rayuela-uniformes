@@ -1,4 +1,4 @@
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { useState } from 'react';
 import { db, storage } from '~config/firebase/client';
@@ -10,6 +10,7 @@ type TAllowedNewDocs = TProduct | TStorageProduct;
 
 function useDbMutation(collectionName: TDbCollections): {
   addDbDocument: (newDocument: TAllowedNewDocs) => void;
+  deleteDbDocument: (id: string) => void;
   addStorageFile: (
     newStorageFile: File,
     storageFolderName: string,
@@ -27,6 +28,7 @@ function useDbMutation(collectionName: TDbCollections): {
   const colRef = collection(db, EDbCollections[collectionName]);
 
   const addDbDocument = (newDocument: TAllowedNewDocs) => addDoc(colRef, newDocument);
+  const deleteDbDocument = (id: string) => deleteDoc(doc(db, collectionName, id));
   /**
    * Uploads file into Firestore Storage
    * @public
@@ -71,6 +73,7 @@ function useDbMutation(collectionName: TDbCollections): {
   return {
     addDbDocument,
     addStorageFile,
+    deleteDbDocument,
     storageUploadProgress,
     storageUploadState,
     storageUploadUrl

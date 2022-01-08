@@ -2,6 +2,8 @@ import clsx from 'clsx';
 import CustomText from '~components/CustomText';
 import DeleteIcon from '~components/Icons/DeleteIcon';
 import EditIcon from '~components/Icons/EditIcon';
+import useDbMutation from '~hooks/useDbMutation';
+import { EDbCollections } from '~types/db';
 import { TProduct } from '~types/product';
 import * as Styled from './styles';
 
@@ -22,6 +24,8 @@ function CustomTable({
   tableContent,
   rowActions = { delete: true, edit: true }
 }: Props) {
+  const { deleteDbDocument } = useDbMutation(EDbCollections.products);
+
   const stockBySizeData = tableContent[0]?.stockBySize
     ? tableContent?.map((data) => Object.entries(data.stockBySize))
     : null;
@@ -75,7 +79,7 @@ function CustomTable({
               <div className="tableTd">
                 {rowActions.edit && <EditIcon />}
                 {rowActions.delete && (
-                  <button type="button">
+                  <button type="button" onClick={() => deleteDbDocument(body.id)}>
                     <DeleteIcon />
                   </button>
                 )}
