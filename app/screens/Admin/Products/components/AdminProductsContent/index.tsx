@@ -37,13 +37,12 @@ const COLUMN_HEADERS = [
 
 function AdminProductsContent() {
   const [data] = useDbQuery<TProduct>('products');
-  const tableContent = data?.map((data) => [
-    data?.name,
-    `$ ${data?.price.toLocaleString('de-DE')}`,
-    ESchools[data?.school]
-  ]);
-  const thumbnailArr = data?.map((data) => data.imageUrl);
-  const stockBySizeData = data?.map((data) => Object.entries(data.stockBySize));
+  const tableContent = data?.map((data) => ({
+    id: data.id,
+    imageUrl: data.imageUrl,
+    stockBySize: data.stockBySize,
+    textFields: [data.name, data.price, ESchools[data.school]]
+  }));
 
   return (
     <Styled.AdminProductsContentContainer>
@@ -59,12 +58,7 @@ function AdminProductsContent() {
           </a>
         </Link>
       </div>
-      <CustomTable
-        columnHeaders={COLUMN_HEADERS}
-        tableContent={tableContent}
-        thumbnailUrl={thumbnailArr}
-        stockBySizeData={stockBySizeData}
-      />
+      <CustomTable columnHeaders={COLUMN_HEADERS} tableContent={tableContent} />
     </Styled.AdminProductsContentContainer>
   );
 }

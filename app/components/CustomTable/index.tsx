@@ -2,26 +2,30 @@ import clsx from 'clsx';
 import CustomText from '~components/CustomText';
 import DeleteIcon from '~components/Icons/DeleteIcon';
 import EditIcon from '~components/Icons/EditIcon';
+import { TProduct } from '~types/product';
 import * as Styled from './styles';
 
 type Props = {
   columnHeaders: { propertyName: string; displayName: string }[];
+  tableContent: ({ textFields: (string | number)[] } & Pick<
+    TProduct,
+    'imageUrl' | 'id' | 'stockBySize'
+  >)[];
   rowActions?: {
     delete: boolean;
     edit: boolean;
   };
-  stockBySizeData?: [string, boolean][][];
-  tableContent: (string | number)[][];
-  thumbnailUrl?: string[];
 };
 
 function CustomTable({
   columnHeaders,
-  stockBySizeData,
   tableContent,
-  thumbnailUrl,
   rowActions = { delete: true, edit: true }
 }: Props) {
+  const stockBySizeData = tableContent[0]?.stockBySize
+    ? tableContent?.map((data) => Object.entries(data.stockBySize))
+    : null;
+
   return (
     <Styled.CustomTableContainer fieldsLength={columnHeaders.length}>
       <header className="tableHeader">
@@ -34,14 +38,14 @@ function CustomTable({
         ))}
       </header>
       <main className="tableBody">
-        {tableContent.map((body, i) => (
-          <Styled.TableRowContainer key={body[0]} isLastRow={i === tableContent.length - 1}>
-            {thumbnailUrl && (
+        {tableContent?.map((body, i) => (
+          <Styled.TableRowContainer key={body.id} isLastRow={i === tableContent.length - 1}>
+            {body?.imageUrl && (
               <div className="tableTd">
-                <img src={thumbnailUrl[i]} alt="Thumbnail" className="thumbnail" />
+                <img src={body?.imageUrl} alt="Thumbnail" className="thumbnail" />
               </div>
             )}
-            {body.map((char) => (
+            {body?.textFields?.map((char) => (
               <div key={char} className="tableTd">
                 <CustomText as="span" size="xsmall" weight="bold">
                   {char}
