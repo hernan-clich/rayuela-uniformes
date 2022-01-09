@@ -63,7 +63,7 @@ function DetailsCard() {
           <QuantityCounter
             quantity={quantity}
             setQuantity={setQuantity}
-            disableCounter={doesCurrentSizeHaveStock}
+            disableCounter={!doesCurrentSizeHaveStock}
           />
           <SizePicker
             currentSize={currentSize}

@@ -14,7 +14,7 @@ type Props = {
 };
 
 function QuantityCounter({
-  disableCounter = false,
+  disableCounter,
   localStorageQtyHandlers,
   quantity,
   setQuantity
@@ -43,7 +43,8 @@ function QuantityCounter({
       </CustomText>
       <div className="counterWrapper">
         <button
-          className={clsx('counter', { disabled: !disableCounter || !isQuantityGtMin })}
+          className={clsx('counter', { disabled: disableCounter || !isQuantityGtMin })}
+          disabled={disableCounter}
           onClick={() => handleQuantityClick('decr')}
         >
           –
@@ -54,8 +55,8 @@ function QuantityCounter({
           </CustomText>
         </div>
         <button
-          className={clsx('counter', { disabled: !disableCounter || !isQuantityLtMax })}
-          disabled={!disableCounter}
+          className={clsx('counter', { disabled: disableCounter || !isQuantityLtMax })}
+          disabled={disableCounter}
           onClick={() => handleQuantityClick('incr')}
         >
           +
