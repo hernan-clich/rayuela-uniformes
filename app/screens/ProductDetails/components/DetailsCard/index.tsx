@@ -60,14 +60,24 @@ function DetailsCard() {
           <CustomText as="h2" size="big" weight="bold" className="price">
             {`$ ${currentProduct?.price.toLocaleString('de-DE')}`}
           </CustomText>
-          <QuantityCounter quantity={quantity} setQuantity={setQuantity} />
+          <QuantityCounter
+            quantity={quantity}
+            setQuantity={setQuantity}
+            disableCounter={doesCurrentSizeHaveStock}
+          />
           <SizePicker
             currentSize={currentSize}
             setCurrentSize={setCurrentSize}
             sizesArray={sizesArray}
           />
           {/* @todo: Let's disable this button when the product is out of stock  */}
-          <CustomButton size="small" weight="regular" noMaxWidth onClick={handleSubmit}>
+          <CustomButton
+            size="small"
+            weight="regular"
+            noMaxWidth
+            disabled={!doesCurrentSizeHaveStock}
+            onClick={handleSubmit}
+          >
             AGREGAR AL CARRITO
           </CustomButton>
         </div>

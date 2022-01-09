@@ -5,6 +5,7 @@ import * as Styled from './styles';
 
 type Props = {
   quantity: number;
+  disableCounter?: boolean;
   setQuantity?: Dispatch<SetStateAction<number>>;
   localStorageQtyHandlers?: {
     decrease: () => void;
@@ -12,7 +13,12 @@ type Props = {
   };
 };
 
-function QuantityCounter({ localStorageQtyHandlers, quantity, setQuantity }: Props) {
+function QuantityCounter({
+  disableCounter = false,
+  localStorageQtyHandlers,
+  quantity,
+  setQuantity
+}: Props) {
   const COUNT_LIMITS = { MIN: 1, MAX: 19 };
   const isQuantityGtMin = quantity > COUNT_LIMITS.MIN;
   const isQuantityLtMax = quantity < COUNT_LIMITS.MAX;
@@ -37,7 +43,7 @@ function QuantityCounter({ localStorageQtyHandlers, quantity, setQuantity }: Pro
       </CustomText>
       <div className="counterWrapper">
         <button
-          className={clsx('counter', { disabled: !isQuantityGtMin })}
+          className={clsx('counter', { disabled: !disableCounter || !isQuantityGtMin })}
           onClick={() => handleQuantityClick('decr')}
         >
           –
@@ -48,7 +54,8 @@ function QuantityCounter({ localStorageQtyHandlers, quantity, setQuantity }: Pro
           </CustomText>
         </div>
         <button
-          className={clsx('counter', { disabled: !isQuantityLtMax })}
+          className={clsx('counter', { disabled: !disableCounter || !isQuantityLtMax })}
+          disabled={!disableCounter}
           onClick={() => handleQuantityClick('incr')}
         >
           +
