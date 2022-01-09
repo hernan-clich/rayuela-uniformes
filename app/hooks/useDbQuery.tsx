@@ -1,12 +1,15 @@
-import { collection, onSnapshot, query } from 'firebase/firestore';
+import { collection, documentId, onSnapshot, query, where } from 'firebase/firestore';
 import { useEffect, useState } from 'react';
 import { db } from '~config/firebase/client';
 import { EDbCollections, TDbCollections } from '~types/db';
 
-function useDbQuery<T extends { id: string }>(collectionName: TDbCollections): [T[]] {
+function useDbQuery<T extends { id: string }>(
+  collectionName: TDbCollections,
+  docId?: string
+): [T[]] {
   const [data, setData] = useState<T[]>([]);
   const colRef = collection(db, EDbCollections[collectionName]);
-  const dbQuery = query(colRef);
+  const dbQuery = docId ? query(colRef, where(documentId(), '==', docId)) : query(colRef);
 
   useEffect(
     () =>
