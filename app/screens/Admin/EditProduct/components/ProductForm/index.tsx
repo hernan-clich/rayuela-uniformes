@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useForm, Controller, FieldError } from 'react-hook-form';
 import Select, { MultiValue } from 'react-select';
@@ -22,12 +23,22 @@ type TFormData = {
 };
 
 function ProductForm() {
-  const { addStorageFile, storageUploadState } = useDbCrud(EDbCollections.products);
+  const router = useRouter();
+  const { id } = router.query;
+  const [docData, setDocData] = useState<TProduct | undefined>(undefined);
+
+  const { addStorageFile, getDbDocument, storageUploadState } = useDbCrud(EDbCollections.products);
   const schoolOptions = Object.entries(CSchools).map((school) => {
     const [id, name] = school;
     return { value: id as TSchoolIds, label: name };
   });
   const sizesOptions = Object.values(CProductSizes).map((size) => ({ value: size, label: size }));
+
+  useEffect(() => {
+    if (id && !docData) {
+      setDocData(getDbDocument<TProduct>(id as string));
+    }
+  }, [docData, getDbDocument, id]);
 
   const methods = useForm<TFormData>();
   const {

@@ -11,7 +11,7 @@ type TAllowedNewDocs = TProduct | TStorageProduct;
 function useDbCrud(collectionName: TDbCollections): {
   addDbDocument: (newDocument: TAllowedNewDocs) => void;
   deleteDbDocument: (id: string) => void;
-  getDbDocument: (id: string) => void;
+  getDbDocument: <T>(id: string) => T | undefined;
   addStorageFile: (
     newStorageFile: File,
     storageFolderName: string,
@@ -31,14 +31,14 @@ function useDbCrud(collectionName: TDbCollections): {
 
   const addDbDocument = (newDocument: TAllowedNewDocs) => addDoc(colRef, newDocument);
   const deleteDbDocument = (id: string) => deleteDoc(doc(db, collectionName, id));
-  const getDbDocument = (id: string) => {
+  const getDbDocument = <T>(id: string): T => {
     const docRef = doc(db, collectionName, id);
 
     getDoc(docRef).then((docSnap) => {
-      if (!docData && docSnap.exists()) setDocData(docSnap.data());
+      if (!docData && docSnap.exists()) setDocData({ ...docSnap.data(), id: docSnap.id });
     });
 
-    return docData;
+    return docData as T;
   };
 
   /**
