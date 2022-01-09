@@ -4,7 +4,7 @@ import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import Modal from '~components/Modal';
-import useDbMutation from '~hooks/useDbMutation';
+import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
 import { CProductSizes, TProduct } from '~types/product';
 import { CSchools, TSchoolIds } from '~types/schools';
@@ -22,7 +22,7 @@ type TFormData = {
 };
 
 function ProductForm() {
-  const { addStorageFile, storageUploadState } = useDbMutation(EDbCollections.products);
+  const { addStorageFile, storageUploadState } = useDbCrud(EDbCollections.products);
   const schoolOptions = Object.entries(CSchools).map((school) => {
     const [id, name] = school;
     return { value: id as TSchoolIds, label: name };

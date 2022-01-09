@@ -4,7 +4,7 @@ import CustomTable from '~components/CustomTable';
 import CustomText from '~components/CustomText';
 import PATHS from '~constants/paths';
 import { ESchools } from '~constants/schools';
-import useDbQuery from '~hooks/useDbQuery';
+import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TProduct } from '~types/product';
 import * as Styled from './styles';
 
@@ -36,7 +36,7 @@ const COLUMN_HEADERS = [
 ];
 
 function AdminProductsContent() {
-  const [data] = useDbQuery<TProduct>('products');
+  const [data] = useDbSnapshot<TProduct>('products');
   const tableContent = data?.map((data) => ({
     id: data.id,
     imageUrl: data.imageUrl,

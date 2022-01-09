@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { db } from '~config/firebase/client';
 import { EDbCollections, TDbCollections } from '~types/db';
 
-function useDbQuery<T extends { id: string }>(
+function useDbSnapshot<T extends { id: string }>(
   collectionName: TDbCollections,
   docId?: string
 ): [T[]] {
@@ -23,4 +23,4 @@ function useDbQuery<T extends { id: string }>(
   return [data];
 }
 
-export default useDbQuery;
+export default useDbSnapshot;

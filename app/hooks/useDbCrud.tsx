@@ -1,4 +1,4 @@
-import { addDoc, collection, deleteDoc, doc } from 'firebase/firestore';
+import { addDoc, collection, deleteDoc, doc, DocumentData, getDoc } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { useState } from 'react';
 import { db, storage } from '~config/firebase/client';
@@ -8,9 +8,10 @@ import { TProduct } from '~types/product';
 type TStorageProduct = Omit<TProduct, 'id' | 'imageUrl'>;
 type TAllowedNewDocs = TProduct | TStorageProduct;
 
-function useDbMutation(collectionName: TDbCollections): {
+function useDbCrud(collectionName: TDbCollections): {
   addDbDocument: (newDocument: TAllowedNewDocs) => void;
   deleteDbDocument: (id: string) => void;
+  getDbDocument: (id: string) => void;
   addStorageFile: (
     newStorageFile: File,
     storageFolderName: string,
@@ -21,6 +22,7 @@ function useDbMutation(collectionName: TDbCollections): {
   storageUploadState: string | null;
   storageUploadUrl: string | null;
 } {
+  const [docData, setDocData] = useState<DocumentData | undefined>(undefined);
   const [storageUploadProgress, setStorageUploadProgress] = useState<number | null>(null);
   const [storageUploadState, setStorageUploadState] = useState<string | null>(null);
   const [storageUploadUrl, setStorageUploadUrl] = useState<string | null>(null);
@@ -29,6 +31,16 @@ function useDbMutation(collectionName: TDbCollections): {
 
   const addDbDocument = (newDocument: TAllowedNewDocs) => addDoc(colRef, newDocument);
   const deleteDbDocument = (id: string) => deleteDoc(doc(db, collectionName, id));
+  const getDbDocument = (id: string) => {
+    const docRef = doc(db, collectionName, id);
+
+    getDoc(docRef).then((docSnap) => {
+      if (!docData && docSnap.exists()) setDocData(docSnap.data());
+    });
+
+    return docData;
+  };
+
   /**
    * Uploads file into Firestore Storage
    * @public
@@ -74,10 +86,11 @@ function useDbMutation(collectionName: TDbCollections): {
     addDbDocument,
     addStorageFile,
     deleteDbDocument,
+    getDbDocument,
     storageUploadProgress,
     storageUploadState,
     storageUploadUrl
   };
 }
 
-export default useDbMutation;
+export default useDbCrud;

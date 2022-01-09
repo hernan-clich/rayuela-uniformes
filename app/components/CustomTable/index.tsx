@@ -4,7 +4,7 @@ import CustomText from '~components/CustomText';
 import DeleteIcon from '~components/Icons/DeleteIcon';
 import EditIcon from '~components/Icons/EditIcon';
 import PATHS from '~constants/paths';
-import useDbMutation from '~hooks/useDbMutation';
+import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
 import { TProduct } from '~types/product';
 import * as Styled from './styles';
@@ -26,7 +26,7 @@ function CustomTable({
   tableContent,
   rowActions = { delete: true, edit: true }
 }: Props) {
-  const { deleteDbDocument } = useDbMutation(EDbCollections.products);
+  const { deleteDbDocument } = useDbCrud(EDbCollections.products);
 
   const stockBySizeData = tableContent[0]?.stockBySize
     ? tableContent?.map((data) => Object.entries(data.stockBySize))
