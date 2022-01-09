@@ -4,9 +4,9 @@ import { v4 as uuid } from 'uuid';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import QuantityCounter from '~components/QuantityCounter';
-import { MOCKED_PRODUCTS } from '~constants/products';
 import useCart from '~hooks/useCart';
-import { TProductSizes } from '~types/product';
+import useDbSnapshot from '~hooks/useDbSnapshot';
+import { TProduct, TProductSizes } from '~types/product';
 import SizePicker from '../SizePicker';
 import StockTag from '../StockTag';
 import * as Styled from './styles';
@@ -14,7 +14,7 @@ import * as Styled from './styles';
 function DetailsCard() {
   const router = useRouter();
   const { slug } = router.query;
-  const [currentProduct] = MOCKED_PRODUCTS.filter((product) => product.id === slug);
+  const [[currentProduct]] = useDbSnapshot<TProduct>('products', slug as string);
   const {
     currentProductInCart,
     isCartEmpty,
@@ -55,10 +55,10 @@ function DetailsCard() {
         <div className="details">
           <StockTag hasStock={doesCurrentSizeHaveStock} />
           <CustomText as="h1" size="big" weight="bold" className="name">
-            {currentProduct?.name}
+            {currentProduct?.name || ''}
           </CustomText>
           <CustomText as="h2" size="big" weight="bold" className="price">
-            {`$ ${currentProduct?.price.toLocaleString('de-DE')}`}
+            {currentProduct ? `$ ${currentProduct?.price.toLocaleString('de-DE')}` : ''}
           </CustomText>
           <QuantityCounter
             quantity={quantity}
