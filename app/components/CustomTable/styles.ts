@@ -26,6 +26,11 @@ export const CustomTableContainer = styled.div<{ fieldsLength: number }>`
   .tableTd {
     width: ${({ fieldsLength }) => `calc(100% / ${fieldsLength})`};
   }
+
+  .ctaBtn {
+    margin: 0 4px;
+    padding: 4px;
+  }
 `;
 
 export const TableRowContainer = styled.div<{ isLastRow: boolean }>`

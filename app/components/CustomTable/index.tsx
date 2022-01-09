@@ -81,13 +81,18 @@ function CustomTable({
               <div className="tableTd">
                 {rowActions.edit && (
                   <Link href={{ pathname: PATHS.ADMIN_PRODUCT_FORM_EDIT, query: { id: body.id } }}>
-                    <a>
+                    <a className="ctaBtn" title="Editar">
                       <EditIcon />
                     </a>
                   </Link>
                 )}
                 {rowActions.delete && (
-                  <button type="button" onClick={() => deleteDbDocument(body.id)}>
+                  <button
+                    type="button"
+                    className="ctaBtn"
+                    title="Eliminar"
+                    onClick={() => deleteDbDocument(body.id)}
+                  >
                     <DeleteIcon />
                   </button>
                 )}
