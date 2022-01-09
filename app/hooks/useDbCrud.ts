@@ -1,4 +1,12 @@
-import { addDoc, collection, deleteDoc, doc, DocumentData, getDoc } from 'firebase/firestore';
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  DocumentData,
+  getDoc,
+  updateDoc
+} from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { useState } from 'react';
 import { db, storage } from '~config/firebase/client';
@@ -12,6 +20,7 @@ function useDbCrud(collectionName: TDbCollections): {
   addDbDocument: (newDocument: TAllowedNewDocs) => void;
   deleteDbDocument: (id: string) => void;
   getDbDocument: <T>(id: string) => T | undefined;
+  updateDbDocument: <T>(id: string, properties: Partial<T>) => void;
   addStorageFile: (
     newStorageFile: File,
     storageFolderName: string,
@@ -40,6 +49,8 @@ function useDbCrud(collectionName: TDbCollections): {
 
     return docData as T;
   };
+  const updateDbDocument = <T>(id: string, properties: Partial<T>) =>
+    updateDoc(doc(db, collectionName, id), properties as DocumentData);
 
   /**
    * Uploads file into Firestore Storage
@@ -89,7 +100,8 @@ function useDbCrud(collectionName: TDbCollections): {
     getDbDocument,
     storageUploadProgress,
     storageUploadState,
-    storageUploadUrl
+    storageUploadUrl,
+    updateDbDocument
   };
 }
 

@@ -27,7 +27,9 @@ function ProductForm() {
   const { id: productId } = router.query;
   const [docData, setDocData] = useState<TProduct | undefined>(undefined);
 
-  const { addStorageFile, getDbDocument, storageUploadState } = useDbCrud(EDbCollections.products);
+  const { addStorageFile, getDbDocument, storageUploadState, updateDbDocument } = useDbCrud(
+    EDbCollections.products
+  );
   const schoolOptions = Object.entries(CSchools).map((school) => {
     const [id, name] = school;
     return { value: id as TSchoolIds, label: name };
@@ -81,7 +83,6 @@ function ProductForm() {
   };
 
   const onSubmit = ({ availableSizes, img, name, price, school, stockBySize }: TFormData) => {
-    const image = img[0];
     const parsedPrice = parseInt(price, 10);
     const stockBySizeValues = stockBySize?.map((size) => size.value);
     const reducedStockBySize: TProduct['stockBySize'] = availableSizes.reduce(
@@ -91,18 +92,15 @@ function ProductForm() {
       }),
       {}
     );
-
-    addStorageFile(image, 'products', {
+    const productToSave = {
       name,
       school,
       price: parsedPrice,
       stockBySize: reducedStockBySize
-    });
-  };
+    };
 
-  // const onEdit = ({ availableSizes, img, name, price, school, stockBySize }: TFormData) => {
-  const onEdit = () => {
-    return null;
+    if (productId) updateDbDocument<TProduct>(productId as string, productToSave);
+    else addStorageFile(img[0], 'products', productToSave);
   };
 
   useEffect(() => {
@@ -111,7 +109,7 @@ function ProductForm() {
 
   return (
     <Styled.ProductFormContainer>
-      <form className="form" onSubmit={handleSubmit(productId ? onEdit : onSubmit)}>
+      <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <div className="leftContainer">
           <CustomText as="label" htmlFor="name" size="small" weight="regular" textAlign="left">
             Nombre
