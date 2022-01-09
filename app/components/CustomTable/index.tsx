@@ -1,8 +1,11 @@
 import clsx from 'clsx';
 import Link from 'next/link';
+import { useState } from 'react';
 import CustomText from '~components/CustomText';
 import DeleteIcon from '~components/Icons/DeleteIcon';
 import EditIcon from '~components/Icons/EditIcon';
+import Modal from '~components/Modal';
+import ModalBody from '~components/ModalBody';
 import PATHS from '~constants/paths';
 import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
@@ -28,6 +31,8 @@ function CustomTable({
 }: Props) {
   const { deleteDbDocument } = useDbCrud(EDbCollections.products);
 
+  const [showConfirmationModal, setShowConfirmationModal] = useState(false);
+  const [showDeletionConfirmedModal, setShowDeletionConfirmedModal] = useState(false);
   const stockBySizeData = tableContent[0]?.stockBySize
     ? tableContent?.map((data) => Object.entries(data.stockBySize))
     : null;
@@ -91,16 +96,53 @@ function CustomTable({
                     type="button"
                     className="ctaBtn"
                     title="Eliminar"
-                    onClick={() => deleteDbDocument(body.id)}
+                    onClick={() => setShowConfirmationModal(true)}
                   >
                     <DeleteIcon />
                   </button>
                 )}
+
+                <Modal
+                  onClose={() => setShowConfirmationModal(false)}
+                  closeOnClickOutside={false}
+                  showModal={showConfirmationModal}
+                >
+                  <ModalBody
+                    textHeading="Eliminando producto ⛔️"
+                    textBody="Estas a punto de eliminar el producto. ¿Deseas continuar?"
+                    closeCta={{
+                      handler: () => setShowConfirmationModal(false),
+                      text: 'Cancelar eliminación'
+                    }}
+                    buttonCta={{
+                      handler: () => {
+                        deleteDbDocument(body.id);
+                        setShowConfirmationModal(false);
+                        setShowDeletionConfirmedModal(true);
+                      },
+                      text: 'Confirmar eliminación'
+                    }}
+                  />
+                </Modal>
               </div>
             )}
           </Styled.TableRowContainer>
         ))}
       </main>
+
+      <Modal
+        onClose={() => setShowDeletionConfirmedModal(false)}
+        showModal={showDeletionConfirmedModal}
+        closeOnClickOutside={true}
+      >
+        <ModalBody
+          textHeading="Producto eliminado 💣"
+          closeCta={{
+            handler: () => setShowDeletionConfirmedModal(false),
+            text: 'Volver al listado'
+          }}
+        />
+      </Modal>
     </Styled.CustomTableContainer>
   );
 }

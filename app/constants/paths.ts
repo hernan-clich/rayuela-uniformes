@@ -9,6 +9,6 @@ const PATHS = {
   HOME: '/',
   PRODUCTS: '/products',
   PRODUCT_DETAILS: '/product/[slug]'
-};
+} as const;
 
 export default PATHS;

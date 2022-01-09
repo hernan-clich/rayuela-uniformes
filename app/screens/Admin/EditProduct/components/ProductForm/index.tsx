@@ -1,4 +1,3 @@
-import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useState } from 'react';
 import { useForm, Controller, FieldError } from 'react-hook-form';
@@ -6,6 +5,7 @@ import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import Modal from '~components/Modal';
+import ModalBody from '~components/ModalBody';
 import PATHS from '~constants/paths';
 import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
@@ -254,37 +254,22 @@ function ProductForm() {
       </form>
 
       <Modal onClose={() => setShowModal(false)} showModal={showModal} closeOnClickOutside={false}>
-        <Styled.ModalBodyContainer>
-          <CustomText as="span" size="big" weight="bold" className="modalHeading">
-            {productId ? 'Producto editado! ✔︎' : 'Producto añadido! ✔︎'}
-          </CustomText>
-          {!productId && (
-            <CustomText as="span" size="regular" weight="bold" className="modalSubheading">
-              Deseas añadir un nuevo producto?
-            </CustomText>
-          )}
-          <div className="ctaContainer">
-            <Link href={PATHS.ADMIN_PRODUCTS}>
-              <a>
-                <CustomButton size="small" weight="regular">
-                  Volver a la tabla de productos
-                </CustomButton>
-              </a>
-            </Link>
-            {!productId && (
-              <CustomButton
-                size="small"
-                weight="regular"
-                onClick={() => {
-                  setShowModal(false);
-                  router.reload();
-                }}
-              >
-                Crear nuevo producto
-              </CustomButton>
-            )}
-          </div>
-        </Styled.ModalBodyContainer>
+        <ModalBody
+          textHeading={productId ? 'Producto editado! 📝' : 'Producto añadido! ✅'}
+          textBody={!productId ? 'Deseas añadir un nuevo producto?' : undefined}
+          linkCta={{ href: PATHS.ADMIN_PRODUCTS, text: 'Volver a la tabla de productos' }}
+          buttonCta={
+            !productId
+              ? {
+                  handler: () => {
+                    setShowModal(false);
+                    router.reload();
+                  },
+                  text: 'Crear nuevo producto'
+                }
+              : undefined
+          }
+        />
       </Modal>
     </Styled.ProductFormContainer>
   );
