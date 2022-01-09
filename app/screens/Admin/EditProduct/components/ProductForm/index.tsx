@@ -24,7 +24,7 @@ type TFormData = {
 
 function ProductForm() {
   const router = useRouter();
-  const { id } = router.query;
+  const { id: productId } = router.query;
   const [docData, setDocData] = useState<TProduct | undefined>(undefined);
 
   const { addStorageFile, getDbDocument, storageUploadState } = useDbCrud(EDbCollections.products);
@@ -35,18 +35,40 @@ function ProductForm() {
   const sizesOptions = Object.values(CProductSizes).map((size) => ({ value: size, label: size }));
 
   useEffect(() => {
-    if (id && !docData) {
-      setDocData(getDbDocument<TProduct>(id as string));
+    if (productId && !docData) {
+      setDocData(getDbDocument<TProduct>(productId as string));
     }
-  }, [docData, getDbDocument, id]);
+  }, [docData, getDbDocument, productId]);
 
   const methods = useForm<TFormData>();
   const {
     formState: { errors },
     setValue,
+    getValues,
     handleSubmit,
     register
   } = methods;
+
+  useEffect(() => {
+    if (docData) {
+      setValue('name', docData?.name);
+      setValue('price', String(docData?.price));
+      setValue('school', docData?.school);
+      setValue(
+        'availableSizes',
+        Object.keys(docData?.stockBySize).map((size) => ({ label: size, value: size }))
+      );
+      setAvailableSizes(
+        Object.keys(docData?.stockBySize).map((size) => ({ label: size, value: size }))
+      );
+      setValue(
+        'stockBySize',
+        Object.entries(docData?.stockBySize)
+          .filter(([_, hasStock]) => hasStock)
+          .map(([size]) => ({ value: size, label: size }))
+      );
+    }
+  }, [docData, setValue]);
 
   const [showModal, setShowModal] = useState(false);
   const [availableSizes, setAvailableSizes] = useState<TMultiOptions>();
@@ -78,13 +100,18 @@ function ProductForm() {
     });
   };
 
+  // const onEdit = ({ availableSizes, img, name, price, school, stockBySize }: TFormData) => {
+  const onEdit = () => {
+    return null;
+  };
+
   useEffect(() => {
     if (storageUploadState === 'success') setShowModal(true);
   }, [storageUploadState]);
 
   return (
     <Styled.ProductFormContainer>
-      <form className="form" onSubmit={handleSubmit(onSubmit)}>
+      <form className="form" onSubmit={handleSubmit(productId ? onEdit : onSubmit)}>
         <div className="leftContainer">
           <CustomText as="label" htmlFor="name" size="small" weight="regular" textAlign="left">
             Nombre
@@ -115,7 +142,7 @@ function ProductForm() {
             control={methods.control}
             name="school"
             rules={{ required: 'Campo obligatorio' }}
-            render={({ field: { onChange } }) => (
+            render={({ field: { onChange, value } }) => (
               <Select
                 options={schoolOptions}
                 className="formInput"
@@ -123,6 +150,7 @@ function ProductForm() {
                 isMulti={false}
                 closeMenuOnSelect
                 placeholder="Escuela"
+                value={schoolOptions.find((school) => school.value === value)}
                 onChange={(e) => onChange(e?.value)}
               />
             )}
@@ -135,7 +163,7 @@ function ProductForm() {
             control={methods.control}
             name="availableSizes"
             rules={{ required: 'Campo obligatorio' }}
-            render={({ field: { onChange } }) => (
+            render={({ field: { onChange, value } }) => (
               <Select
                 options={sizesOptions}
                 instanceId="sizeId"
@@ -145,6 +173,7 @@ function ProductForm() {
                 className="formInput"
                 placeholder="Talles"
                 noOptionsMessage={() => 'No hay más opciones'}
+                value={value || getValues('availableSizes')}
                 onChange={(e) => {
                   onChange(e);
                   setAvailableSizes(e);
@@ -157,12 +186,12 @@ function ProductForm() {
           </CustomText>
           {Boolean(availableSizes?.length) && (
             <>
-              <label htmlFor="available-sizes">Talles con stock</label>
+              <label htmlFor="stockBySize">Talles con stock</label>
               <Controller
                 control={methods.control}
                 name="stockBySize"
                 rules={{ required: 'Campo obligatorio' }}
-                render={({ field: { onChange } }) => (
+                render={({ field: { onChange, value } }) => (
                   <Select
                     options={availableSizes}
                     instanceId="stockBySizeId"
@@ -171,6 +200,7 @@ function ProductForm() {
                     className="formInput"
                     placeholder="Stock"
                     noOptionsMessage={() => 'No hay más opciones'}
+                    value={value || getValues('stockBySize')}
                     onChange={(e) => onChange(e)}
                   />
                 )}
@@ -187,32 +217,34 @@ function ProductForm() {
             </>
           )}
           <CustomButton type="submit" size="small" weight="regular">
-            Añadir
+            {productId ? 'Editar' : 'Añadir'}
           </CustomButton>
         </div>
-        <div className="rightContainer">
-          <CustomText
-            as="label"
-            htmlFor="img"
-            className="fileInput"
-            size="small"
-            weight="regular"
-            textAlign="left"
-          >
-            <img src={image || '/assets/placeholder_shirt.png'} alt="placeholder shirt" />
-            <input
-              id="img"
-              type="file"
-              {...register('img', { required: 'Campo obligatorio' })}
-              accept="image/png"
-              style={{ display: 'none' }}
-              onChange={onImageChange}
-            />
-          </CustomText>
-          <CustomText as="span" size="xsmall" weight="bold" className="errorMsg">
-            {errors?.img?.message || ''}
-          </CustomText>
-        </div>
+        {!productId && (
+          <div className="rightContainer">
+            <CustomText
+              as="label"
+              htmlFor="img"
+              className="fileInput"
+              size="small"
+              weight="regular"
+              textAlign="left"
+            >
+              <img src={image || '/assets/placeholder_shirt.png'} alt="placeholder shirt" />
+              <input
+                id="img"
+                type="file"
+                {...register('img', { required: 'Campo obligatorio' })}
+                accept="image/png"
+                style={{ display: 'none' }}
+                onChange={onImageChange}
+              />
+            </CustomText>
+            <CustomText as="span" size="xsmall" weight="bold" className="errorMsg">
+              {errors?.img?.message || ''}
+            </CustomText>
+          </div>
+        )}
       </form>
 
       <Modal onClose={() => setShowModal(false)} showModal={showModal} closeOnClickOutside={false}>
