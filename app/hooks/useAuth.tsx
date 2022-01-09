@@ -8,14 +8,14 @@ import PATHS from '~constants/paths';
 import { ReactNode } from 'hoist-non-react-statics/node_modules/@types/react';
 
 interface IAuthContext {
-  authenticated: boolean;
+  isAuthenticated: boolean;
   logout: () => void;
   signInWithGoogle: () => void;
   user: User | null;
 }
 
 const AuthContext = createContext<IAuthContext>({
-  authenticated: false,
+  isAuthenticated: false,
   logout: () => null,
   signInWithGoogle: () => null,
   user: null
@@ -72,7 +72,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, authenticated: !!user, logout, signInWithGoogle }}>
+    <AuthContext.Provider value={{ user, isAuthenticated: !!user, logout, signInWithGoogle }}>
       {children}
     </AuthContext.Provider>
   );
