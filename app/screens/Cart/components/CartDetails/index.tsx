@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
+import Modal from '~components/Modal';
+import ModalBody from '~components/ModalBody';
 import useCart from '~hooks/useCart';
 import { TItem } from '~types/item';
 import CartCard from '../CartCard';
@@ -9,6 +11,7 @@ import * as Styled from './styles';
 function CartDetails() {
   const { localStorageCart, itemsCount, totalCartAmt } = useCart();
   const [storedItems, setStoredItems] = useState<TItem[]>([]);
+  const [showModal, setShowModal] = useState(false);
 
   // I had to resort to this in order to avoid the following error
   // Warning: Expected server HTML to contain a matching <div> in <div>.
@@ -49,7 +52,13 @@ function CartDetails() {
               {`$ ${totalCartAmt.toLocaleString('de-DE')}`}
             </CustomText>
           </div>
-          <CustomButton size="small" weight="regular" textTransform="uppercase" noMaxWidth>
+          <CustomButton
+            size="small"
+            weight="regular"
+            textTransform="uppercase"
+            noMaxWidth
+            onClick={() => setShowModal(true)}
+          >
             Continuar
           </CustomButton>
         </div>
@@ -58,6 +67,11 @@ function CartDetails() {
             <CartCard key={item.id} item={item} $isFirstItem={i === 0} />
           ))}
       </div>
+
+      {/* @todo: Put relevant modal content here, if !isAuthenticated, make them log in */}
+      <Modal onClose={() => setShowModal(false)} showModal={showModal} closeOnClickOutside>
+        <ModalBody textHeading="Producto editado! 📝" textBody="Deseas añadir un nuevo producto?" />
+      </Modal>
     </Styled.CartDetailsContainer>
   );
 }

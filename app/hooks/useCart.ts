@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import useLocalStorage from '~hooks/useLocalStorage';
 import { TItem } from '~types/item';
 import { TProductSizes } from '~types/product';
@@ -14,6 +15,16 @@ function useCart(productId = ''): {
   deleteItem: (itemId: string) => void;
 } {
   const [localStorageCart, setLocalStorageCart] = useLocalStorage<TItem[]>('cart', []);
+  const [itemsCount, setItemsCount] = useState(0);
+  const [totalCartAmt, setTotalCartAmt] = useState(0);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined')
+      setItemsCount(() => localStorageCart.reduce((acc, item) => acc + item?.quantity, 0));
+    setTotalCartAmt(() =>
+      localStorageCart.reduce((acc, item) => acc + item?.product?.price * item?.quantity, 0)
+    );
+  }, [localStorageCart]);
 
   const isCartEmpty = Boolean(localStorageCart && !localStorageCart?.length);
   const [currentProductInCart] = !isCartEmpty
@@ -21,11 +32,7 @@ function useCart(productId = ''): {
     : [];
   const checkIfItemIsInCart = (currentSize: TProductSizes) =>
     Boolean(currentProductInCart) && currentProductInCart.size === currentSize;
-  const itemsCount = localStorageCart.reduce((acc, item) => acc + item?.quantity, 0);
-  const totalCartAmt = localStorageCart.reduce(
-    (acc, item) => acc + item?.product?.price * item?.quantity,
-    0
-  );
+
   const setNewItem = (item: TItem) => setLocalStorageCart([...localStorageCart, item]);
   const deleteItem = (itemId: string) =>
     setLocalStorageCart(localStorageCart.filter((item) => item?.id !== itemId));

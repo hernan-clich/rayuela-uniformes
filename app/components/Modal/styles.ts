@@ -12,6 +12,7 @@ export const ModalOverlay = styled.div`
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 4;
 
   .modalContainer {
     background-color: ${WHITE};
