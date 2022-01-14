@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
+import GoogleButton from '~components/GoogleButton';
 import Modal from '~components/Modal';
 import ModalBody from '~components/ModalBody';
+import { useAuth } from '~hooks/useAuth';
 import useCart from '~hooks/useCart';
 import { TItem } from '~types/item';
 import CartCard from '../CartCard';
 import * as Styled from './styles';
 
 function CartDetails() {
+  const { isAuthenticated, signInWithGoogle } = useAuth();
+
   const { localStorageCart, itemsCount, totalCartAmt } = useCart();
   const [storedItems, setStoredItems] = useState<TItem[]>([]);
-  const [showModal, setShowModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
 
   // I had to resort to this in order to avoid the following error
   // Warning: Expected server HTML to contain a matching <div> in <div>.
@@ -57,7 +61,7 @@ function CartDetails() {
             weight="regular"
             textTransform="uppercase"
             noMaxWidth
-            onClick={() => setShowModal(true)}
+            onClick={() => setShowLoginModal(true)}
           >
             Continuar
           </CustomButton>
@@ -68,9 +72,17 @@ function CartDetails() {
           ))}
       </div>
 
-      {/* @todo: Put relevant modal content here, if !isAuthenticated, make them log in */}
-      <Modal onClose={() => setShowModal(false)} showModal={showModal} closeOnClickOutside>
-        <ModalBody textHeading="Producto editado! 📝" textBody="Deseas añadir un nuevo producto?" />
+      <Modal
+        onClose={() => setShowLoginModal(false)}
+        showModal={showLoginModal && !isAuthenticated}
+        closeOnClickOutside
+      >
+        <ModalBody
+          textHeading="Por favor, inicie sesión 🔑"
+          textBody="Es necesario iniciar sesión con Google para poder generar una órden de compra."
+        >
+          <GoogleButton handleClick={() => signInWithGoogle(false)}>Iniciar sesión</GoogleButton>
+        </ModalBody>
       </Modal>
     </Styled.CartDetailsContainer>
   );

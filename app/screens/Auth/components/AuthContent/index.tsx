@@ -5,26 +5,29 @@ import { useAuth } from '~hooks/useAuth';
 import * as Styled from './styles';
 
 function AuthContent() {
-  const { logout, signInWithGoogle } = useAuth();
+  const { isAuthenticated, logout, signInWithGoogle } = useAuth();
 
   return (
     <Styled.AuthContentContainer>
       <CustomText size="big" weight="regular" className="title">
-        Iniciar sesión con Google
+        {isAuthenticated ? 'Logueado' : 'Deslogueado'}
       </CustomText>
-      <CustomButton size="regular" weight="regular" noMaxWidth onClick={signInWithGoogle}>
-        <div className="btnContents">
-          <GoogIcon secondary />
-          Iniciar sesión
-        </div>
-      </CustomButton>
-      {/* @todo: put this in a better place, maybe the header?? */}
-      <CustomButton size="regular" weight="regular" noMaxWidth onClick={logout}>
-        <div className="btnContents">
-          <GoogIcon secondary />
-          Logout
-        </div>
-      </CustomButton>
+
+      {!isAuthenticated ? (
+        <CustomButton size="regular" weight="regular" noMaxWidth onClick={() => signInWithGoogle()}>
+          <div className="btnContents">
+            <GoogIcon secondary />
+            Iniciar sesión
+          </div>
+        </CustomButton>
+      ) : (
+        <CustomButton size="regular" weight="regular" noMaxWidth onClick={logout}>
+          <div className="btnContents">
+            <GoogIcon secondary />
+            Logout
+          </div>
+        </CustomButton>
+      )}
     </Styled.AuthContentContainer>
   );
 }

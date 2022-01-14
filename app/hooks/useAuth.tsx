@@ -10,7 +10,7 @@ import { ReactNode } from 'hoist-non-react-statics/node_modules/@types/react';
 interface IAuthContext {
   isAuthenticated: boolean;
   logout: () => void;
-  signInWithGoogle: () => void;
+  signInWithGoogle: (shouldRedirectAfterSucces?: boolean) => void;
   user: User | null;
 }
 
@@ -33,11 +33,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const removeTokenCookie = () => cookies.remove('token');
 
-  const signInWithGoogle = () => {
+  const signInWithGoogle = (shouldRedirectAfterSucces = true) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider)
       .then(() => {
-        router.push(PATHS.HOME);
+        shouldRedirectAfterSucces && router.push(PATHS.HOME);
       })
       .catch((e) => {
         throw new Error(`Error signing in: ${e}`);
