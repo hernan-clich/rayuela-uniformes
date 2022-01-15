@@ -14,8 +14,10 @@ function CartDetails() {
   const { isAuthenticated, signInWithGoogle } = useAuth();
 
   const { localStorageCart, itemsCount, totalCartAmt } = useCart();
+  const parsedTotalCartAmt = `$ ${totalCartAmt.toLocaleString('de-DE')}`;
   const [storedItems, setStoredItems] = useState<TItem[]>([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showCreateOrderModal, setShowCreateOrderModal] = useState(false);
 
   // I had to resort to this in order to avoid the following error
   // Warning: Expected server HTML to contain a matching <div> in <div>.
@@ -53,7 +55,7 @@ function CartDetails() {
               textTransform="uppercase"
               textAlign="left"
             >
-              {`$ ${totalCartAmt.toLocaleString('de-DE')}`}
+              {parsedTotalCartAmt}
             </CustomText>
           </div>
           <CustomButton
@@ -61,7 +63,9 @@ function CartDetails() {
             weight="regular"
             textTransform="uppercase"
             noMaxWidth
-            onClick={() => setShowLoginModal(true)}
+            onClick={() => {
+              isAuthenticated ? setShowCreateOrderModal(true) : setShowLoginModal(true);
+            }}
           >
             Continuar
           </CustomButton>
@@ -72,6 +76,7 @@ function CartDetails() {
           ))}
       </div>
 
+      {/* This modal will be displayed when an unauthenticated user tries to create an order */}
       <Modal
         onClose={() => setShowLoginModal(false)}
         showModal={showLoginModal && !isAuthenticated}
@@ -81,8 +86,35 @@ function CartDetails() {
           textHeading="Por favor, inicie sesión 🔑"
           textBody="Es necesario iniciar sesión con Google para poder generar una órden de compra."
         >
-          <GoogleButton handleClick={() => signInWithGoogle(false)}>Iniciar sesión</GoogleButton>
+          <GoogleButton
+            handleClick={() => {
+              signInWithGoogle(false);
+              setShowCreateOrderModal(true);
+            }}
+          >
+            Iniciar sesión
+          </GoogleButton>
         </ModalBody>
+      </Modal>
+
+      {/* This modal will be displayed to confirm an authenticated user's order creation */}
+      <Modal
+        onClose={() => setShowCreateOrderModal(false)}
+        showModal={showCreateOrderModal && isAuthenticated}
+        closeOnClickOutside
+      >
+        <ModalBody
+          textHeading="Confirmación de orden de compra ✅"
+          textBody={`¿Desea confirmar la creación de la orden de compra por ${parsedTotalCartAmt}?. 
+
+          Tenga en cuenta que una vez confirmada la orden de compra, no podrá editarla.
+          `}
+          closeCta={{ text: 'Volver al carrito', handler: () => setShowCreateOrderModal(false) }}
+          buttonCta={{
+            text: 'Confirmar creación',
+            handler: () => console.log('\x1b[35m%s\x1b[0m', 'ORDEN CREADA!!!!')
+          }}
+        />
       </Modal>
     </Styled.CartDetailsContainer>
   );

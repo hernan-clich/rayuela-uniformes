@@ -1,9 +1,10 @@
 import styled from 'styled-components';
 
 export const ModalBodyContainer = styled.div`
+  align-items: center;
   display: flex;
   flex-flow: column nowrap;
-  align-items: center;
+  width: fit-content;
 
   .modalHeading {
     display: block;
@@ -13,7 +14,7 @@ export const ModalBodyContainer = styled.div`
   .modalSubheading {
     display: block;
     margin-bottom: 16px;
-    max-width: 75%;
+    max-width: 80%;
   }
 
   .ctaContainer {
@@ -21,5 +22,6 @@ export const ModalBodyContainer = styled.div`
     justify-content: space-evenly;
     margin: 0 auto;
     padding: 32px 0;
+    width: 100%;
   }
 `;

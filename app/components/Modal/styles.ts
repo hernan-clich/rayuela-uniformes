@@ -40,5 +40,6 @@ export const ModalOverlay = styled.div`
 
   .modalBody {
     padding: ${PRIMARY_SPACING_EM} 0;
+    width: 90vw;
   }
 `;
