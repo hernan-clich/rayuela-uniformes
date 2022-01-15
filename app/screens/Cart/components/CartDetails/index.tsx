@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
@@ -14,6 +15,7 @@ import CartCard from '../CartCard';
 import * as Styled from './styles';
 
 function CartDetails() {
+  const router = useRouter();
   const { isAuthenticated, signInWithGoogle } = useAuth();
   const { addDbDocument } = useDbCrud(EDbCollections.orders);
 
@@ -123,14 +125,9 @@ function CartDetails() {
           closeCta={{ text: 'Volver al carrito', handler: () => setShowCreateOrderModal(false) }}
           buttonCta={{
             text: 'Confirmar creación',
-            handler: () => {
-              try {
-                addDbDocument({ orderedProducts });
-                // @todo: Redirect to the corresponding order page here, order/[id]
-              } catch (e) {
-                // eslint-disable-next-line no-console
-                console.error(e);
-              }
+            handler: async () => {
+              const response = await addDbDocument({ orderedProducts });
+              router.push(`/profile/order/${response.id}`);
             }
           }}
         />

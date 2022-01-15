@@ -4,6 +4,7 @@ import {
   deleteDoc,
   doc,
   DocumentData,
+  DocumentReference,
   getDoc,
   updateDoc
 } from 'firebase/firestore';
@@ -19,7 +20,7 @@ type TOrderOmmitingId = Omit<TOrder, 'id'>;
 type TAllowedNewDocs = TProduct | TStorageProduct | TOrderOmmitingId;
 
 function useDbCrud(collectionName: TDbCollections): {
-  addDbDocument: (newDocument: TAllowedNewDocs) => void;
+  addDbDocument: (newDocument: TAllowedNewDocs) => Promise<DocumentReference<DocumentData>>;
   deleteDbDocument: (id: string) => void;
   getDbDocument: <T>(id: string) => T | undefined;
   updateDbDocument: <T>(id: string, properties: Partial<T>) => void;
@@ -40,7 +41,7 @@ function useDbCrud(collectionName: TDbCollections): {
 
   const colRef = collection(db, EDbCollections[collectionName]);
 
-  const addDbDocument = (newDocument: TAllowedNewDocs) => addDoc(colRef, newDocument);
+  const addDbDocument = async (newDocument: TAllowedNewDocs) => await addDoc(colRef, newDocument);
   const deleteDbDocument = (id: string) => deleteDoc(doc(db, collectionName, id));
   const getDbDocument = <T>(id: string): T => {
     const docRef = doc(db, collectionName, id);
