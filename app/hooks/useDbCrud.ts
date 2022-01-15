@@ -5,7 +5,9 @@ import {
   doc,
   DocumentData,
   DocumentReference,
+  FieldValue,
   getDoc,
+  serverTimestamp,
   updateDoc
 } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
@@ -33,6 +35,7 @@ function useDbCrud(collectionName: TDbCollections): {
   storageUploadProgress: number | null;
   storageUploadState: string | null;
   storageUploadUrl: string | null;
+  timestamp: FieldValue;
 } {
   const [docData, setDocData] = useState<DocumentData | undefined>(undefined);
   const [storageUploadProgress, setStorageUploadProgress] = useState<number | null>(null);
@@ -104,6 +107,7 @@ function useDbCrud(collectionName: TDbCollections): {
     storageUploadProgress,
     storageUploadState,
     storageUploadUrl,
+    timestamp: serverTimestamp(),
     updateDbDocument
   };
 }

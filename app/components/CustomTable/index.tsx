@@ -12,12 +12,12 @@ import { EDbCollections } from '~types/db';
 import { TProduct } from '~types/product';
 import * as Styled from './styles';
 
+type TTextFields = { textFields: (string | number)[] };
+type TProductTableContent = TTextFields & Pick<TProduct, 'imageUrl' | 'id' | 'stockBySize'>;
+
 type Props = {
   columnHeaders: { propertyName: string; displayName: string }[];
-  tableContent: ({ textFields: (string | number)[] } & Pick<
-    TProduct,
-    'imageUrl' | 'id' | 'stockBySize'
-  >)[];
+  tableContent: TProductTableContent[];
   rowActions?: {
     delete: boolean;
     edit: boolean;

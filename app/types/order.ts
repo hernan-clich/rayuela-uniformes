@@ -1,3 +1,4 @@
+import { FieldValue } from 'firebase/firestore';
 import { TProduct, TProductSizes } from './product';
 
 export type TOrderedProducts = {
@@ -7,8 +8,11 @@ export type TOrderedProducts = {
 };
 
 export type TOrder = {
+  buyerId: string;
+  buyerName: string;
+  createdAt: FieldValue;
+  id: string;
   isDelivered: boolean;
   isPayed: boolean;
-  id: string;
   orderedProducts: TOrderedProducts[];
 };

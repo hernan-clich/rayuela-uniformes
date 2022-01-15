@@ -17,8 +17,8 @@ import * as Styled from './styles';
 
 function CartDetails() {
   const router = useRouter();
-  const { isAuthenticated, signInWithGoogle } = useAuth();
-  const { addDbDocument } = useDbCrud(EDbCollections.orders);
+  const { isAuthenticated, signInWithGoogle, user } = useAuth();
+  const { addDbDocument, timestamp } = useDbCrud(EDbCollections.orders);
 
   const { localStorageCart, itemsCount, setCartEmpty, totalCartAmt } = useCart();
   const parsedTotalCartAmt = `$ ${totalCartAmt.toLocaleString('de-DE')}`;
@@ -129,9 +129,12 @@ function CartDetails() {
             handler: async () => {
               // @todo: Create a try/catch and render an error modal in case of error
               const response = await addDbDocument({
-                orderedProducts,
+                buyerId: user?.uid || '',
+                buyerName: user?.displayName || user?.email || '',
+                createdAt: timestamp,
+                isDelivered: false,
                 isPayed: false,
-                isDelivered: false
+                orderedProducts
               });
               setCartEmpty();
               router.replace({ pathname: PATHS.ORDER, query: { id: response.id } });
