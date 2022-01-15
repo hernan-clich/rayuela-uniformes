@@ -20,7 +20,7 @@ function CartDetails() {
   const { isAuthenticated, signInWithGoogle, user } = useAuth();
   const { addDbDocument, timestamp } = useDbCrud(EDbCollections.orders);
 
-  const { localStorageCart, itemsCount, setCartEmpty, totalCartAmt } = useCart();
+  const { isCartEmpty, itemsCount, localStorageCart, setCartEmpty, totalCartAmt } = useCart();
   const parsedTotalCartAmt = `$ ${totalCartAmt.toLocaleString('de-DE')}`;
   const [storedItems, setStoredItems] = useState<TItem[]>([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
@@ -72,17 +72,19 @@ function CartDetails() {
               {parsedTotalCartAmt}
             </CustomText>
           </div>
-          <CustomButton
-            size="small"
-            weight="regular"
-            textTransform="uppercase"
-            noMaxWidth
-            onClick={() => {
-              isAuthenticated ? setShowCreateOrderModal(true) : setShowLoginModal(true);
-            }}
-          >
-            Continuar
-          </CustomButton>
+          {!isCartEmpty && (
+            <CustomButton
+              size="small"
+              weight="regular"
+              textTransform="uppercase"
+              noMaxWidth
+              onClick={() => {
+                isAuthenticated ? setShowCreateOrderModal(true) : setShowLoginModal(true);
+              }}
+            >
+              Continuar
+            </CustomButton>
+          )}
         </div>
         {storedItems &&
           storedItems.map((item, i) => (
@@ -131,10 +133,11 @@ function CartDetails() {
               const response = await addDbDocument({
                 buyerId: user?.uid || '',
                 buyerName: user?.displayName || user?.email || '',
-                createdAt: timestamp,
+                createdAt: new Date().toISOString(),
                 isDelivered: false,
                 isPayed: false,
-                orderedProducts
+                orderedProducts,
+                timestamp
               });
               setCartEmpty();
               router.replace({ pathname: PATHS.ORDER, query: { id: response.id } });

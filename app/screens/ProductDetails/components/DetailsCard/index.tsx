@@ -34,7 +34,7 @@ function DetailsCard() {
     : [currentSize, false];
 
   // If everything goes well, we're placing the current item into LS 'cart'
-  // @todo: Open the cart sidebar after an update has been made to the cart
+  // @todo: Open a modal confirming that the product was successfully added to the cart
   const handleSubmit = () => {
     // If the cart is empty or the product is not yet there, we're gonna add it
     if (isCartEmpty || !isProductAlreadyInCart) {

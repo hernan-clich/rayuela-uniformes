@@ -10,9 +10,10 @@ export type TOrderedProducts = {
 export type TOrder = {
   buyerId: string;
   buyerName: string;
-  createdAt: FieldValue;
+  createdAt: string;
   id: string;
   isDelivered: boolean;
   isPayed: boolean;
   orderedProducts: TOrderedProducts[];
+  timestamp: FieldValue;
 };

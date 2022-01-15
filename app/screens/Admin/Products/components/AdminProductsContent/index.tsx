@@ -58,7 +58,11 @@ function AdminProductsContent() {
           </a>
         </Link>
       </div>
-      <CustomTable columnHeaders={COLUMN_HEADERS} tableContent={tableContent} />
+      <CustomTable
+        columnHeaders={COLUMN_HEADERS}
+        tableContent={tableContent}
+        rowActions={{ delete: true, edit: true }}
+      />
     </Styled.AdminProductsContentContainer>
   );
 }

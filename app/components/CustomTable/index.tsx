@@ -9,32 +9,31 @@ import ModalBody from '~components/ModalBody';
 import PATHS from '~constants/paths';
 import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
+import { TOrder } from '~types/order';
 import { TProduct } from '~types/product';
 import * as Styled from './styles';
 
 type TTextFields = { textFields: (string | number)[] };
 type TProductTableContent = TTextFields & Pick<TProduct, 'imageUrl' | 'id' | 'stockBySize'>;
+type TOrderTableContent = TTextFields &
+  Pick<TOrder, 'id'> & { imageUrl?: never; stockBySize?: never };
 
 type Props = {
   columnHeaders: { propertyName: string; displayName: string }[];
-  tableContent: TProductTableContent[];
+  tableContent: (TProductTableContent | TOrderTableContent)[];
   rowActions?: {
     delete: boolean;
     edit: boolean;
   };
 };
 
-function CustomTable({
-  columnHeaders,
-  tableContent,
-  rowActions = { delete: true, edit: true }
-}: Props) {
+function CustomTable({ columnHeaders, tableContent, rowActions }: Props) {
   const { deleteDbDocument } = useDbCrud(EDbCollections.products);
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showDeletionConfirmedModal, setShowDeletionConfirmedModal] = useState(false);
   const stockBySizeData = tableContent[0]?.stockBySize
-    ? tableContent?.map((data) => Object.entries(data.stockBySize))
+    ? tableContent?.map((data) => Object.entries(data?.stockBySize as TProduct['stockBySize']))
     : null;
 
   return (
