@@ -1,10 +1,10 @@
 import PublicLayout from '~components/PublicLayout';
-import OrderLayout from './components/OrderLayout';
+import OrderContent from './components/OrderContent';
 
 function OrderDetails() {
   return (
     <PublicLayout>
-      <OrderLayout />
+      <OrderContent />
     </PublicLayout>
   );
 }

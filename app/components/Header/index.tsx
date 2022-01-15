@@ -18,7 +18,7 @@ function Header() {
             <ShoppingCartIcon />
           </a>
         </Link>
-        <Link href={PATHS.AUTH}>
+        <Link href={PATHS.PROFILE}>
           <a>
             <UserIcon />
           </a>

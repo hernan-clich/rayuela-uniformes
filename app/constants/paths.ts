@@ -4,7 +4,6 @@ const PATHS = {
   ADMIN_PRODUCT_FORM_EDIT: '/admin/products/product-form/[id]',
   ADMIN_PRODUCTS: '/admin/products',
   ADMIN_USERS: '/admin/users',
-  AUTH: '/auth',
   CART: '/cart',
   HOME: '/',
   PRODUCTS: '/products',

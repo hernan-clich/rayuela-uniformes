@@ -6,7 +6,7 @@ import { TOrder } from '~types/order';
 import * as Styled from './styles';
 
 // @todo: Display isPayed and isDelivered values somewhere here
-function OrderLayout() {
+function OrderContent() {
   const router = useRouter();
   const orderId = router?.query?.id as string;
 
@@ -68,4 +68,4 @@ function OrderLayout() {
   );
 }
 
-export default OrderLayout;
+export default OrderContent;
