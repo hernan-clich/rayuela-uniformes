@@ -20,15 +20,13 @@ function CartDetails() {
   const { isAuthenticated, signInWithGoogle } = useAuth();
   const { addDbDocument } = useDbCrud(EDbCollections.orders);
 
-  const { localStorageCart, itemsCount, totalCartAmt } = useCart();
+  const { localStorageCart, itemsCount, setCartEmpty, totalCartAmt } = useCart();
   const parsedTotalCartAmt = `$ ${totalCartAmt.toLocaleString('de-DE')}`;
   const [storedItems, setStoredItems] = useState<TItem[]>([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCreateOrderModal, setShowCreateOrderModal] = useState(false);
   const orderedProducts: TOrderedProducts[] = localStorageCart?.map(
     ({ product: { id, imageUrl, name, price, school }, quantity, size }) => ({
-      isPayed: false,
-      isDelivered: false,
       product: { id, imageUrl, name, price, school },
       quantity,
       size
@@ -129,9 +127,14 @@ function CartDetails() {
           buttonCta={{
             text: 'Confirmar creación',
             handler: async () => {
-              const response = await addDbDocument({ orderedProducts });
+              // @todo: Create a try/catch and render an error modal in case of error
+              const response = await addDbDocument({
+                orderedProducts,
+                isPayed: false,
+                isDelivered: false
+              });
+              setCartEmpty();
               router.replace({ pathname: PATHS.ORDER, query: { id: response.id } });
-              // @todo: Empty local storage cart here
             }
           }}
         />

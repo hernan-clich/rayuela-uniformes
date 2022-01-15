@@ -13,6 +13,7 @@ function useCart(productId = ''): {
   setCurrentProductQuantity: (action: 'incr' | 'decr' | number, currentSize: TProductSizes) => void;
   setNewItem: (item: TItem) => void;
   deleteItem: (itemId: string) => void;
+  setCartEmpty: () => void;
 } {
   const [localStorageCart, setLocalStorageCart] = useLocalStorage<TItem[]>('cart', []);
   const [itemsCount, setItemsCount] = useState(0);
@@ -36,6 +37,7 @@ function useCart(productId = ''): {
   const setNewItem = (item: TItem) => setLocalStorageCart([...localStorageCart, item]);
   const deleteItem = (itemId: string) =>
     setLocalStorageCart(localStorageCart.filter((item) => item?.id !== itemId));
+  const setCartEmpty = () => setLocalStorageCart([]);
   const setCurrentProductQuantity = (
     action: 'incr' | 'decr' | number,
     currentSize: TProductSizes
@@ -60,12 +62,13 @@ function useCart(productId = ''): {
   };
 
   return {
-    currentProductInCart,
     checkIfItemIsInCart,
+    currentProductInCart,
     deleteItem,
     isCartEmpty,
-    localStorageCart,
     itemsCount,
+    localStorageCart,
+    setCartEmpty,
     setCurrentProductQuantity,
     setNewItem,
     totalCartAmt
