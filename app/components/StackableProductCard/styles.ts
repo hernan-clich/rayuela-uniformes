@@ -6,7 +6,7 @@ type Props = {
   readonly $isFirstItem?: boolean;
 };
 
-export const CartCardContainer = styled.div<Props>`
+export const StackableProductCardContainer = styled.div<Props>`
   border-bottom: 1px solid ${PORCELAIN};
   border-top: ${({ $isFirstItem }) => $isFirstItem && `1px solid ${PORCELAIN}`};
   display: flex;
@@ -46,6 +46,10 @@ export const CartCardContainer = styled.div<Props>`
 
       span:nth-of-type(1) {
         padding-bottom: calc(${SECONDARY_SPACING_EM} - 8px);
+      }
+
+      .orderQuantity {
+        margin-top: 8px;
       }
     }
   }

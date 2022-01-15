@@ -2,7 +2,7 @@ import { TProduct, TProductSizes } from './product';
 
 export type TItem = {
   id: string;
-  product: TProduct;
+  product: Omit<TProduct, 'stockBySize'>;
   quantity: number;
   size: TProductSizes;
 };

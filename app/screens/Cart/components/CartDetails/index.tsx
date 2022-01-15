@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
+import StackableProductCard from '~components/StackableProductCard';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import GoogleButton from '~components/GoogleButton';
@@ -12,7 +13,6 @@ import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
 import { TItem } from '~types/item';
 import { TOrderedProducts } from '~types/order';
-import CartCard from '../CartCard';
 import * as Styled from './styles';
 
 function CartDetails() {
@@ -88,7 +88,7 @@ function CartDetails() {
         </div>
         {storedItems &&
           storedItems.map((item, i) => (
-            <CartCard key={item.id} item={item} $isFirstItem={i === 0} />
+            <StackableProductCard key={item.id} item={item} $isFirstItem={i === 0} />
           ))}
       </div>
 
