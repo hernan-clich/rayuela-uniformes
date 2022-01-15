@@ -6,7 +6,7 @@ import { EDbCollections, TDbCollections } from '~types/db';
 function useDbSnapshot<T extends { id: string }>(
   collectionName: TDbCollections,
   docId?: string
-): [T[]] {
+): T[] {
   const [data, setData] = useState<T[]>([]);
   const colRef = collection(db, EDbCollections[collectionName]);
   const dbQuery = docId ? query(colRef, where(documentId(), '==', docId)) : query(colRef);
@@ -20,7 +20,7 @@ function useDbSnapshot<T extends { id: string }>(
     []
   );
 
-  return [data];
+  return data;
 }
 
 export default useDbSnapshot;

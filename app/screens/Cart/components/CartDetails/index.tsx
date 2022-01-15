@@ -131,6 +131,7 @@ function CartDetails() {
             handler: async () => {
               const response = await addDbDocument({ orderedProducts });
               router.replace({ pathname: PATHS.ORDER, query: { id: response.id } });
+              // @todo: Empty local storage cart here
             }
           }}
         />

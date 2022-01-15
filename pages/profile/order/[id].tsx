@@ -1,6 +1,3 @@
-// @todo: Do something nicer here...
-const OrderId = () => {
-  return 'orderId';
-};
+import OrderDetails from '~screens/OrderDetails';
 
-export default OrderId;
+export default OrderDetails;

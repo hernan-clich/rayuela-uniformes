@@ -4,7 +4,7 @@ import ProductCard from '../ProductCard';
 import * as Styled from './styles';
 
 function ProductGrid() {
-  const [productList] = useDbSnapshot<TProduct>('products');
+  const productList = useDbSnapshot<TProduct>('products');
   return (
     <Styled.ProductGridContainer>
       {productList.map((product) => (
