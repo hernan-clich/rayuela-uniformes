@@ -1,5 +1,5 @@
 import PublicLayout from '~components/PublicLayout';
-import ProfileContent from './components';
+import ProfileContent from './components/ProfileContent';
 
 function Profile() {
   return (
