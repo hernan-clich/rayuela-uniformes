@@ -11,10 +11,12 @@ import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { useState } from 'react';
 import { db, storage } from '~config/firebase/client';
 import { EDbCollections, TDbCollections } from '~types/db';
+import { TOrder } from '~types/order';
 import { TProduct } from '~types/product';
 
 type TStorageProduct = Omit<TProduct, 'id' | 'imageUrl'>;
-type TAllowedNewDocs = TProduct | TStorageProduct;
+type TOrderOmmitingId = Omit<TOrder, 'id'>;
+type TAllowedNewDocs = TProduct | TStorageProduct | TOrderOmmitingId;
 
 function useDbCrud(collectionName: TDbCollections): {
   addDbDocument: (newDocument: TAllowedNewDocs) => void;

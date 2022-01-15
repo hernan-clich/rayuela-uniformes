@@ -6,18 +6,29 @@ import Modal from '~components/Modal';
 import ModalBody from '~components/ModalBody';
 import { useAuth } from '~hooks/useAuth';
 import useCart from '~hooks/useCart';
+import useDbCrud from '~hooks/useDbCrud';
+import { EDbCollections } from '~types/db';
 import { TItem } from '~types/item';
+import { TOrderedProducts } from '~types/order';
 import CartCard from '../CartCard';
 import * as Styled from './styles';
 
 function CartDetails() {
   const { isAuthenticated, signInWithGoogle } = useAuth();
+  const { addDbDocument } = useDbCrud(EDbCollections.orders);
 
   const { localStorageCart, itemsCount, totalCartAmt } = useCart();
   const parsedTotalCartAmt = `$ ${totalCartAmt.toLocaleString('de-DE')}`;
   const [storedItems, setStoredItems] = useState<TItem[]>([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCreateOrderModal, setShowCreateOrderModal] = useState(false);
+  const orderedProducts: TOrderedProducts[] = localStorageCart?.map(
+    ({ product: { id, imageUrl, name, price, school }, quantity, size }) => ({
+      product: { id, imageUrl, name, price, school },
+      quantity,
+      size
+    })
+  );
 
   // I had to resort to this in order to avoid the following error
   // Warning: Expected server HTML to contain a matching <div> in <div>.
@@ -112,7 +123,15 @@ function CartDetails() {
           closeCta={{ text: 'Volver al carrito', handler: () => setShowCreateOrderModal(false) }}
           buttonCta={{
             text: 'Confirmar creación',
-            handler: () => console.log('\x1b[35m%s\x1b[0m', 'ORDEN CREADA!!!!')
+            handler: () => {
+              try {
+                addDbDocument({ orderedProducts });
+                // @todo: Redirect to the corresponding order page here, order/[id]
+              } catch (e) {
+                // eslint-disable-next-line no-console
+                console.error(e);
+              }
+            }
           }}
         />
       </Modal>

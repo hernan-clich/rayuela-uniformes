@@ -1,4 +1,5 @@
 export enum EDbCollections {
+  orders = 'orders',
   products = 'products'
 }
 
