@@ -5,6 +5,7 @@ import CustomText from '~components/CustomText';
 import GoogleButton from '~components/GoogleButton';
 import Modal from '~components/Modal';
 import ModalBody from '~components/ModalBody';
+import PATHS from '~constants/paths';
 import { useAuth } from '~hooks/useAuth';
 import useCart from '~hooks/useCart';
 import useDbCrud from '~hooks/useDbCrud';
@@ -26,6 +27,8 @@ function CartDetails() {
   const [showCreateOrderModal, setShowCreateOrderModal] = useState(false);
   const orderedProducts: TOrderedProducts[] = localStorageCart?.map(
     ({ product: { id, imageUrl, name, price, school }, quantity, size }) => ({
+      isPayed: false,
+      isDelivered: false,
       product: { id, imageUrl, name, price, school },
       quantity,
       size
@@ -127,7 +130,7 @@ function CartDetails() {
             text: 'Confirmar creación',
             handler: async () => {
               const response = await addDbDocument({ orderedProducts });
-              router.push(`/profile/order/${response.id}`);
+              router.replace({ pathname: PATHS.ORDER, query: { id: response.id } });
             }
           }}
         />

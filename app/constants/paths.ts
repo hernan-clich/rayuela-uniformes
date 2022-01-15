@@ -8,7 +8,9 @@ const PATHS = {
   CART: '/cart',
   HOME: '/',
   PRODUCTS: '/products',
-  PRODUCT_DETAILS: '/product/[slug]'
+  PRODUCT_DETAILS: '/product/[slug]',
+  PROFILE: '/profile',
+  ORDER: '/profile/order/[id]'
 } as const;
 
 export default PATHS;
