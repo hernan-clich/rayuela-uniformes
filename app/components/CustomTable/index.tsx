@@ -42,7 +42,13 @@ function CustomTable({
       <header className="tableHeader">
         {columnHeaders.map(({ propertyName, displayName }) => (
           <div key={propertyName} className="tableTd">
-            <CustomText as="span" size="xsmall" weight="bold">
+            <CustomText
+              as="span"
+              size="xsmall"
+              weight="bold"
+              textTransform="uppercase"
+              className="headerItem"
+            >
               {displayName}
             </CustomText>
           </div>

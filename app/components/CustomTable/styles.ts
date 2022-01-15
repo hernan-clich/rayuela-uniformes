@@ -5,18 +5,18 @@ import { SECONDARY_SPACING_EM } from '~styles/variables';
 export const CustomTableContainer = styled.div<{ fieldsLength: number }>`
   .tableHeader,
   .tableBody {
-    background-color: ${ALABASTER};
-    box-shadow: 0px 0px 5px 0px ${SILVER};
-    border-radius: ${SECONDARY_SPACING_EM};
     display: flex;
-    padding: ${SECONDARY_SPACING_EM};
     text-align: center;
     width: 100%;
   }
 
   .tableHeader {
     justify-content: space-around;
-    margin-bottom: ${SECONDARY_SPACING_EM};
+    padding: 12px;
+
+    .headerItem {
+      opacity: 0.6;
+    }
   }
 
   .tableBody {
@@ -35,11 +35,15 @@ export const CustomTableContainer = styled.div<{ fieldsLength: number }>`
 
 export const TableRowContainer = styled.div<{ isLastRow: boolean }>`
   align-items: center;
+  background-color: ${ALABASTER};
   border-bottom: ${({ isLastRow }) => !isLastRow && `1px solid ${PORCELAIN}`};
+  border-radius: 8px;
+  box-shadow: 0px 0px 2px 0px ${SILVER};
   display: flex;
   flex-flow: row nowrap;
-  max-height: 4em;
   justify-content: space-around;
+  margin-bottom: 6px;
+  max-height: 4em;
   overflow: hidden;
   padding: ${SECONDARY_SPACING_EM} 0;
   width: 100%;
