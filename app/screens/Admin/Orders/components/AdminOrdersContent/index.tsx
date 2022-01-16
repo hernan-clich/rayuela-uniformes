@@ -1,5 +1,6 @@
 import CustomTable from '~components/CustomTable';
 import CustomText from '~components/CustomText';
+import Loading from '~components/Loading';
 import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TOrder } from '~types/order';
 import * as Styled from './styles';
@@ -48,6 +49,8 @@ function AdminOrdersContent() {
       ]
     })
   );
+
+  if (!data?.length) return <Loading />;
 
   return (
     <Styled.AdminOrdersContentContainer>

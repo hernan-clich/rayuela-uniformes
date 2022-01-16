@@ -73,7 +73,6 @@ function DetailsCard() {
             setCurrentSize={setCurrentSize}
             sizesArray={sizesArray}
           />
-          {/* @todo: Let's disable this button when the product is out of stock  */}
           <CustomButton
             size="small"
             weight="regular"

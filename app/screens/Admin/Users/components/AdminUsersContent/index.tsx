@@ -1,5 +1,6 @@
 import CustomTable from '~components/CustomTable';
 import CustomText from '~components/CustomText';
+import Loading from '~components/Loading';
 import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TUser } from '~types/user';
 import * as Styled from './styles';
@@ -36,6 +37,8 @@ function AdminUsersContent() {
     isAdmin,
     textFields: [id, name, joinedSince]
   }));
+
+  if (!data?.length) return <Loading />;
 
   return (
     <Styled.AdminUsersContentContainer>

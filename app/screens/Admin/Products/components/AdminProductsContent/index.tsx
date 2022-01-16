@@ -2,6 +2,7 @@ import Link from 'next/link';
 import CustomButton from '~components/CustomButton';
 import CustomTable from '~components/CustomTable';
 import CustomText from '~components/CustomText';
+import Loading from '~components/Loading';
 import PATHS from '~constants/paths';
 import { ESchools } from '~constants/schools';
 import useDbSnapshot from '~hooks/useDbSnapshot';
@@ -43,6 +44,8 @@ function AdminProductsContent() {
     stockBySize: data.stockBySize,
     textFields: [data.name, data.price, ESchools[data.school]]
   }));
+
+  if (!data?.length) return <Loading />;
 
   return (
     <Styled.AdminProductsContentContainer>
