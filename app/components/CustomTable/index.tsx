@@ -9,6 +9,7 @@ import ModalBody from '~components/ModalBody';
 import PATHS from '~constants/paths';
 import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
+import { TOrder } from '~types/order';
 import { TProduct } from '~types/product';
 import { grantAdminRole } from './helpers';
 import * as Styled from './styles';
@@ -16,6 +17,7 @@ import { CustomTableProps } from './types';
 
 function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTableProps) {
   const { deleteDbDocument } = useDbCrud(EDbCollections.products);
+  const { updateDbDocument } = useDbCrud(EDbCollections.orders);
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showDeletionConfirmedModal, setShowDeletionConfirmedModal] = useState(false);
@@ -79,14 +81,30 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
                 <div className="tableTd">
                   <div className={clsx('chip', { red: !body?.isPayed, green: body?.isPayed })}>
                     <CustomText as="span" size="xsmall" weight="regular">
-                      <button type="button">{body?.isPayed ? 'Pagado' : 'Pendiente'}</button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          updateDbDocument<TOrder>(body.id, { isPayed: !body.isPayed });
+                        }}
+                      >
+                        {body?.isPayed ? 'Pagado' : 'Pendiente'}
+                      </button>
                     </CustomText>
                   </div>
                 </div>
                 <div className="tableTd">
-                  <div className={clsx('chip', { red: !body?.isPayed, green: body?.isPayed })}>
+                  <div
+                    className={clsx('chip', { red: !body?.isDelivered, green: body?.isDelivered })}
+                  >
                     <CustomText as="span" size="xsmall" weight="bold">
-                      <button type="button">{body?.isDelivered ? 'Entregado' : 'Pendiente'}</button>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          updateDbDocument<TOrder>(body.id, { isDelivered: !body.isDelivered });
+                        }}
+                      >
+                        {body?.isDelivered ? 'Entregado' : 'Pendiente'}
+                      </button>
                     </CustomText>
                   </div>
                 </div>
