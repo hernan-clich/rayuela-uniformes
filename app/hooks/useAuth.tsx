@@ -41,12 +41,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const provider = new GoogleAuthProvider();
       const signIn = await signInWithPopup(auth, provider);
-      console.log('\x1b[35m%s\x1b[0m', 'signIn: ', signIn);
       const dbUser = getDbDocument<TUser>(signIn.user.uid);
-      console.log('\x1b[35m%s\x1b[0m', 'dbUser: ', dbUser);
 
       if (!dbUser) {
         addDbDocumentWithCustomId(signIn.user.uid, {
+          imageUrl: signIn.user.photoURL as string,
           joinedSince: new Date().toISOString(),
           name: signIn.user.displayName as string,
           uid: signIn.user.uid as string

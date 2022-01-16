@@ -21,7 +21,8 @@ import { TUser } from '~types/user';
 
 type TStorageProduct = Omit<TProduct, 'id' | 'imageUrl'>;
 type TOrderOmmitingId = Omit<TOrder, 'id'>;
-type TAllowedNewDocs = TProduct | TStorageProduct | TOrderOmmitingId | TUser;
+type TUserOmmitingId = Omit<TUser, 'id'>;
+type TAllowedNewDocs = TProduct | TStorageProduct | TOrderOmmitingId | TUserOmmitingId;
 
 function useDbCrud(collectionName: TDbCollections): {
   addDbDocument: (newDocument: TAllowedNewDocs) => Promise<DocumentReference<DocumentData>>;

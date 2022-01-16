@@ -1,9 +1,10 @@
 import PrivateLayout from '~components/PrivateLayout';
+import AdminUsersContent from './components/AdminUsersContent';
 
 function AdminUsers() {
   return (
     <PrivateLayout>
-      <h1>Admin users</h1>
+      <AdminUsersContent />
     </PrivateLayout>
   );
 }

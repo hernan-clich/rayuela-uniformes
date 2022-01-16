@@ -11,6 +11,7 @@ import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
 import { TOrder } from '~types/order';
 import { TProduct } from '~types/product';
+import { TUser } from '~types/user';
 import * as Styled from './styles';
 
 type TTextFields = { textFields: (string | number)[] };
@@ -18,10 +19,16 @@ type TProductTableContent = TTextFields &
   Pick<TProduct, 'imageUrl' | 'id' | 'stockBySize'> & { isDelivered?: never; isPayed?: never };
 type TOrderTableContent = TTextFields &
   Pick<TOrder, 'id' | 'isDelivered' | 'isPayed'> & { imageUrl?: never; stockBySize?: never };
+type TUserTableContent = TTextFields &
+  Pick<TUser, 'id' | 'imageUrl'> & {
+    stockBySize?: never;
+    isDelivered?: never;
+    isPayed?: never;
+  };
 
 type Props = {
   columnHeaders: { propertyName: string; displayName: string }[];
-  tableContent: (TProductTableContent | TOrderTableContent)[];
+  tableContent: (TProductTableContent | TOrderTableContent | TUserTableContent)[];
   rowActions?: {
     delete: boolean;
     edit: boolean;
