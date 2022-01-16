@@ -16,15 +16,38 @@ const COLUMN_HEADERS = [
   {
     displayName: 'Fecha',
     propertyName: 'createdAt'
+  },
+  {
+    displayName: 'Monto',
+    propertyName: 'totalOrderAmt'
+  },
+  {
+    displayName: 'Pago',
+    propertyName: 'isPayed'
+  },
+  {
+    displayName: 'Entrega',
+    propertyName: 'isDelivered'
   }
 ];
 
 function AdminOrdersContent() {
   const data = useDbSnapshot<TOrder>('orders');
-  const tableContent = data?.map(({ buyerName, createdAt, id }) => ({
-    id,
-    textFields: [id, buyerName, createdAt]
-  }));
+  const tableContent = data?.map(
+    ({ buyerName, createdAt, id, isDelivered, isPayed, orderedProducts }) => ({
+      id,
+      isDelivered,
+      isPayed,
+      textFields: [
+        id,
+        buyerName,
+        createdAt,
+        `$ ${orderedProducts
+          .reduce((acc, order) => acc + order.product.price * order.quantity, 0)
+          .toLocaleString('es-AR')}`
+      ]
+    })
+  );
 
   return (
     <Styled.AdminOrdersContentContainer>

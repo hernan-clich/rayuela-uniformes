@@ -58,7 +58,7 @@ function DetailsCard() {
             {currentProduct?.name || ''}
           </CustomText>
           <CustomText as="h2" size="big" weight="bold" className="price">
-            {currentProduct ? `$ ${currentProduct?.price.toLocaleString('de-DE')}` : ''}
+            {currentProduct ? `$ ${currentProduct?.price.toLocaleString('es-AR')}` : ''}
           </CustomText>
           <QuantityCounter
             quantity={quantity}

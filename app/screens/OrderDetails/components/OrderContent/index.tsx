@@ -17,7 +17,7 @@ function OrderContent() {
     (acc, order) => acc + order.product.price * order.quantity,
     0
   );
-  const parsedTotalCartAmt = `$ ${totalCartAmt?.toLocaleString('de-DE')}`;
+  const parsedTotalCartAmt = `$ ${totalCartAmt?.toLocaleString('es-AR')}`;
 
   return (
     <Styled.OrderDetailsContainer>

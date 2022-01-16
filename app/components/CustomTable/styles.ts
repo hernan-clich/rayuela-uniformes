@@ -12,7 +12,7 @@ export const CustomTableContainer = styled.div<{ fieldsLength: number }>`
 
   .tableHeader {
     justify-content: space-around;
-    padding: 12px;
+    padding: 12px 0;
 
     .headerItem {
       opacity: 0.6;
@@ -24,6 +24,9 @@ export const CustomTableContainer = styled.div<{ fieldsLength: number }>`
   }
 
   .tableTd {
+    align-items: center;
+    display: flex;
+    justify-content: center;
     width: ${({ fieldsLength }) => `calc(100% / ${fieldsLength})`};
   }
 
@@ -56,24 +59,27 @@ export const TableRowContainer = styled.div<{ isLastRow: boolean }>`
   .sizesContainer {
     display: flex;
     flex-flow: row wrap;
+  }
 
-    .size {
-      background-color: ${PRUSSIAN_BLUE};
-      border-radius: 5px;
-      margin: 0.3em;
-      padding: 0 0.3em;
+  .chip {
+    background-color: ${PRUSSIAN_BLUE};
+    border-radius: 5px;
+    margin: 0.3em;
+    padding: 0 0.3em;
+    width: fit-content;
 
-      span {
-        color: ${PORCELAIN};
-      }
+    span,
+    button {
+      color: ${PORCELAIN};
+      font-weight: bold;
     }
+  }
 
-    .green {
-      background-color: ${GREEN_HAZE};
-    }
+  .green {
+    background-color: ${GREEN_HAZE};
+  }
 
-    .red {
-      background-color: ${MONZA};
-    }
+  .red {
+    background-color: ${MONZA};
   }
 `;

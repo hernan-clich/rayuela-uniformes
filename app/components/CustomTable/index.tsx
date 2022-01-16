@@ -14,9 +14,10 @@ import { TProduct } from '~types/product';
 import * as Styled from './styles';
 
 type TTextFields = { textFields: (string | number)[] };
-type TProductTableContent = TTextFields & Pick<TProduct, 'imageUrl' | 'id' | 'stockBySize'>;
+type TProductTableContent = TTextFields &
+  Pick<TProduct, 'imageUrl' | 'id' | 'stockBySize'> & { isDelivered?: never; isPayed?: never };
 type TOrderTableContent = TTextFields &
-  Pick<TOrder, 'id'> & { imageUrl?: never; stockBySize?: never };
+  Pick<TOrder, 'id' | 'isDelivered' | 'isPayed'> & { imageUrl?: never; stockBySize?: never };
 
 type Props = {
   columnHeaders: { propertyName: string; displayName: string }[];
@@ -74,7 +75,7 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: Props) {
                   {stockBySizeData[i].map(([size, hasStock]) => (
                     <div
                       key={size}
-                      className={clsx('size', {
+                      className={clsx('chip', {
                         red: !hasStock,
                         green: hasStock
                       })}
@@ -86,6 +87,24 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: Props) {
                   ))}
                 </div>
               </div>
+            )}
+            {body?.isDelivered !== undefined && body?.isPayed !== undefined && (
+              <>
+                <div className="tableTd">
+                  <div className={clsx('chip', { red: !body?.isPayed, green: body?.isPayed })}>
+                    <CustomText as="span" size="xsmall" weight="regular">
+                      <button type="button">{body?.isPayed ? 'Pagado' : 'Pendiente'}</button>
+                    </CustomText>
+                  </div>
+                </div>
+                <div className="tableTd">
+                  <div className={clsx('chip', { red: !body?.isPayed, green: body?.isPayed })}>
+                    <CustomText as="span" size="xsmall" weight="bold">
+                      <button type="button">{body?.isDelivered ? 'Entregado' : 'Pendiente'}</button>
+                    </CustomText>
+                  </div>
+                </div>
+              </>
             )}
             {rowActions && (
               <div className="tableTd">

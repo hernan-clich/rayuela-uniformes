@@ -55,7 +55,7 @@ function StackableProductCard({ $isFirstItem, item, isOrder = false }: Props) {
           </div>
           <div className="topRight">
             <CustomText as="span" size="regular" weight="bold" textTransform="uppercase">
-              {`$ ${(item?.product?.price * item?.quantity).toLocaleString('de-DE')}`}
+              {`$ ${(item?.product?.price * item?.quantity).toLocaleString('es-AR')}`}
             </CustomText>
           </div>
         </div>

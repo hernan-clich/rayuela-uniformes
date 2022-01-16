@@ -21,7 +21,7 @@ function CartDetails() {
   const { addDbDocument, timestamp } = useDbCrud(EDbCollections.orders);
 
   const { isCartEmpty, itemsCount, localStorageCart, setCartEmpty, totalCartAmt } = useCart();
-  const parsedTotalCartAmt = `$ ${totalCartAmt.toLocaleString('de-DE')}`;
+  const parsedTotalCartAmt = `$ ${totalCartAmt.toLocaleString('es-AR')}`;
   const [storedItems, setStoredItems] = useState<TItem[]>([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCreateOrderModal, setShowCreateOrderModal] = useState(false);
