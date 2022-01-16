@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
+import Loading from '~components/Loading';
 import QuantityCounter from '~components/QuantityCounter';
 import useCart from '~hooks/useCart';
 import useDbSnapshot from '~hooks/useDbSnapshot';
@@ -45,6 +46,8 @@ function DetailsCard() {
       setCurrentProductQuantity(currentProductInCart?.quantity + quantity, currentSize);
     }
   };
+
+  if (!currentProduct) return <Loading />;
 
   return (
     <Styled.DetailsCardContainer>
