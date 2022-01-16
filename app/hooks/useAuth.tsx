@@ -1,5 +1,11 @@
 import cookies from 'js-cookie';
-import { GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
+import {
+  GoogleAuthProvider,
+  getAdditionalUserInfo,
+  onIdTokenChanged,
+  signInWithPopup,
+  signOut
+} from 'firebase/auth';
 import type { User } from 'firebase/auth';
 import { useRouter } from 'next/router';
 import { createContext, useContext, useEffect, useState } from 'react';
@@ -8,7 +14,6 @@ import PATHS from '~constants/paths';
 import { ReactNode } from 'hoist-non-react-statics/node_modules/@types/react';
 import useDbCrud from './useDbCrud';
 import { EDbCollections } from '~types/db';
-import { TUser } from '~types/user';
 
 interface IAuthContext {
   isAuthenticated: boolean;
@@ -30,7 +35,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const router = useRouter();
-  const { addDbDocumentWithCustomId, getDbDocument } = useDbCrud(EDbCollections.users);
+  const { addDbDocumentWithCustomId } = useDbCrud(EDbCollections.users);
 
   const setTokenCookie = (token: string) => {
     cookies.set('token', token, {
@@ -44,9 +49,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     try {
       const provider = new GoogleAuthProvider();
       const signIn = await signInWithPopup(auth, provider);
-      const dbUser = getDbDocument<TUser>(signIn.user.uid);
+      const additionalInfo = getAdditionalUserInfo(signIn);
 
-      if (!dbUser) {
+      if (additionalInfo?.isNewUser) {
         addDbDocumentWithCustomId(signIn.user.uid, {
           email: signIn.user.email as string,
           imageUrl: signIn.user.photoURL as string,
