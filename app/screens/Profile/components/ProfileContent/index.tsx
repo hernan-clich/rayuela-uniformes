@@ -15,11 +15,12 @@ function ProfileContent() {
           <CustomText as="h2" size="big" weight="bold">
             {user?.displayName}
           </CustomText>
-          {/* @todo: Put real join date here */}
-          <CustomText as="h3" size="small" weight="regular">
-            {`Miembro desde: ${new Date().toLocaleDateString('DE-de')}`}
+          <CustomText as="h3" size="small" weight="regular" className="memberSince">
+            {`Miembro desde: ${new Date(user?.metadata?.creationTime as string).toLocaleDateString(
+              'es-AR'
+            )}`}
           </CustomText>
-          <GoogleButton handleClick={logout}>Logout</GoogleButton>
+          <GoogleButton handleClick={logout}>Cerrar sesión</GoogleButton>
         </div>
       ) : (
         <GoogleButton handleClick={signInWithGoogle}>Log in</GoogleButton>

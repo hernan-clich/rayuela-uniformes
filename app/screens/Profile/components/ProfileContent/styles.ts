@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { SILVER } from '~styles/colors';
-import { SECONDARY_SPACING_EM } from '~styles/variables';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 
 export const ProfileContentContainer = styled.div`
   display: flex;
@@ -8,6 +8,7 @@ export const ProfileContentContainer = styled.div`
   padding: 0 0 4em;
 
   .headingContainer {
+    align-items: center;
     box-shadow: 0px 1px 4px 0px ${SILVER};
     display: flex;
     flex-flow: column nowrap;
@@ -20,5 +21,9 @@ export const ProfileContentContainer = styled.div`
     margin: 0 auto ${SECONDARY_SPACING_EM};
     max-width: 200px;
     width: 180px;
+  }
+
+  .memberSince {
+    margin: 8px 0 ${PRIMARY_SPACING_EM};
   }
 `;
