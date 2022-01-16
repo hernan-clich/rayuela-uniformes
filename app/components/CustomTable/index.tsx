@@ -9,33 +9,12 @@ import ModalBody from '~components/ModalBody';
 import PATHS from '~constants/paths';
 import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
-import { TOrder } from '~types/order';
 import { TProduct } from '~types/product';
-import { TUser } from '~types/user';
+import { grantAdminRole } from './helpers';
 import * as Styled from './styles';
+import { CustomTableProps } from './types';
 
-type TTextFields = { textFields: (string | number)[] };
-type TProductTableContent = TTextFields &
-  Pick<TProduct, 'imageUrl' | 'id' | 'stockBySize'> & { isDelivered?: never; isPayed?: never };
-type TOrderTableContent = TTextFields &
-  Pick<TOrder, 'id' | 'isDelivered' | 'isPayed'> & { imageUrl?: never; stockBySize?: never };
-type TUserTableContent = TTextFields &
-  Pick<TUser, 'id' | 'imageUrl'> & {
-    stockBySize?: never;
-    isDelivered?: never;
-    isPayed?: never;
-  };
-
-type Props = {
-  columnHeaders: { propertyName: string; displayName: string }[];
-  tableContent: (TProductTableContent | TOrderTableContent | TUserTableContent)[];
-  rowActions?: {
-    delete: boolean;
-    edit: boolean;
-  };
-};
-
-function CustomTable({ columnHeaders, tableContent, rowActions }: Props) {
+function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTableProps) {
   const { deleteDbDocument } = useDbCrud(EDbCollections.products);
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
@@ -108,6 +87,24 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: Props) {
                   <div className={clsx('chip', { red: !body?.isPayed, green: body?.isPayed })}>
                     <CustomText as="span" size="xsmall" weight="bold">
                       <button type="button">{body?.isDelivered ? 'Entregado' : 'Pendiente'}</button>
+                    </CustomText>
+                  </div>
+                </div>
+              </>
+            )}
+            {body?.isAdmin !== undefined && (
+              <>
+                <div className="tableTd">
+                  <div className={clsx('chip', { red: !body?.isAdmin, green: body?.isAdmin })}>
+                    <CustomText as="span" size="xsmall" weight="regular">
+                      <button
+                        type="button"
+                        onClick={() =>
+                          grantAdminRole({ email: body.email, adminStatus: !body.isAdmin })
+                        }
+                      >
+                        {body?.isAdmin ? 'Admin' : 'Usuario'}
+                      </button>
                     </CustomText>
                   </div>
                 </div>

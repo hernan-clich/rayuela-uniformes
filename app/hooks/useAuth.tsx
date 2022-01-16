@@ -50,6 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         addDbDocumentWithCustomId(signIn.user.uid, {
           email: signIn.user.email as string,
           imageUrl: signIn.user.photoURL as string,
+          isAdmin: false,
           joinedSince: new Date().toISOString(),
           name: signIn.user.displayName as string,
           uid: signIn.user.uid as string

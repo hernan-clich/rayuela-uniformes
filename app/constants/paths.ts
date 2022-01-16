@@ -12,4 +12,8 @@ const PATHS = {
   ORDER: '/profile/order/[id]'
 } as const;
 
+export const API_ROUTES = {
+  GRANT_ADMIN_ROLE: '/api/grant-admin-role'
+} as const;
+
 export default PATHS;
