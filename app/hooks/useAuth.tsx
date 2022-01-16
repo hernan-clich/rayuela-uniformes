@@ -45,7 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const removeTokenCookie = () => cookies.remove('token');
 
-  const signInWithGoogle = async (shouldRedirectAfterSucces = true) => {
+  const signInWithGoogle = async (shouldRedirectAfterSuccess = true) => {
     try {
       const provider = new GoogleAuthProvider();
       const signIn = await signInWithPopup(auth, provider);
@@ -62,7 +62,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         });
       }
 
-      shouldRedirectAfterSucces && router.push(PATHS.HOME);
+      shouldRedirectAfterSuccess && router.push(PATHS.HOME);
     } catch (e) {
       // eslint-disable-next-line no-console
       console.error(e);
