@@ -12,6 +12,7 @@ import { TUser } from '~types/user';
 
 interface IAuthContext {
   isAuthenticated: boolean;
+  isAdmin: boolean;
   logout: () => void;
   signInWithGoogle: (shouldRedirectAfterSucces?: boolean) => void;
   user: User | null;
@@ -19,6 +20,7 @@ interface IAuthContext {
 
 const AuthContext = createContext<IAuthContext>({
   isAuthenticated: false,
+  isAdmin: false,
   logout: () => null,
   signInWithGoogle: () => null,
   user: null
@@ -26,6 +28,7 @@ const AuthContext = createContext<IAuthContext>({
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [isAdmin, setIsAdmin] = useState<boolean>(false);
   const router = useRouter();
   const { addDbDocumentWithCustomId, getDbDocument } = useDbCrud(EDbCollections.users);
 
@@ -45,6 +48,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (!dbUser) {
         addDbDocumentWithCustomId(signIn.user.uid, {
+          email: signIn.user.email as string,
           imageUrl: signIn.user.photoURL as string,
           joinedSince: new Date().toISOString(),
           name: signIn.user.displayName as string,
@@ -73,11 +77,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const cancelAuthListener = onIdTokenChanged(auth, async (user) => {
       if (user) {
         const token = await user.getIdToken();
+        const idTokenResult = await user?.getIdTokenResult();
+
         setTokenCookie(token);
         setUser(user);
+        setIsAdmin(Boolean(idTokenResult?.claims?.isAdmin));
       } else {
         removeTokenCookie();
         setUser(null);
+        setIsAdmin(false);
       }
     });
 
@@ -87,7 +95,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ user, isAuthenticated: !!user, logout, signInWithGoogle }}>
+    <AuthContext.Provider
+      value={{ user, isAdmin, isAuthenticated: !!user, logout, signInWithGoogle }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -1,5 +1,6 @@
 import CustomTable from '~components/CustomTable';
 import CustomText from '~components/CustomText';
+import { useAuth } from '~hooks/useAuth';
 import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TUser } from '~types/user';
 import * as Styled from './styles';
@@ -30,6 +31,17 @@ function AdminUsersContent() {
     imageUrl,
     textFields: [id, name, joinedSince]
   }));
+  const { user } = useAuth();
+
+  // @todo: This obviously doesn't belong here, make admins in the proper place
+  const handleClick = async (req: { email: string }) => {
+    const response = await fetch('/api/set-admin-role', {
+      method: 'POST',
+      body: JSON.stringify(req)
+    });
+    const data = await response.json();
+    return data;
+  };
 
   return (
     <Styled.AdminUsersContentContainer>
@@ -37,6 +49,17 @@ function AdminUsersContent() {
         <CustomText size="regular" weight="bold">
           Usuarios
         </CustomText>
+        {/* @todo: Remove this stuff */}
+        <button
+          type="button"
+          onClick={() =>
+            handleClick({
+              email: user?.email as string
+            })
+          }
+        >
+          Make admin
+        </button>
       </div>
       <CustomTable columnHeaders={COLUMN_HEADERS} tableContent={tableContent} />
     </Styled.AdminUsersContentContainer>
