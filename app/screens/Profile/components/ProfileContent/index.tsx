@@ -1,9 +1,10 @@
 import CustomText from '~components/CustomText';
+import GoogleButton from '~components/GoogleButton';
 import { useAuth } from '~hooks/useAuth';
 import * as Styled from './styles';
 
 function ProfileContent() {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, signInWithGoogle, logout, user } = useAuth();
 
   return (
     <Styled.ProfileContentContainer>
@@ -18,11 +19,10 @@ function ProfileContent() {
           <CustomText as="h3" size="small" weight="regular">
             {`Miembro desde: ${new Date().toLocaleDateString('DE-de')}`}
           </CustomText>
+          <GoogleButton handleClick={logout}>Logout</GoogleButton>
         </div>
       ) : (
-        <CustomText as="span" size="big" weight="bold">
-          unauth
-        </CustomText>
+        <GoogleButton handleClick={signInWithGoogle}>Log in</GoogleButton>
       )}
     </Styled.ProfileContentContainer>
   );

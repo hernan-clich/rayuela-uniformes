@@ -8,6 +8,7 @@ import {
   FieldValue,
   getDoc,
   serverTimestamp,
+  setDoc,
   updateDoc
 } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
@@ -16,13 +17,15 @@ import { db, storage } from '~config/firebase/client';
 import { EDbCollections, TDbCollections } from '~types/db';
 import { TOrder } from '~types/order';
 import { TProduct } from '~types/product';
+import { TUser } from '~types/user';
 
 type TStorageProduct = Omit<TProduct, 'id' | 'imageUrl'>;
 type TOrderOmmitingId = Omit<TOrder, 'id'>;
-type TAllowedNewDocs = TProduct | TStorageProduct | TOrderOmmitingId;
+type TAllowedNewDocs = TProduct | TStorageProduct | TOrderOmmitingId | TUser;
 
 function useDbCrud(collectionName: TDbCollections): {
   addDbDocument: (newDocument: TAllowedNewDocs) => Promise<DocumentReference<DocumentData>>;
+  addDbDocumentWithCustomId: (id: string, newDocument: TAllowedNewDocs) => Promise<void>;
   deleteDbDocument: (id: string) => void;
   getDbDocument: <T>(id: string) => T | undefined;
   updateDbDocument: <T>(id: string, properties: Partial<T>) => void;
@@ -45,6 +48,8 @@ function useDbCrud(collectionName: TDbCollections): {
   const colRef = collection(db, EDbCollections[collectionName]);
 
   const addDbDocument = async (newDocument: TAllowedNewDocs) => await addDoc(colRef, newDocument);
+  const addDbDocumentWithCustomId = async (id: string, newDocument: TAllowedNewDocs) =>
+    await setDoc(doc(db, collectionName, id), newDocument);
   const deleteDbDocument = (id: string) => deleteDoc(doc(db, collectionName, id));
   const getDbDocument = <T>(id: string): T => {
     const docRef = doc(db, collectionName, id);
@@ -101,6 +106,7 @@ function useDbCrud(collectionName: TDbCollections): {
 
   return {
     addDbDocument,
+    addDbDocumentWithCustomId,
     addStorageFile,
     deleteDbDocument,
     getDbDocument,

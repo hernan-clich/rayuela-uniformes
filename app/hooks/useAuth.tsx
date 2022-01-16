@@ -6,6 +6,9 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { auth } from '~config/firebase/client';
 import PATHS from '~constants/paths';
 import { ReactNode } from 'hoist-non-react-statics/node_modules/@types/react';
+import useDbCrud from './useDbCrud';
+import { EDbCollections } from '~types/db';
+import { TUser } from '~types/user';
 
 interface IAuthContext {
   isAuthenticated: boolean;
@@ -24,6 +27,7 @@ const AuthContext = createContext<IAuthContext>({
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const router = useRouter();
+  const { addDbDocumentWithCustomId, getDbDocument } = useDbCrud(EDbCollections.users);
 
   const setTokenCookie = (token: string) => {
     cookies.set('token', token, {
@@ -33,15 +37,27 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const removeTokenCookie = () => cookies.remove('token');
 
-  const signInWithGoogle = (shouldRedirectAfterSucces = true) => {
-    const provider = new GoogleAuthProvider();
-    signInWithPopup(auth, provider)
-      .then(() => {
-        shouldRedirectAfterSucces && router.push(PATHS.HOME);
-      })
-      .catch((e) => {
-        throw new Error(`Error signing in: ${e}`);
-      });
+  const signInWithGoogle = async (shouldRedirectAfterSucces = true) => {
+    try {
+      const provider = new GoogleAuthProvider();
+      const signIn = await signInWithPopup(auth, provider);
+      console.log('\x1b[35m%s\x1b[0m', 'signIn: ', signIn);
+      const dbUser = getDbDocument<TUser>(signIn.user.uid);
+      console.log('\x1b[35m%s\x1b[0m', 'dbUser: ', dbUser);
+
+      if (!dbUser) {
+        addDbDocumentWithCustomId(signIn.user.uid, {
+          joinedSince: new Date().toISOString(),
+          name: signIn.user.displayName as string,
+          uid: signIn.user.uid as string
+        });
+      }
+
+      shouldRedirectAfterSucces && router.push(PATHS.HOME);
+    } catch (e) {
+      // eslint-disable-next-line no-console
+      console.error(e);
+    }
   };
 
   const logout = () => {

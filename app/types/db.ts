@@ -1,6 +1,7 @@
 export enum EDbCollections {
   orders = 'orders',
-  products = 'products'
+  products = 'products',
+  users = 'users'
 }
 
 export type TDbCollections = keyof typeof EDbCollections;
