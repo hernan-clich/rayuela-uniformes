@@ -10,7 +10,9 @@ function OrderContent() {
   const router = useRouter();
   const orderId = router?.query?.id as string;
 
-  const [orderData] = useDbSnapshot<TOrder>('orders', orderId);
+  const {
+    data: [orderData]
+  } = useDbSnapshot<TOrder>('orders', orderId);
 
   const itemsCount = orderData?.orderedProducts?.reduce((acc, order) => acc + order.quantity, 0);
   const totalCartAmt = orderData?.orderedProducts?.reduce(

@@ -15,7 +15,9 @@ import * as Styled from './styles';
 function DetailsCard() {
   const router = useRouter();
   const { slug } = router.query;
-  const [currentProduct] = useDbSnapshot<TProduct>('products', slug as string);
+  const {
+    data: [currentProduct]
+  } = useDbSnapshot<TProduct>('products', slug as string);
   const {
     currentProductInCart,
     isCartEmpty,

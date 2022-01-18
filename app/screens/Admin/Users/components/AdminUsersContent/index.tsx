@@ -29,7 +29,7 @@ const COLUMN_HEADERS = [
 ];
 
 function AdminUsersContent() {
-  const data = useDbSnapshot<TUser>('users');
+  const { data } = useDbSnapshot<TUser>('users');
   const tableContent = data?.map(({ id, imageUrl, isAdmin, email, name, joinedSince }) => ({
     id,
     email,

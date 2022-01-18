@@ -33,7 +33,7 @@ const COLUMN_HEADERS = [
 ];
 
 function AdminOrdersContent() {
-  const data = useDbSnapshot<TOrder>('orders');
+  const { data } = useDbSnapshot<TOrder>('orders');
   const tableContent = data?.map(
     ({ buyerName, createdAt, id, isDelivered, isPayed, orderedProducts }) => ({
       id,
