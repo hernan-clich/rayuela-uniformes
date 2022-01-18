@@ -26,8 +26,8 @@ function CartDetails() {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCreateOrderModal, setShowCreateOrderModal] = useState(false);
   const orderedProducts: TOrderedProducts[] = localStorageCart?.map(
-    ({ product: { id, imageUrl, name, price, school }, quantity, size }) => ({
-      product: { id, imageUrl, name, price, school },
+    ({ product: { category, id, imageUrl, name, price, school }, quantity, size }) => ({
+      product: { category, id, imageUrl, name, price, school },
       quantity,
       size
     })

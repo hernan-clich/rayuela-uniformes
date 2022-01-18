@@ -26,8 +26,8 @@ export const CProductSizes = {
 
 export type TProductSizes = keyof typeof CProductSizes;
 
-// @todo: We need category here, ASAP!!!
 export type TProduct = {
+  category: string;
   id: string;
   imageUrl: string;
   name: string;

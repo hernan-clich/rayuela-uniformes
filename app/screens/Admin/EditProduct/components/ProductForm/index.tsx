@@ -6,6 +6,7 @@ import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import Modal from '~components/Modal';
 import ModalBody from '~components/ModalBody';
+import { CCategories, TCategoryKeys } from '~constants/categories';
 import PATHS from '~constants/paths';
 import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
@@ -16,6 +17,7 @@ import * as Styled from './styles';
 type TMultiOptions = MultiValue<{ value: string; label: string }>;
 
 type TFormData = {
+  category: string;
   img: FileList;
   name: string;
   price: string;
@@ -35,6 +37,10 @@ function ProductForm() {
   const schoolOptions = Object.entries(CSchools).map((school) => {
     const [id, name] = school;
     return { value: id as TSchoolIds, label: name };
+  });
+  const categoryOptions = Object.entries(CCategories).map((category) => {
+    const [id, name] = category;
+    return { value: id as TCategoryKeys, label: name };
   });
   const sizesOptions = Object.values(CProductSizes).map((size) => ({ value: size, label: size }));
 
@@ -58,6 +64,7 @@ function ProductForm() {
       setValue('name', docData?.name);
       setValue('price', String(docData?.price));
       setValue('school', docData?.school);
+      setValue('category', docData?.category);
       setValue(
         'availableSizes',
         Object.keys(docData?.stockBySize).map((size) => ({ label: size, value: size }))
@@ -84,7 +91,15 @@ function ProductForm() {
     }
   };
 
-  const onSubmit = ({ availableSizes, img, name, price, school, stockBySize }: TFormData) => {
+  const onSubmit = ({
+    availableSizes,
+    category,
+    img,
+    name,
+    price,
+    school,
+    stockBySize
+  }: TFormData) => {
     const parsedPrice = parseInt(price, 10);
     const stockBySizeValues = stockBySize?.map((size) => size.value);
     const reducedStockBySize: TProduct['stockBySize'] = availableSizes.reduce(
@@ -95,6 +110,7 @@ function ProductForm() {
       {}
     );
     const productToSave = {
+      category,
       name,
       school,
       price: parsedPrice,
@@ -163,6 +179,31 @@ function ProductForm() {
           />
           <CustomText as="span" size="xsmall" weight="bold" className="errorMsg" textAlign="left">
             {errors?.school?.message || ''}
+          </CustomText>
+          <label htmlFor="category">Categoría</label>
+          <Controller
+            control={methods.control}
+            name="category"
+            rules={{ required: 'Campo obligatorio' }}
+            render={({ field: { onChange, value } }) => (
+              <Select
+                options={categoryOptions}
+                className="formInput"
+                instanceId="categoryId"
+                isMulti={false}
+                closeMenuOnSelect
+                placeholder="Categoría"
+                value={
+                  value
+                    ? categoryOptions.find((category) => category.value === value)
+                    : { label: '', value: '' }
+                }
+                onChange={(e) => onChange(e?.value)}
+              />
+            )}
+          />
+          <CustomText as="span" size="xsmall" weight="bold" className="errorMsg" textAlign="left">
+            {errors?.category?.message || ''}
           </CustomText>
           <label htmlFor="available-sizes">Talles en los que viene el producto</label>
           <Controller

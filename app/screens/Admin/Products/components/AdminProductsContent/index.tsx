@@ -37,7 +37,7 @@ const COLUMN_HEADERS = [
 ];
 
 function AdminProductsContent() {
-  const { data } = useDbSnapshot<TProduct>('products');
+  const { data, loading } = useDbSnapshot<TProduct>('products');
   const tableContent = data?.map((data) => ({
     id: data.id,
     imageUrl: data.imageUrl,
@@ -45,7 +45,7 @@ function AdminProductsContent() {
     textFields: [data.name, data.price, ESchools[data.school]]
   }));
 
-  if (!data?.length) return <Loading />;
+  if (loading) return <Loading />;
 
   return (
     <Styled.AdminProductsContentContainer>
