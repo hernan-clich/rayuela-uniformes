@@ -15,6 +15,7 @@ export const ModalBodyContainer = styled.div`
     display: block;
     margin-bottom: 16px;
     max-width: 80%;
+    white-space: pre-line;
   }
 
   .ctaContainer {

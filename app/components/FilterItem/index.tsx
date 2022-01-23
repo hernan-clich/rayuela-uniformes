@@ -30,7 +30,7 @@ function FilterItem({ filtersToList, title }: Props) {
         { shallow: true }
       );
     else
-      router.replace({ query: { [filterItem.alias]: encodeURI(filterItem.id) } }, undefined, {
+      router.push({ query: { [filterItem.alias]: encodeURI(filterItem.id) } }, undefined, {
         shallow: true
       });
   };
