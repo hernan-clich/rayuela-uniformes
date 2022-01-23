@@ -24,8 +24,15 @@ function FilterItem({ filtersToList, title }: Props) {
 
   const handleClick = (filterItem: TSingleFilterItem) => {
     if (categories || school)
-      router.replace({ query: { ...router.query, [filterItem.alias]: encodeURI(filterItem.id) } });
-    else router.replace({ query: { [filterItem.alias]: encodeURI(filterItem.id) } });
+      router.push(
+        { query: { ...router.query, [filterItem.alias]: encodeURI(filterItem.id) } },
+        undefined,
+        { shallow: true }
+      );
+    else
+      router.replace({ query: { [filterItem.alias]: encodeURI(filterItem.id) } }, undefined, {
+        shallow: true
+      });
   };
 
   return (
