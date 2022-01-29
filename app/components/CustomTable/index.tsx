@@ -7,6 +7,7 @@ import EditIcon from '~components/Icons/EditIcon';
 import Modal from '~components/Modal';
 import ModalBody from '~components/ModalBody';
 import PATHS from '~constants/paths';
+import { useAuth } from '~hooks/useAuth';
 import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
 import { TOrder } from '~types/order';
@@ -16,6 +17,8 @@ import * as Styled from './styles';
 import { CustomTableProps } from './types';
 
 function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTableProps) {
+  const { isAdmin } = useAuth();
+
   const { deleteDbDocument } = useDbCrud(EDbCollections.products);
   const { updateDbDocument } = useDbCrud(EDbCollections.orders);
 
@@ -83,7 +86,9 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
                     <CustomText as="span" size="xsmall" weight="regular">
                       <button
                         type="button"
+                        disabled={!isAdmin}
                         onClick={() => {
+                          if (!isAdmin) return;
                           updateDbDocument<TOrder>(body.id, { isPayed: !body.isPayed });
                         }}
                       >
@@ -99,7 +104,9 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
                     <CustomText as="span" size="xsmall" weight="bold">
                       <button
                         type="button"
+                        disabled={!isAdmin}
                         onClick={() => {
+                          if (!isAdmin) return;
                           updateDbDocument<TOrder>(body.id, { isDelivered: !body.isDelivered });
                         }}
                       >

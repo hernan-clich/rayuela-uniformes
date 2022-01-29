@@ -71,6 +71,7 @@ export const TableRowContainer = styled.div<{ isLastRow: boolean }>`
     span,
     button {
       color: ${PORCELAIN};
+      cursor: default;
       font-weight: bold;
     }
   }

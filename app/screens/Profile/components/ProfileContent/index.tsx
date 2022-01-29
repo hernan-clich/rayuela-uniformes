@@ -53,7 +53,7 @@ function ProfileContent() {
     })
   );
 
-  if (loading) return <Loading />;
+  if (loading && isAuthenticated) return <Loading />;
 
   return (
     <Styled.ProfileContentContainer>
