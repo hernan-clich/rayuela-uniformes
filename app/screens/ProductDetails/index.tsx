@@ -1,10 +1,10 @@
 import PublicLayout from '~components/PublicLayout';
-import DetailsCard from './components/DetailsCard';
+import DetailsContent from './components/DetailsContent';
 
 function ProductDetails() {
   return (
     <PublicLayout>
-      <DetailsCard />
+      <DetailsContent />
     </PublicLayout>
   );
 }
