@@ -1,10 +1,10 @@
 import PublicLayout from '~components/PublicLayout';
-import CartDetails from './components/CartDetails';
+import CartContent from './components/CartContent';
 
 function Cart() {
   return (
     <PublicLayout>
-      <CartDetails />
+      <CartContent />
     </PublicLayout>
   );
 }
