@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { GREEN_HAZE, MONZA } from '~styles/colors';
 import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 
 export const OrderDetailsContainer = styled.div`
@@ -8,13 +9,23 @@ export const OrderDetailsContainer = styled.div`
   padding: ${SECONDARY_SPACING_EM} clamp(${PRIMARY_SPACING_EM}, 5vw, 4em);
   width: calc(100vw - 15px);
 
+  .backBtn {
+    margin-top: 1em;
+  }
+
+  .icon {
+    margin-right: 0.5em;
+  }
+
   .cartProdsWrapper {
     width: 100%;
   }
 
   .heading,
-  .subheadings {
+  .subheadings,
+  .chipsContainer {
     margin: ${SECONDARY_SPACING_EM} clamp(${SECONDARY_SPACING_EM}, 2.2vw, ${PRIMARY_SPACING_EM});
+    word-break: break-word;
   }
 
   .subheadings {
@@ -26,5 +37,33 @@ export const OrderDetailsContainer = styled.div`
     span {
       margin-right: ${SECONDARY_SPACING_EM};
     }
+  }
+
+  .chipsContainer {
+    display: flex;
+    flex-flow: column nowrap;
+    margin-bottom: ${PRIMARY_SPACING_EM};
+
+    .chip {
+      display: flex;
+      flex-flow: column nowrap;
+      margin-bottom: ${PRIMARY_SPACING_EM};
+
+      button {
+        cursor: default;
+      }
+
+      span {
+        margin-bottom: 8px;
+      }
+    }
+  }
+
+  .green {
+    background-color: ${GREEN_HAZE};
+  }
+
+  .red {
+    background-color: ${MONZA};
   }
 `;

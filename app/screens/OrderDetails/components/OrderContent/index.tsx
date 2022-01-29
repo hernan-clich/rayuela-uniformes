@@ -4,15 +4,23 @@ import useDbSnapshot from '~hooks/useDbSnapshot';
 import StackableProductCard from '~components/StackableProductCard';
 import { TOrder } from '~types/order';
 import * as Styled from './styles';
+import Loading from '~components/Loading';
+import CustomButton from '~components/CustomButton';
+import clsx from 'clsx';
+import { useAuth } from '~hooks/useAuth';
+import { EDbCollections } from '~types/db';
+import useDbCrud from '~hooks/useDbCrud';
+import { isServer } from '~constants/general';
 
-// @todo: Display isPayed and isDelivered values somewhere here
 function OrderContent() {
   const router = useRouter();
   const orderId = router?.query?.id as string;
+  const { isAdmin } = useAuth();
 
   const {
     data: [orderData]
   } = useDbSnapshot<TOrder>({ collectionName: 'orders', docId: orderId });
+  const { updateDbDocument } = useDbCrud(EDbCollections.orders);
 
   const itemsCount = orderData?.orderedProducts?.reduce((acc, order) => acc + order.quantity, 0);
   const totalCartAmt = orderData?.orderedProducts?.reduce(
@@ -21,8 +29,24 @@ function OrderContent() {
   );
   const parsedTotalCartAmt = `$ ${totalCartAmt?.toLocaleString('es-AR')}`;
 
+  if (isServer) return null;
+  if (!orderData) return <Loading />;
+
   return (
     <Styled.OrderDetailsContainer>
+      {window && window?.history?.length > 2 && (
+        <CustomButton
+          className="backBtn"
+          size="small"
+          weight="regular"
+          onClick={() => router.back()}
+        >
+          <span className="icon" role="img" aria-label="finger pointing left">
+            ←
+          </span>
+          Volver
+        </CustomButton>
+      )}
       <div className="cartProdsWrapper">
         <CustomText
           size="big"
@@ -53,6 +77,52 @@ function OrderContent() {
             >
               {parsedTotalCartAmt}
             </CustomText>
+          </div>
+        </div>
+        <div className="chipsContainer">
+          <div className="chip">
+            <CustomText
+              as="span"
+              size="regular"
+              weight="bold"
+              textTransform="uppercase"
+              textAlign="left"
+            >
+              Pago
+            </CustomText>
+            <CustomButton
+              size="small"
+              weight="bold"
+              className={clsx({ red: !orderData?.isPayed, green: orderData?.isPayed })}
+              onClick={() => {
+                if (!isAdmin) return;
+                updateDbDocument<TOrder>(orderData?.id, { isPayed: !orderData?.isPayed });
+              }}
+            >
+              {orderData?.isPayed ? 'Pagado' : 'Pendiente'}
+            </CustomButton>
+          </div>
+          <div className="chip">
+            <CustomText
+              as="span"
+              size="regular"
+              weight="bold"
+              textTransform="uppercase"
+              textAlign="left"
+            >
+              Entrega
+            </CustomText>
+            <CustomButton
+              size="small"
+              weight="bold"
+              className={clsx({ red: !orderData?.isDelivered, green: orderData?.isDelivered })}
+              onClick={() => {
+                if (!isAdmin) return;
+                updateDbDocument<TOrder>(orderData?.id, { isDelivered: !orderData?.isDelivered });
+              }}
+            >
+              {orderData?.isDelivered ? 'Entregado' : 'Pendiente'}
+            </CustomButton>
           </div>
         </div>
         <div>

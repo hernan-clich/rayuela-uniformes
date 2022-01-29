@@ -4,6 +4,7 @@ import { useState } from 'react';
 import CustomText from '~components/CustomText';
 import DeleteIcon from '~components/Icons/DeleteIcon';
 import EditIcon from '~components/Icons/EditIcon';
+import OrderIcon from '~components/Icons/OrderIcon';
 import Modal from '~components/Modal';
 import ModalBody from '~components/ModalBody';
 import PATHS from '~constants/paths';
@@ -114,6 +115,13 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
                       </button>
                     </CustomText>
                   </div>
+                </div>
+                <div className="tableTd">
+                  <Link href={{ pathname: PATHS.ORDER, query: { id: body.id } }}>
+                    <a className="ctaBtn" title="Editar">
+                      <OrderIcon />
+                    </a>
+                  </Link>
                 </div>
               </>
             )}

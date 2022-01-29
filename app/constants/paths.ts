@@ -9,7 +9,7 @@ const PATHS = {
   PRODUCTS: '/products',
   PRODUCT_DETAILS: '/product/[slug]',
   PROFILE: '/profile',
-  ORDER: '/profile/order/[id]'
+  ORDER: '/order/[id]'
 } as const;
 
 export const API_ROUTES = {

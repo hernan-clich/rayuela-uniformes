@@ -30,6 +30,10 @@ const COLUMN_HEADERS = [
   {
     displayName: 'Entrega',
     propertyName: 'isDelivered'
+  },
+  {
+    displayName: 'Ver',
+    propertyName: 'goTo'
   }
 ];
 
