@@ -1,7 +1,9 @@
 import { useMemo } from 'react';
 import CustomTable from '~components/CustomTable';
 import CustomText from '~components/CustomText';
+import EmptyContentMessage from '~components/EmptyContentMessage';
 import GoogleButton from '~components/GoogleButton';
+import LoginIcon from '~components/Icons/LoginIcon';
 import Loading from '~components/Loading';
 import { useAuth } from '~hooks/useAuth';
 import useDbSnapshot, { TCustomQuery } from '~hooks/useDbSnapshot';
@@ -82,7 +84,13 @@ function ProfileContent() {
           )}
         </>
       ) : (
-        <GoogleButton handleClick={signInWithGoogle}>Log in</GoogleButton>
+        <EmptyContentMessage
+          icon={<LoginIcon />}
+          messages={{
+            title: 'Debes iniciar sesión para ver este contenido'
+          }}
+          customButton={<GoogleButton handleClick={signInWithGoogle}>Iniciar sesión</GoogleButton>}
+        />
       )}
     </Styled.ProfileContentContainer>
   );

@@ -17,7 +17,8 @@ export const CartEmptyContainer = styled.div`
       margin-bottom: ${SECONDARY_SPACING_EM};
     }
 
-    a {
+    a,
+    button {
       margin: auto;
     }
   }

@@ -6,14 +6,15 @@ import * as Styled from './styles';
 
 type Props = {
   icon: React.ReactNode;
+  customButton?: React.ReactNode;
   messages: {
     title: string;
-    cta: string;
+    cta?: string;
   };
-  redirectHref: typeof PATHS[keyof typeof PATHS];
+  redirectHref?: typeof PATHS[keyof typeof PATHS];
 };
 
-function EmptyContentMessage({ icon, messages, redirectHref }: Props) {
+function EmptyContentMessage({ customButton, icon, messages, redirectHref }: Props) {
   return (
     <Styled.CartEmptyContainer>
       {icon}
@@ -21,11 +22,14 @@ function EmptyContentMessage({ icon, messages, redirectHref }: Props) {
         <CustomText as="h2" size="regular" weight="bold">
           {messages.title}
         </CustomText>
-        <Link href={redirectHref}>
-          <CustomButton as="a" size="small" weight="regular" noMaxWidth>
-            {messages.cta}
-          </CustomButton>
-        </Link>
+        {redirectHref && (
+          <Link href={redirectHref}>
+            <CustomButton as="a" size="small" weight="regular" noMaxWidth>
+              {messages.cta}
+            </CustomButton>
+          </Link>
+        )}
+        {customButton}
       </div>
     </Styled.CartEmptyContainer>
   );
