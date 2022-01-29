@@ -1,21 +1,29 @@
 import Link from 'next/link';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
-import EmptyCartIcon from '~components/Icons/EmptyCartIcon';
 import PATHS from '~constants/paths';
 import * as Styled from './styles';
 
-function CartEmpty() {
+type Props = {
+  icon: React.ReactNode;
+  messages: {
+    title: string;
+    cta: string;
+  };
+  redirectHref: typeof PATHS[keyof typeof PATHS];
+};
+
+function EmptyContentMessage({ icon, messages, redirectHref }: Props) {
   return (
     <Styled.CartEmptyContainer>
-      <EmptyCartIcon />
+      {icon}
       <div className="cta">
         <CustomText as="h2" size="regular" weight="bold">
-          El carrito se encuentra vacío
+          {messages.title}
         </CustomText>
-        <Link href={PATHS.PRODUCTS}>
+        <Link href={redirectHref}>
           <CustomButton as="a" size="small" weight="regular" noMaxWidth>
-            Ver productos
+            {messages.cta}
           </CustomButton>
         </Link>
       </div>
@@ -23,4 +31,4 @@ function CartEmpty() {
   );
 }
 
-export default CartEmpty;
+export default EmptyContentMessage;

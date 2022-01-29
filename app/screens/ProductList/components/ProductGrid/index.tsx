@@ -1,7 +1,10 @@
 import { WhereFilterOp } from 'firebase/firestore';
 import { useRouter } from 'next/router';
 import { useMemo } from 'react';
+import EmptyContentMessage from '~components/EmptyContentMessage';
+import UnsuccessfulSearchIcon from '~components/Icons/UnsuccessfulSearchIcon';
 import Loading from '~components/Loading';
+import PATHS from '~constants/paths';
 import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TProduct } from '~types/product';
 import ProductCard from '../ProductCard';
@@ -26,6 +29,19 @@ function ProductGrid() {
   ]);
 
   if (loading) return <Loading />;
+
+  if (!productList?.length) {
+    return (
+      <EmptyContentMessage
+        icon={<UnsuccessfulSearchIcon />}
+        messages={{
+          cta: 'Borrar filtros',
+          title: 'No se encontraron productos con las características solicitadas'
+        }}
+        redirectHref={PATHS.PRODUCTS}
+      />
+    );
+  }
 
   return (
     <Styled.ProductGridContainer>
