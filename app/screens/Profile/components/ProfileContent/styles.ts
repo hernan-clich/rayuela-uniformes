@@ -26,4 +26,12 @@ export const ProfileContentContainer = styled.div`
   .memberSince {
     margin: 8px 0 ${PRIMARY_SPACING_EM};
   }
+
+  .tableContainer {
+    margin: ${PRIMARY_SPACING_EM};
+
+    h4 {
+      margin-bottom: ${SECONDARY_SPACING_EM};
+    }
+  }
 `;

@@ -21,14 +21,14 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showDeletionConfirmedModal, setShowDeletionConfirmedModal] = useState(false);
-  const stockBySizeData = tableContent[0]?.stockBySize
+  const stockBySizeData = tableContent?.[0]?.stockBySize
     ? tableContent?.map((data) => Object.entries(data?.stockBySize as TProduct['stockBySize']))
     : null;
 
   return (
-    <Styled.CustomTableContainer fieldsLength={columnHeaders.length}>
+    <Styled.CustomTableContainer fieldsLength={columnHeaders?.length}>
       <header className="tableHeader">
-        {columnHeaders.map(({ propertyName, displayName }) => (
+        {columnHeaders?.map(({ propertyName, displayName }) => (
           <div key={propertyName} className="tableTd">
             <CustomText
               as="span"
