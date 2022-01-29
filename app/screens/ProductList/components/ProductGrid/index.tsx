@@ -23,10 +23,10 @@ function ProductGrid() {
     return [{ fieldPath: 'category', opStr: '==' as WhereFilterOp, value: category }];
   }, [category]);
 
-  const { data: productList, loading } = useDbSnapshot<TProduct>('products', undefined, [
-    ...(schoolQuery || []),
-    ...(categoryQuery || [])
-  ]);
+  const { data: productList, loading } = useDbSnapshot<TProduct>({
+    collectionName: 'products',
+    customQuery: [...(schoolQuery || []), ...(categoryQuery || [])]
+  });
 
   if (loading) return <Loading />;
 

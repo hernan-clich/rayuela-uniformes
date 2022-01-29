@@ -39,7 +39,10 @@ function ProfileContent() {
     return [{ fieldPath: 'buyerId', opStr: '==', value: user?.uid || '' }];
   }, [user]);
 
-  const { data: orderList, loading } = useDbSnapshot<TOrder>('orders', undefined, customOrderQuery);
+  const { data: orderList, loading } = useDbSnapshot<TOrder>({
+    collectionName: 'orders',
+    customQuery: customOrderQuery
+  });
   const tableContent = orderList?.map(
     ({ createdAt, id, isDelivered, isPayed, orderedProducts }) => ({
       id,

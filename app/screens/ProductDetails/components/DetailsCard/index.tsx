@@ -26,7 +26,7 @@ function DetailsCard() {
   const { slug } = router.query;
   const {
     data: [currentProduct]
-  } = useDbSnapshot<TProduct>('products', slug as string);
+  } = useDbSnapshot<TProduct>({ collectionName: 'products', docId: slug as string });
   const { isCartEmpty, checkIfItemIsInCart, setNewItem } = useCart(currentProduct?.id);
   const [quantity, setQuantity] = useState(1);
   const [currentSize, setCurrentSize] = useState<TProductSizes>('2');

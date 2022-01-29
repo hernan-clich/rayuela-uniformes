@@ -37,7 +37,7 @@ const COLUMN_HEADERS = [
 ];
 
 function AdminProductsContent() {
-  const { data, loading } = useDbSnapshot<TProduct>('products');
+  const { data, loading } = useDbSnapshot<TProduct>({ collectionName: 'products' });
   const tableContent = data?.map((data) => ({
     id: data.id,
     imageUrl: data.imageUrl,

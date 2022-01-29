@@ -15,13 +15,18 @@ import { useAuth } from './useAuth';
 
 export type TCustomQuery = { fieldPath: string; opStr: WhereFilterOp; value: string }[];
 
-function useDbSnapshot<T extends { id: string }>(
-  collectionName: TDbCollections,
-  docId?: string,
-  customQuery?: TCustomQuery
-): { data: T[]; loading: boolean } {
+function useDbSnapshot<T extends { id: string }>({
+  collectionName,
+  docId,
+  customQuery
+}: {
+  collectionName: TDbCollections;
+  docId?: string;
+  customQuery?: TCustomQuery;
+}): { data: T[]; loading: boolean } {
   const router = useRouter();
   const { isAuthenticated } = useAuth();
+  const isProductsCollection = collectionName === 'products';
 
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState<T[]>([]);
@@ -37,7 +42,7 @@ function useDbSnapshot<T extends { id: string }>(
     : query(colRef);
 
   useEffect(() => {
-    if (!isAuthenticated) return;
+    if (!isAuthenticated && !isProductsCollection) return;
 
     const unsubSnap = onSnapshot(
       dbQuery,

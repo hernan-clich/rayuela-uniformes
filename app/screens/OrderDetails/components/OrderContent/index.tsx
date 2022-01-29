@@ -12,7 +12,7 @@ function OrderContent() {
 
   const {
     data: [orderData]
-  } = useDbSnapshot<TOrder>('orders', orderId);
+  } = useDbSnapshot<TOrder>({ collectionName: 'orders', docId: orderId });
 
   const itemsCount = orderData?.orderedProducts?.reduce((acc, order) => acc + order.quantity, 0);
   const totalCartAmt = orderData?.orderedProducts?.reduce(
