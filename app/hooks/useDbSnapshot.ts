@@ -23,12 +23,13 @@ function useDbSnapshot<T extends { id: string }>({
   collectionName: TDbCollections;
   docId?: string;
   customQuery?: TCustomQuery;
-}): { data: T[]; loading: boolean } {
+}): { data: T[]; loading: boolean; error: string } {
   const router = useRouter();
   const { isAuthenticated } = useAuth();
   const isProductsCollection = collectionName === 'products';
 
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
   const [data, setData] = useState<T[]>([]);
   const colRef = collection(db, EDbCollections[collectionName]);
   const customQueries = useMemo(
@@ -50,10 +51,9 @@ function useDbSnapshot<T extends { id: string }>({
         setLoading(false);
         setData(snapshot.docs.map((doc) => ({ ...doc.data(), id: doc.id } as unknown as T)));
       },
-      // eslint-disable-next-line no-console
-      (err) => console.error(err),
-      () => {
+      (err) => {
         setLoading(false);
+        setError(err.message);
       }
     );
 
@@ -61,7 +61,7 @@ function useDbSnapshot<T extends { id: string }>({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.query, isAuthenticated]);
 
-  return { data, loading };
+  return { data, loading, error };
 }
 
 export default useDbSnapshot;

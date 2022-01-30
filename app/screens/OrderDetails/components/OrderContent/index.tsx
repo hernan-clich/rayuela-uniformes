@@ -1,16 +1,17 @@
-import { useRouter } from 'next/router';
-import CustomText from '~components/CustomText';
-import useDbSnapshot from '~hooks/useDbSnapshot';
-import StackableProductCard from '~components/StackableProductCard';
-import { TOrder } from '~types/order';
-import * as Styled from './styles';
-import Loading from '~components/Loading';
-import CustomButton from '~components/CustomButton';
 import clsx from 'clsx';
-import { useAuth } from '~hooks/useAuth';
-import { EDbCollections } from '~types/db';
-import useDbCrud from '~hooks/useDbCrud';
+import { useRouter } from 'next/router';
+import CustomButton from '~components/CustomButton';
+import CustomText from '~components/CustomText';
+import Loading from '~components/Loading';
+import StackableProductCard from '~components/StackableProductCard';
 import { isServer } from '~constants/general';
+import PATHS from '~constants/paths';
+import { useAuth } from '~hooks/useAuth';
+import useDbCrud from '~hooks/useDbCrud';
+import useDbSnapshot from '~hooks/useDbSnapshot';
+import { TOrder } from '~types/order';
+import { EDbCollections } from '~types/db';
+import * as Styled from './styles';
 
 function OrderContent() {
   const router = useRouter();
@@ -18,7 +19,8 @@ function OrderContent() {
   const { isAdmin } = useAuth();
 
   const {
-    data: [orderData]
+    data: [orderData],
+    error
   } = useDbSnapshot<TOrder>({ collectionName: 'orders', docId: orderId });
   const { updateDbDocument } = useDbCrud(EDbCollections.orders);
 
@@ -29,7 +31,10 @@ function OrderContent() {
   );
   const parsedTotalCartAmt = `$ ${totalCartAmt?.toLocaleString('es-AR')}`;
 
+  if (error) router.replace(PATHS.HOME);
+
   if (isServer) return null;
+
   if (!orderData) return <Loading />;
 
   return (
