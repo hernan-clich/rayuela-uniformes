@@ -69,8 +69,11 @@ function ProfileContent() {
       {isAuthenticated ? (
         <>
           <div className="headingContainer">
-            {/* @todo: Put decent fallback pic here */}
-            <img className="userPic" src={user?.photoURL || ''} alt={user?.displayName || 'User'} />
+            <img
+              className="userPic"
+              src={user?.photoURL || '/assets/user_placeholder.png'}
+              alt={user?.displayName || 'User'}
+            />
             <CustomText as="h2" size="big" weight="bold">
               {user?.displayName}
             </CustomText>
