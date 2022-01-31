@@ -9,32 +9,10 @@ import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TProduct } from '~types/product';
 import * as Styled from './styles';
 
-const COLUMN_HEADERS = [
-  {
-    displayName: '',
-    propertyName: 'thumbnail'
-  },
-  {
-    displayName: 'Nombre',
-    propertyName: 'name'
-  },
-  {
-    displayName: 'Precio',
-    propertyName: 'price'
-  },
-  {
-    displayName: 'Escuela',
-    propertyName: 'school'
-  },
-  {
-    displayName: 'Talles',
-    propertyName: 'sizes'
-  },
-  {
-    displayName: 'Acciones',
-    propertyName: 'actions'
-  }
-];
+const COLUMN_HEADERS = {
+  desktop: ['', 'Nombre', 'Precio', 'Escuela', 'Talles', 'Acciones'],
+  mobile: ['Nombre', 'Precio', 'Escuela']
+};
 
 function AdminProductsContent() {
   const { data, loading } = useDbSnapshot<TProduct>({ collectionName: 'products' });

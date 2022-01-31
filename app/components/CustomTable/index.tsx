@@ -33,11 +33,11 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
     : null;
 
   return (
-    <Styled.CustomTableContainer fieldsLength={columnHeaders?.length}>
+    <Styled.CustomTableContainer fieldsLength={columnHeaders?.desktop?.length}>
       <header className="tableHeader">
         {!isSmallScreen &&
-          columnHeaders?.map(({ propertyName, displayName }) => (
-            <div key={propertyName} className="tableTd">
+          columnHeaders?.desktop?.map((header) => (
+            <div key={header} className="tableTd">
               <CustomText
                 as="span"
                 size="xsmall"
@@ -45,7 +45,7 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
                 textTransform="uppercase"
                 className="headerItem"
               >
-                {displayName}
+                {header}
               </CustomText>
             </div>
           ))}
@@ -55,12 +55,13 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
           <Styled.TableRowContainer key={body.id} isLastRow={i === tableContent.length - 1}>
             {body?.imageUrl && (
               <div className="tableTd">
+                <MobileLabel labelText="Imagen" />
                 <img src={body?.imageUrl} alt="Thumbnail" className="thumbnail" />
               </div>
             )}
             {body?.textFields?.map((char, ind) => (
               <div key={char} className="tableTd">
-                <MobileLabel labelText={columnHeaders[ind].displayName} />
+                <MobileLabel labelText={columnHeaders?.mobile?.[ind]} />
                 <CustomText as="span" size="xsmall" weight="bold">
                   {char}
                 </CustomText>
@@ -68,6 +69,7 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
             ))}
             {stockBySizeData && (
               <div className="tableTd">
+                <MobileLabel labelText="Talles" />
                 <div className="sizesContainer">
                   {stockBySizeData[i].map(([size, hasStock]) => (
                     <div
@@ -134,42 +136,46 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
               </>
             )}
             {body?.isAdmin !== undefined && (
-              <>
-                <div className="tableTd">
-                  <div className={clsx('chip', { red: !body?.isAdmin, green: body?.isAdmin })}>
-                    <CustomText as="span" size="xsmall" weight="regular">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          grantAdminRole({ email: body.email, adminStatus: !body.isAdmin })
-                        }
-                      >
-                        {body?.isAdmin ? 'Admin' : 'Usuario'}
-                      </button>
-                    </CustomText>
-                  </div>
+              <div className="tableTd">
+                <MobileLabel labelText="Tipo" />
+                <div className={clsx('chip', { red: !body?.isAdmin, green: body?.isAdmin })}>
+                  <CustomText as="span" size="xsmall" weight="regular">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        grantAdminRole({ email: body.email, adminStatus: !body.isAdmin })
+                      }
+                    >
+                      {body?.isAdmin ? 'Admin' : 'Usuario'}
+                    </button>
+                  </CustomText>
                 </div>
-              </>
+              </div>
             )}
             {rowActions && (
               <div className="tableTd">
-                {rowActions.edit && (
-                  <Link href={{ pathname: PATHS.ADMIN_PRODUCT_FORM_EDIT, query: { id: body.id } }}>
-                    <a className="ctaBtn" title="Editar">
-                      <EditIcon />
-                    </a>
-                  </Link>
-                )}
-                {rowActions.delete && (
-                  <button
-                    type="button"
-                    className="ctaBtn"
-                    title="Eliminar"
-                    onClick={() => setShowConfirmationModal(true)}
-                  >
-                    <DeleteIcon />
-                  </button>
-                )}
+                <MobileLabel labelText="Acciones" />
+                <div>
+                  {rowActions.edit && (
+                    <Link
+                      href={{ pathname: PATHS.ADMIN_PRODUCT_FORM_EDIT, query: { id: body.id } }}
+                    >
+                      <a className="ctaBtn" title="Editar">
+                        <EditIcon />
+                      </a>
+                    </Link>
+                  )}
+                  {rowActions.delete && (
+                    <button
+                      type="button"
+                      className="ctaBtn"
+                      title="Eliminar"
+                      onClick={() => setShowConfirmationModal(true)}
+                    >
+                      <DeleteIcon />
+                    </button>
+                  )}
+                </div>
 
                 <Modal
                   onClose={() => setShowConfirmationModal(false)}

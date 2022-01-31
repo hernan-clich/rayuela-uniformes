@@ -5,36 +5,10 @@ import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TOrder } from '~types/order';
 import * as Styled from './styles';
 
-const COLUMN_HEADERS = [
-  {
-    displayName: 'ID',
-    propertyName: 'id'
-  },
-  {
-    displayName: 'Cliente',
-    propertyName: 'buyerName'
-  },
-  {
-    displayName: 'Fecha',
-    propertyName: 'createdAt'
-  },
-  {
-    displayName: 'Monto',
-    propertyName: 'totalOrderAmt'
-  },
-  {
-    displayName: 'Pago',
-    propertyName: 'isPayed'
-  },
-  {
-    displayName: 'Entrega',
-    propertyName: 'isDelivered'
-  },
-  {
-    displayName: 'Ver',
-    propertyName: 'goTo'
-  }
-];
+const COLUMN_HEADERS = {
+  desktop: ['ID', 'Cliente', 'Fecha', 'Monto', 'Pago', 'Entrega', 'Ver'],
+  mobile: ['ID', 'Cliente', 'Fecha', 'Monto']
+};
 
 function AdminOrdersContent() {
   const { data } = useDbSnapshot<TOrder>({ collectionName: 'orders' });

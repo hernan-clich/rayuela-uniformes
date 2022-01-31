@@ -5,28 +5,10 @@ import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TUser } from '~types/user';
 import * as Styled from './styles';
 
-const COLUMN_HEADERS = [
-  {
-    displayName: 'Avatar',
-    propertyName: 'imageUrl'
-  },
-  {
-    displayName: 'ID',
-    propertyName: 'id'
-  },
-  {
-    displayName: 'Nombre',
-    propertyName: 'buyerName'
-  },
-  {
-    displayName: 'Fecha de creación',
-    propertyName: 'joinedSince'
-  },
-  {
-    displayName: 'Tipo',
-    propertyName: 'isAdmin'
-  }
-];
+const COLUMN_HEADERS = {
+  desktop: ['Avatar', 'ID', 'Nombre', 'Fecha de creación', 'Tipo'],
+  mobile: ['ID', 'Nombre', 'Fecha']
+};
 
 function AdminUsersContent() {
   const { data } = useDbSnapshot<TUser>({ collectionName: 'users' });

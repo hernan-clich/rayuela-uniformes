@@ -10,32 +10,10 @@ import useDbSnapshot, { TCustomQuery } from '~hooks/useDbSnapshot';
 import { TOrder } from '~types/order';
 import * as Styled from './styles';
 
-const COLUMN_HEADERS = [
-  {
-    displayName: 'ID',
-    propertyName: 'id'
-  },
-  {
-    displayName: 'Fecha',
-    propertyName: 'createdAt'
-  },
-  {
-    displayName: 'Monto',
-    propertyName: 'totalOrderAmt'
-  },
-  {
-    displayName: 'Pago',
-    propertyName: 'isPayed'
-  },
-  {
-    displayName: 'Entrega',
-    propertyName: 'isDelivered'
-  },
-  {
-    displayName: 'Ver',
-    propertyName: 'goTo'
-  }
-];
+const COLUMN_HEADERS = {
+  desktop: ['ID', 'Fecha', 'Monto', 'Pago', 'Entrega', 'Ver'],
+  mobile: ['ID', 'Fecha', 'Monto']
+};
 
 function ProfileContent() {
   const { isAuthenticated, signInWithGoogle, logout, user } = useAuth();

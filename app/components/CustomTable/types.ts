@@ -28,7 +28,7 @@ type TUserTableContent = TTextFields &
   };
 
 export type CustomTableProps = {
-  columnHeaders: { propertyName: string; displayName: string }[];
+  columnHeaders: { desktop: string[]; mobile: string[] };
   tableContent: (TProductTableContent | TOrderTableContent | TUserTableContent)[];
   rowActions?: {
     delete: boolean;
