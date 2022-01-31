@@ -14,6 +14,7 @@ import useWindowSize from '~hooks/useWindowSize';
 import { EDbCollections } from '~types/db';
 import { TOrder } from '~types/order';
 import { TProduct } from '~types/product';
+import MobileLabel from './components/MobileLabel';
 import { grantAdminRole } from './helpers';
 import * as Styled from './styles';
 import { CustomTableProps } from './types';
@@ -57,8 +58,9 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
                 <img src={body?.imageUrl} alt="Thumbnail" className="thumbnail" />
               </div>
             )}
-            {body?.textFields?.map((char) => (
+            {body?.textFields?.map((char, ind) => (
               <div key={char} className="tableTd">
+                <MobileLabel labelText={columnHeaders[ind].displayName} />
                 <CustomText as="span" size="xsmall" weight="bold">
                   {char}
                 </CustomText>
@@ -86,6 +88,7 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
             {body?.isDelivered !== undefined && body?.isPayed !== undefined && (
               <>
                 <div className="tableTd">
+                  <MobileLabel labelText="Pago" />
                   <div className={clsx('chip', { red: !body?.isPayed, green: body?.isPayed })}>
                     <CustomText as="span" size="xsmall" weight="regular">
                       <button
@@ -102,6 +105,7 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
                   </div>
                 </div>
                 <div className="tableTd">
+                  <MobileLabel labelText="Entrega" />
                   <div
                     className={clsx('chip', { red: !body?.isDelivered, green: body?.isDelivered })}
                   >
@@ -120,6 +124,7 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
                   </div>
                 </div>
                 <div className="tableTd">
+                  <MobileLabel labelText="Ver" />
                   <Link href={{ pathname: PATHS.ORDER, query: { id: body.id } }}>
                     <a className="ctaBtn" title="Editar">
                       <OrderIcon />

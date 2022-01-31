@@ -26,13 +26,25 @@ export const CustomTableContainer = styled.div<{ fieldsLength: number }>`
   .tableTd {
     align-items: center;
     display: flex;
-    justify-content: center;
-    width: ${({ fieldsLength }) => `calc(100% / ${fieldsLength})`};
+    justify-content: space-between;
+    min-height: 40px;
+    padding: 0 ${SECONDARY_SPACING_EM};
+    width: 100%;
+    word-break: break-word;
   }
 
   .ctaBtn {
     margin: 0 4px;
     padding: 4px;
+  }
+
+  @media (min-width: ${SMALL_BR}px) {
+    .tableTd {
+      justify-content: center;
+      min-height: unset;
+      padding: unset;
+      width: ${({ fieldsLength }) => `calc(100% / ${fieldsLength})`};
+    }
   }
 `;
 
