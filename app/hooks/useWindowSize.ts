@@ -1,10 +1,17 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { SMALL_BR } from '~styles/variables';
 
-function useWindowSize() {
+function useWindowSize(): {
+  height: number;
+  isSmallScreen: boolean;
+  width: number;
+} {
   const [sizes, setSizes] = useState({
     height: 0,
     width: 0
   });
+
+  const isSmallScreen = useMemo(() => sizes.width <= SMALL_BR, [sizes.width]);
 
   useEffect(() => {
     const setWindowSizeCallback = () =>
@@ -22,7 +29,11 @@ function useWindowSize() {
     };
   }, [setSizes]);
 
-  return { height: sizes.height, width: sizes.width };
+  return {
+    height: sizes.height,
+    isSmallScreen,
+    width: sizes.width
+  };
 }
 
 export default useWindowSize;

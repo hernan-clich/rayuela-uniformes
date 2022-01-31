@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { MONZA, PRUSSIAN_BLUE, SILVER, WHITE } from '~styles/colors';
-import { PRIMARY_FONT, SECONDARY_SPACING_EM } from '~styles/variables';
+import { MEDIUM_BR, PRIMARY_FONT, SECONDARY_SPACING_EM } from '~styles/variables';
 import { EFontSizes } from '~types/fonts';
 
 export const ProductFormContainer = styled.div`
@@ -81,8 +81,7 @@ export const ProductFormContainer = styled.div`
     margin-bottom: 16px;
   }
 
-  /* @todo: We should be using a constant for these breakoints */
-  @media (max-width: 992px) {
+  @media (max-width: ${MEDIUM_BR}px) {
     .form {
       flex-direction: column-reverse;
     }

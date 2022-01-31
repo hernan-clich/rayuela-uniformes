@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM, SMALL_BR } from '~styles/variables';
 import { EHorizontal, EVertical, TAlignment } from './types';
 
 type Props = {
@@ -30,8 +30,7 @@ export const InnerWrapper = styled.div<Props>`
     margin-top: ${PRIMARY_SPACING_EM};
   }
 
-  /* @todo: We should be using a constant for these breakoints */
-  @media (max-width: 768px) {
+  @media (max-width: ${SMALL_BR}px) {
     .title {
       margin: 0;
     }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ALABASTER, WILD_SAND } from '~styles/colors';
-import { PRIMARY_SPACING_EM } from '~styles/variables';
+import { PRIMARY_SPACING_EM, SMALL_BR } from '~styles/variables';
 
 export const DetailsCardContainer = styled.div`
   display: flex;
@@ -48,8 +48,7 @@ export const DetailsCardContainer = styled.div`
     opacity: 0.6;
   }
 
-  /* @todo: We should be using a constant for these breakoints */
-  @media (min-width: 768px) {
+  @media (max-width: ${SMALL_BR}px) {
     flex-direction: row;
 
     .img,

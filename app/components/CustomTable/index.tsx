@@ -10,6 +10,7 @@ import ModalBody from '~components/ModalBody';
 import PATHS from '~constants/paths';
 import { useAuth } from '~hooks/useAuth';
 import useDbCrud from '~hooks/useDbCrud';
+import useWindowSize from '~hooks/useWindowSize';
 import { EDbCollections } from '~types/db';
 import { TOrder } from '~types/order';
 import { TProduct } from '~types/product';
@@ -19,6 +20,7 @@ import { CustomTableProps } from './types';
 
 function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTableProps) {
   const { isAdmin } = useAuth();
+  const { isSmallScreen } = useWindowSize();
 
   const { deleteDbDocument } = useDbCrud(EDbCollections.products);
   const { updateDbDocument } = useDbCrud(EDbCollections.orders);
@@ -32,19 +34,20 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
   return (
     <Styled.CustomTableContainer fieldsLength={columnHeaders?.length}>
       <header className="tableHeader">
-        {columnHeaders?.map(({ propertyName, displayName }) => (
-          <div key={propertyName} className="tableTd">
-            <CustomText
-              as="span"
-              size="xsmall"
-              weight="bold"
-              textTransform="uppercase"
-              className="headerItem"
-            >
-              {displayName}
-            </CustomText>
-          </div>
-        ))}
+        {!isSmallScreen &&
+          columnHeaders?.map(({ propertyName, displayName }) => (
+            <div key={propertyName} className="tableTd">
+              <CustomText
+                as="span"
+                size="xsmall"
+                weight="bold"
+                textTransform="uppercase"
+                className="headerItem"
+              >
+                {displayName}
+              </CustomText>
+            </div>
+          ))}
       </header>
       <main className="tableBody">
         {tableContent?.map((body, i) => (

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ALABASTER, SILVER, PORCELAIN, PRUSSIAN_BLUE, MONZA, GREEN_HAZE } from '~styles/colors';
-import { SECONDARY_SPACING_EM } from '~styles/variables';
+import { SECONDARY_SPACING_EM, SMALL_BR } from '~styles/variables';
 
 export const CustomTableContainer = styled.div<{ fieldsLength: number }>`
   .tableHeader,
@@ -43,10 +43,9 @@ export const TableRowContainer = styled.div<{ isLastRow: boolean }>`
   border-radius: 8px;
   box-shadow: 0px 0px 2px 0px ${SILVER};
   display: flex;
-  flex-flow: row nowrap;
+  flex-flow: column nowrap;
   justify-content: space-around;
   margin-bottom: 6px;
-  max-height: 4em;
   overflow: hidden;
   padding: ${SECONDARY_SPACING_EM} 0;
   width: 100%;
@@ -82,5 +81,10 @@ export const TableRowContainer = styled.div<{ isLastRow: boolean }>`
 
   .red {
     background-color: ${MONZA};
+  }
+
+  @media (min-width: ${SMALL_BR}px) {
+    flex-flow: row nowrap;
+    max-height: 4em;
   }
 `;

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { ALABASTER } from '~styles/colors';
-import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM, SMALL_BR } from '~styles/variables';
 
 export const FooterContainer = styled.div`
   background-color: ${ALABASTER};
@@ -11,8 +11,7 @@ export const FooterContainer = styled.div`
   padding: ${PRIMARY_SPACING_EM};
   width: calc(100vw - ${PRIMARY_SPACING_EM} * 2);
 
-  /* @todo: We should be using a constant for these breakoints */
-  @media (max-width: 768px) {
+  @media (max-width: ${SMALL_BR}px) {
     flex-direction: column-reverse;
     padding: 0 0 0 0.5em;
   }
@@ -31,8 +30,7 @@ export const FooterText = styled.div`
     word-break: break-word;
   }
 
-  /* @todo: We should be using a constant for these breakoints */
-  @media (max-width: 768px) {
+  @media (max-width: ${SMALL_BR}px) {
     align-items: center;
     display: flex;
     flex-direction: column;
@@ -53,8 +51,7 @@ export const FooterSocial = styled.div`
     margin: 0 0.75em;
   }
 
-  /* @todo: We should be using a constant for these breakoints */
-  @media (max-width: 768px) {
+  @media (max-width: ${SMALL_BR}px) {
     flex-grow: 0;
     height: auto;
     justify-content: center;
