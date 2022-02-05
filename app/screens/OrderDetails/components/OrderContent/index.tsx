@@ -79,6 +79,7 @@ function OrderContent() {
               weight="bold"
               textTransform="uppercase"
               textAlign="left"
+              className="prodPrice"
             >
               {parsedTotalCartAmt}
             </CustomText>

@@ -14,7 +14,7 @@ export const StackableProductCardContainer = styled.div<Props>`
   height: auto;
   margin: 0 auto;
   position: relative;
-  width: calc(100% - clamp(${PRIMARY_SPACING_EM}, 5vw, 4em));
+  width: 100%;
 
   .imgContainer {
     align-items: center;

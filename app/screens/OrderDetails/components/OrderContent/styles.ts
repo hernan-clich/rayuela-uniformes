@@ -24,7 +24,7 @@ export const OrderDetailsContainer = styled.div`
   .heading,
   .subheadings,
   .chipsContainer {
-    margin: ${SECONDARY_SPACING_EM} clamp(${SECONDARY_SPACING_EM}, 2.2vw, ${PRIMARY_SPACING_EM});
+    margin: ${SECONDARY_SPACING_EM} 0;
     word-break: break-word;
   }
 
@@ -33,6 +33,10 @@ export const OrderDetailsContainer = styled.div`
     justify-content: space-between;
     margin-bottom: ${PRIMARY_SPACING_EM};
     padding: 8px;
+
+    .prodPrice {
+      white-space: nowrap;
+    }
 
     span {
       margin-right: ${SECONDARY_SPACING_EM};
