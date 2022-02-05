@@ -43,22 +43,21 @@ export const OrderDetailsContainer = styled.div`
     }
   }
 
-  .chipsContainer {
+  .statusContainer {
     display: flex;
     flex-flow: column nowrap;
     margin-bottom: ${PRIMARY_SPACING_EM};
 
-    .chip {
+    .status {
+      align-items: flex-start;
       display: flex;
-      flex-flow: column nowrap;
+      flex-flow: row nowrap;
       margin-bottom: ${PRIMARY_SPACING_EM};
 
-      button {
-        cursor: default;
-      }
-
-      span {
-        margin-bottom: 8px;
+      .chip {
+        border-radius: 5px;
+        margin-left: 8px;
+        padding: 4px;
       }
     }
   }

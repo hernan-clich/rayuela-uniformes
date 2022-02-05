@@ -6,23 +6,18 @@ import Loading from '~components/Loading';
 import StackableProductCard from '~components/StackableProductCard';
 import { isServer } from '~constants/general';
 import PATHS from '~constants/paths';
-import { useAuth } from '~hooks/useAuth';
-import useDbCrud from '~hooks/useDbCrud';
 import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TOrder } from '~types/order';
-import { EDbCollections } from '~types/db';
 import * as Styled from './styles';
 
 function OrderContent() {
   const router = useRouter();
   const orderId = router?.query?.id as string;
-  const { isAdmin } = useAuth();
 
   const {
     data: [orderData],
     error
   } = useDbSnapshot<TOrder>({ collectionName: 'orders', docId: orderId });
-  const { updateDbDocument } = useDbCrud(EDbCollections.orders);
 
   const itemsCount = orderData?.orderedProducts?.reduce((acc, order) => acc + order.quantity, 0);
   const totalCartAmt = orderData?.orderedProducts?.reduce(
@@ -85,8 +80,8 @@ function OrderContent() {
             </CustomText>
           </div>
         </div>
-        <div className="chipsContainer">
-          <div className="chip">
+        <div className="statusContainer">
+          <div className="status">
             <CustomText
               as="span"
               size="regular"
@@ -96,19 +91,19 @@ function OrderContent() {
             >
               Pago
             </CustomText>
-            <CustomButton
-              size="small"
+            <CustomText
+              as="span"
+              size="xsmall"
               weight="bold"
-              className={clsx({ red: !orderData?.isPayed, green: orderData?.isPayed })}
-              onClick={() => {
-                if (!isAdmin) return;
-                updateDbDocument<TOrder>(orderData?.id, { isPayed: !orderData?.isPayed });
-              }}
+              textTransform="capitalize"
+              textAlign="left"
+              secondary
+              className={clsx('chip', { red: !orderData?.isPayed, green: orderData?.isPayed })}
             >
               {orderData?.isPayed ? 'Pagado' : 'Pendiente'}
-            </CustomButton>
+            </CustomText>
           </div>
-          <div className="chip">
+          <div className="status">
             <CustomText
               as="span"
               size="regular"
@@ -118,17 +113,20 @@ function OrderContent() {
             >
               Entrega
             </CustomText>
-            <CustomButton
-              size="small"
+            <CustomText
+              as="span"
+              size="xsmall"
               weight="bold"
-              className={clsx({ red: !orderData?.isDelivered, green: orderData?.isDelivered })}
-              onClick={() => {
-                if (!isAdmin) return;
-                updateDbDocument<TOrder>(orderData?.id, { isDelivered: !orderData?.isDelivered });
-              }}
+              textTransform="capitalize"
+              textAlign="left"
+              secondary
+              className={clsx('chip', {
+                red: !orderData?.isDelivered,
+                green: orderData?.isDelivered
+              })}
             >
               {orderData?.isDelivered ? 'Entregado' : 'Pendiente'}
-            </CustomButton>
+            </CustomText>
           </div>
         </div>
         <div>
