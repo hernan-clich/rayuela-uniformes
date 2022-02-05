@@ -35,18 +35,18 @@ export const FilterMobileContainer = styled.div`
     align-items: center;
     display: flex;
     justify-content: space-between;
-    padding: ${PRIMARY_SPACING_EM} ${SECONDARY_SPACING_EM};
+    padding: ${PRIMARY_SPACING_EM} 0 ${PRIMARY_SPACING_EM} ${SECONDARY_SPACING_EM};
 
     div {
       display: flex;
     }
 
     .cleanFiltersCta {
-      padding: 8px;
+      padding: 8px 0;
+      width: max-content;
     }
 
     .closeFilterBtn {
-      margin-left: ${SECONDARY_SPACING_EM};
       padding: 0 ${SECONDARY_SPACING_EM};
     }
   }

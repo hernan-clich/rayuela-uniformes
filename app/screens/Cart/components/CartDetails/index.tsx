@@ -68,6 +68,7 @@ function CartDetails() {
               weight="bold"
               textTransform="uppercase"
               textAlign="left"
+              className="prodsPrice"
             >
               {parsedTotalCartAmt}
             </CustomText>
