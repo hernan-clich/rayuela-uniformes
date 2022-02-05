@@ -12,7 +12,7 @@ function ProductCard({ product }: Props) {
 
   return (
     <Link href={{ pathname: PATHS.PRODUCT_DETAILS, query: { slug: id } }}>
-      <a>
+      <Styled.ProductCardLink>
         <Styled.ProductCardContainer>
           <div className="img">
             <img src={imageUrl} alt={name} />
@@ -22,7 +22,7 @@ function ProductCard({ product }: Props) {
             <p>$ {price}</p>
           </div>
         </Styled.ProductCardContainer>
-      </a>
+      </Styled.ProductCardLink>
     </Link>
   );
 }
