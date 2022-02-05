@@ -39,25 +39,35 @@ export const StackableProductCardContainer = styled.div<Props>`
   }
 
   .cartProdTop {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-areas:
+      'name'
+      'price'
+      'size';
     margin-top: ${PRIMARY_SPACING_EM};
 
-    .topLeft {
-      display: flex;
-      flex-flow: column nowrap;
-
-      span:nth-of-type(1) {
-        padding-bottom: calc(${SECONDARY_SPACING_EM} - 8px);
-      }
-
-      .orderQuantity {
-        margin-top: 8px;
-      }
+    .prodName,
+    .prodSize,
+    .prodPrice {
+      padding-bottom: calc(${SECONDARY_SPACING_EM} - 8px);
     }
 
-    .topRight span {
+    .prodName {
+      grid-area: name;
+    }
+
+    .prodSize {
+      grid-area: size;
+    }
+
+    .prodPrice {
+      grid-area: price;
+      text-align: left;
       white-space: nowrap;
+    }
+
+    .orderQuantity {
+      margin-top: 8px;
     }
   }
 
@@ -83,6 +93,16 @@ export const StackableProductCardContainer = styled.div<Props>`
 
     .cartProd {
       padding: 0 4em;
+    }
+
+    .cartProdTop {
+      grid-template-areas:
+        'name price'
+        'size size';
+
+      .prodPrice {
+        text-align: right;
+      }
     }
   }
 `;

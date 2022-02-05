@@ -21,43 +21,47 @@ function StackableProductCard({ $isFirstItem, item, isOrder = false }: Props) {
       </div>
       <div className="cartProd">
         <div className="cartProdTop">
-          <div className="topLeft">
-            <CustomText
-              as="span"
-              size="regular"
-              weight="bold"
-              textAlign="left"
-              textTransform="uppercase"
-            >
-              {item?.product?.name}
-            </CustomText>
+          <CustomText
+            as="span"
+            size="regular"
+            weight="bold"
+            textAlign="left"
+            textTransform="uppercase"
+            className="prodName"
+          >
+            {item?.product?.name}
+          </CustomText>
+          <CustomText
+            as="span"
+            size="regular"
+            weight="bold"
+            textTransform="uppercase"
+            className="prodPrice"
+          >
+            {`$ ${(item?.product?.price * item?.quantity).toLocaleString('es-AR')}`}
+          </CustomText>
+          <CustomText
+            as="span"
+            size="small"
+            weight="regular"
+            textAlign="left"
+            textTransform="uppercase"
+            className="prodSize"
+          >
+            {`Talle: ${item?.size}`}
+          </CustomText>
+          {isOrder && (
             <CustomText
               as="span"
               size="small"
               weight="regular"
               textAlign="left"
               textTransform="uppercase"
+              className="orderQuantity"
             >
-              {`Talle: ${item?.size}`}
+              {`Cantidad: ${item?.quantity}`}
             </CustomText>
-            {isOrder && (
-              <CustomText
-                as="span"
-                size="small"
-                weight="regular"
-                textAlign="left"
-                textTransform="uppercase"
-                className="orderQuantity"
-              >
-                {`Cantidad: ${item?.quantity}`}
-              </CustomText>
-            )}
-          </div>
-          <div className="topRight">
-            <CustomText as="span" size="regular" weight="bold" textTransform="uppercase">
-              {`$ ${(item?.product?.price * item?.quantity).toLocaleString('es-AR')}`}
-            </CustomText>
-          </div>
+          )}
         </div>
         <div className="cartProdBottom">
           {!isOrder && (
