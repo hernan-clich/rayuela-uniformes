@@ -13,7 +13,8 @@ const PATHS = {
 } as const;
 
 export const API_ROUTES = {
-  GRANT_ADMIN_ROLE: '/api/grant-admin-role'
+  GRANT_ADMIN_ROLE: '/api/grant-admin-role',
+  PAY_ORDER: '/api/pay-order'
 } as const;
 
 export default PATHS;

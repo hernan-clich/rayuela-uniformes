@@ -8,6 +8,7 @@ import { isServer } from '~constants/general';
 import PATHS from '~constants/paths';
 import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TOrder } from '~types/order';
+import { payCurrentOrder } from './helpers';
 import * as Styled from './styles';
 
 function OrderContent() {
@@ -102,6 +103,20 @@ function OrderContent() {
             >
               {orderData?.isPayed ? 'Pagado' : 'Pendiente'}
             </CustomText>
+            {/* @todo: DELETE THISS!!! */}
+            {false && (
+              <CustomButton
+                size="regular"
+                weight="regular"
+                onClick={async () => {
+                  const { redirectUrl } = await payCurrentOrder({ order: orderData });
+
+                  window.open(redirectUrl);
+                }}
+              >
+                Pagar
+              </CustomButton>
+            )}
           </div>
           <div className="status">
             <CustomText
