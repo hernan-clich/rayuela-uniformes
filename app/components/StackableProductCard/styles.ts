@@ -14,7 +14,7 @@ export const StackableProductCardContainer = styled.div<Props>`
   height: auto;
   margin: 0 auto;
   position: relative;
-  width: calc(100vw - clamp(${PRIMARY_SPACING_EM}, 5vw, 4em));
+  width: calc(100% - clamp(${PRIMARY_SPACING_EM}, 5vw, 4em));
 
   .imgContainer {
     align-items: center;
@@ -48,7 +48,8 @@ export const StackableProductCardContainer = styled.div<Props>`
 
     .prodName,
     .prodSize,
-    .prodPrice {
+    .prodPrice,
+    .orderQuantity {
       padding-bottom: calc(${SECONDARY_SPACING_EM} - 8px);
     }
 

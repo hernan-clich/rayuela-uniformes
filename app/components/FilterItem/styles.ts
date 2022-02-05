@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { PORCELAIN, PRUSSIAN_BLUE, TRANSPARENT, WHITE } from '~styles/colors';
-import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM, SMALL_BR } from '~styles/variables';
 
 type FilterItemContainerProps = {
   readonly $isActive: boolean;
@@ -17,10 +17,11 @@ export const FilterItemContainer = styled.div<FilterItemContainerProps>`
     $isActive ? `1px solid ${PRUSSIAN_BLUE}` : `1px solid ${TRANSPARENT}`};
   cursor: pointer;
   display: flex;
-  height: 80%;
+  height: fit-content;
   margin-right: ${PRIMARY_SPACING_EM};
-  padding: 12px calc(${SECONDARY_SPACING_EM}) 8px;
+  padding: ${SECONDARY_SPACING_EM};
   position: relative;
+  width: 100%;
 
   &:hover {
     border: 1px solid ${PRUSSIAN_BLUE};
@@ -42,6 +43,12 @@ export const FilterItemContainer = styled.div<FilterItemContainerProps>`
   span {
     margin-right: 8px;
   }
+
+  @media (min-width: ${SMALL_BR}px) {
+    height: 80%;
+    padding: 12px calc(${SECONDARY_SPACING_EM}) 8px;
+    width: fit-content;
+  }
 `;
 
 export const SingleListItem = styled.div`
@@ -51,8 +58,8 @@ export const SingleListItem = styled.div`
   flex-flow: column nowrap;
   left: -1px;
   position: absolute;
-  top: calc(100%);
-  width: 300px;
+  top: 100%;
+  width: calc(100% + 2px);
   z-index: 1;
 
   div {
@@ -68,5 +75,9 @@ export const SingleListItem = styled.div`
     &:hover {
       background-color: ${PORCELAIN};
     }
+  }
+
+  @media (min-width: ${SMALL_BR}px) {
+    width: 300px;
   }
 `;

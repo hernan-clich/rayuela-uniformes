@@ -1,11 +1,11 @@
 import PublicLayout from '~components/PublicLayout';
-import FilterBar from './components/FilterBar';
+import FilterContent from './components/FilterContent';
 import ProductGrid from './components/ProductGrid';
 
 function ProductList() {
   return (
     <PublicLayout>
-      <FilterBar />
+      <FilterContent />
       <ProductGrid />
     </PublicLayout>
   );
