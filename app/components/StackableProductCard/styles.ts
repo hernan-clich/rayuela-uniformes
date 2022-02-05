@@ -1,6 +1,6 @@
 import styled from 'styled-components';
-import { PORCELAIN, WILD_SAND } from '~styles/colors';
-import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
+import { PORCELAIN, TRANSPARENT, WILD_SAND } from '~styles/colors';
+import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM, MOBILE_BR } from '~styles/variables';
 
 type Props = {
   readonly $isFirstItem?: boolean;
@@ -10,16 +10,19 @@ export const StackableProductCardContainer = styled.div<Props>`
   border-bottom: 1px solid ${PORCELAIN};
   border-top: ${({ $isFirstItem }) => $isFirstItem && `1px solid ${PORCELAIN}`};
   display: flex;
-  height: 240px;
+  flex-flow: column nowrap;
+  height: auto;
   margin: 0 auto;
-  width: calc(100% - clamp(${PRIMARY_SPACING_EM}, 5vw, 4em));
+  position: relative;
+  width: calc(100vw - clamp(${PRIMARY_SPACING_EM}, 5vw, 4em));
 
   .imgContainer {
     align-items: center;
     background-color: ${WILD_SAND};
     display: flex;
     justify-content: center;
-    width: 240px;
+    padding: ${SECONDARY_SPACING_EM};
+    width: 100%;
 
     img {
       object-fit: contain;
@@ -31,7 +34,7 @@ export const StackableProductCardContainer = styled.div<Props>`
     display: flex;
     flex-flow: column wrap;
     justify-content: space-between;
-    padding: 0 ${PRIMARY_SPACING_EM};
+    padding: 0 ${SECONDARY_SPACING_EM};
     width: 100%;
   }
 
@@ -52,14 +55,34 @@ export const StackableProductCardContainer = styled.div<Props>`
         margin-top: 8px;
       }
     }
+
+    .topRight span {
+      white-space: nowrap;
+    }
   }
 
   .deleteButton {
+    background: ${TRANSPARENT};
     height: fit-content;
     padding: 12px;
+    position: absolute;
+    right: 0;
   }
 
   .cartProdBottom {
     width: fit-content;
+  }
+
+  @media (min-width: ${MOBILE_BR}px) {
+    flex-flow: row nowrap;
+
+    .imgContainer {
+      padding: 0;
+      width: 240px;
+    }
+
+    .cartProd {
+      padding: 0 4em;
+    }
   }
 `;

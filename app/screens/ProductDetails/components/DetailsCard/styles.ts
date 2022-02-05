@@ -48,7 +48,7 @@ export const DetailsCardContainer = styled.div`
     opacity: 0.6;
   }
 
-  @media (max-width: ${SMALL_BR}px) {
+  @media (min-width: ${SMALL_BR}px) {
     flex-direction: row;
 
     .img,
