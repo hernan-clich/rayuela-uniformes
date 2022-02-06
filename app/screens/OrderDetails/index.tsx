@@ -1,10 +1,15 @@
 import PublicLayout from '~components/PublicLayout';
+import { TOrder } from '~types/order';
 import OrderContent from './components/OrderContent';
 
-function OrderDetails() {
+type Props = {
+  order: TOrder;
+};
+
+function OrderDetails({ order }: Props) {
   return (
     <PublicLayout>
-      <OrderContent />
+      <OrderContent order={order} />
     </PublicLayout>
   );
 }

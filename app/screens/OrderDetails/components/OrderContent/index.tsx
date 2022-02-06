@@ -1,53 +1,31 @@
 import clsx from 'clsx';
-import { useRouter } from 'next/router';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import Loading from '~components/Loading';
 import StackableProductCard from '~components/StackableProductCard';
 import { isServer } from '~constants/general';
-import PATHS from '~constants/paths';
-import useDbSnapshot from '~hooks/useDbSnapshot';
 import { TOrder } from '~types/order';
 import { payCurrentOrder } from './helpers';
 import * as Styled from './styles';
 
-function OrderContent() {
-  const router = useRouter();
-  const orderId = router?.query?.id as string;
+type Props = {
+  order: TOrder;
+};
 
-  const {
-    data: [orderData],
-    error
-  } = useDbSnapshot<TOrder>({ collectionName: 'orders', docId: orderId });
-
-  const itemsCount = orderData?.orderedProducts?.reduce((acc, order) => acc + order.quantity, 0);
-  const totalCartAmt = orderData?.orderedProducts?.reduce(
+function OrderContent({ order }: Props) {
+  const itemsCount = order?.orderedProducts?.reduce((acc, order) => acc + order.quantity, 0);
+  const totalCartAmt = order?.orderedProducts?.reduce(
     (acc, order) => acc + order.product.price * order.quantity,
     0
   );
   const parsedTotalCartAmt = `$ ${totalCartAmt?.toLocaleString('es-AR')}`;
 
-  if (error) router.replace(PATHS.HOME);
-
   if (isServer) return null;
 
-  if (!orderData) return <Loading />;
+  if (!order) return <Loading />;
 
   return (
     <Styled.OrderDetailsContainer>
-      {window && window?.history?.length > 2 && (
-        <CustomButton
-          className="backBtn"
-          size="small"
-          weight="regular"
-          onClick={() => router.back()}
-        >
-          <span className="icon" role="img" aria-label="finger pointing left">
-            ←
-          </span>
-          Volver
-        </CustomButton>
-      )}
       <div className="cartProdsWrapper">
         <CustomText
           size="big"
@@ -56,7 +34,7 @@ function OrderContent() {
           textAlign="left"
           className="heading"
         >
-          {`Orden Nº: ${orderId}`}
+          {`Orden Nº: ${order.id}`}
         </CustomText>
         <div className="subheadings">
           <div>
@@ -99,17 +77,17 @@ function OrderContent() {
               textTransform="capitalize"
               textAlign="left"
               secondary
-              className={clsx('chip', { red: !orderData?.isPayed, green: orderData?.isPayed })}
+              className={clsx('chip', { red: !order?.isPayed, green: order?.isPayed })}
             >
-              {orderData?.isPayed ? 'Pagado' : 'Pendiente'}
+              {order?.isPayed ? 'Pagado' : 'Pendiente'}
             </CustomText>
-            {!orderData?.isPayed && (
+            {!order?.isPayed && (
               <CustomButton
                 size="small"
                 weight="bold"
                 className="paymentBtn"
                 onClick={async () => {
-                  const { redirectUrl } = await payCurrentOrder({ order: orderData });
+                  const { redirectUrl } = await payCurrentOrder({ order: order });
 
                   window.open(redirectUrl);
                 }}
@@ -136,16 +114,16 @@ function OrderContent() {
               textAlign="left"
               secondary
               className={clsx('chip', {
-                red: !orderData?.isDelivered,
-                green: orderData?.isDelivered
+                red: !order?.isDelivered,
+                green: order?.isDelivered
               })}
             >
-              {orderData?.isDelivered ? 'Entregado' : 'Pendiente'}
+              {order?.isDelivered ? 'Entregado' : 'Pendiente'}
             </CustomText>
           </div>
         </div>
         <div>
-          {orderData?.orderedProducts?.map(({ product: { id }, product, quantity, size }, i) => (
+          {order?.orderedProducts?.map(({ product: { id }, product, quantity, size }, i) => (
             <StackableProductCard
               key={id}
               $isFirstItem={i === 0}
