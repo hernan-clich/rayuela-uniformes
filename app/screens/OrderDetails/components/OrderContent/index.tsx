@@ -103,11 +103,11 @@ function OrderContent() {
             >
               {orderData?.isPayed ? 'Pagado' : 'Pendiente'}
             </CustomText>
-            {/* @todo: DELETE THISS!!! */}
-            {true && (
+            {!orderData?.isPayed && (
               <CustomButton
-                size="regular"
-                weight="regular"
+                size="small"
+                weight="bold"
+                className="paymentBtn"
                 onClick={async () => {
                   const { redirectUrl } = await payCurrentOrder({ order: orderData });
 

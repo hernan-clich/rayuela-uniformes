@@ -49,15 +49,20 @@ export const OrderDetailsContainer = styled.div`
     margin-bottom: ${PRIMARY_SPACING_EM};
 
     .status {
-      align-items: flex-start;
+      align-items: center;
       display: flex;
       flex-flow: row nowrap;
       margin-bottom: ${PRIMARY_SPACING_EM};
 
       .chip {
         border-radius: 5px;
-        margin-left: 8px;
+        margin: 0 8px;
         padding: 4px;
+      }
+
+      .paymentBtn {
+        border-radius: 4px;
+        padding: 12px;
       }
     }
   }

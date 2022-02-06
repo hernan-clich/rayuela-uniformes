@@ -45,6 +45,7 @@ export const StackableProductCardContainer = styled.div<Props>`
       'price'
       'size';
     margin-top: ${PRIMARY_SPACING_EM};
+    padding-bottom: ${SECONDARY_SPACING_EM};
 
     .prodName,
     .prodSize,
