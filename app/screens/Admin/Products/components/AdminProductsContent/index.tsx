@@ -20,7 +20,11 @@ function AdminProductsContent() {
     id: data.id,
     imageUrl: data.imageUrl,
     stockBySize: data.stockBySize,
-    textFields: [data.name, data.price, ESchools[data.school]]
+    textFields: [
+      data.name,
+      `$ ${data.price.toLocaleString('es-AR') || data.price}`,
+      ESchools[data.school]
+    ]
   }));
 
   if (loading) return <Loading />;

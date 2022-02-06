@@ -17,7 +17,7 @@ function AdminUsersContent() {
     email,
     imageUrl,
     isAdmin,
-    textFields: [id, name, joinedSince]
+    textFields: [id, name, new Date(joinedSince)?.toLocaleDateString('es-AR') || joinedSince]
   }));
 
   if (!data?.length) return <Loading />;

@@ -32,7 +32,7 @@ function ProfileContent() {
       isPayed,
       textFields: [
         id,
-        createdAt,
+        new Date(createdAt)?.toLocaleDateString('es-AR') || createdAt,
         `$ ${orderedProducts
           .reduce((acc, order) => acc + order.product.price * order.quantity, 0)
           .toLocaleString('es-AR')}`
