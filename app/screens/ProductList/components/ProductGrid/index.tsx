@@ -10,7 +10,11 @@ import { TProduct } from '~types/product';
 import ProductCard from '../ProductCard';
 import * as Styled from './styles';
 
-function ProductGrid() {
+type Props = {
+  products: TProduct[];
+};
+
+function ProductGrid({ products }: Props) {
   const router = useRouter();
   const school = router?.query?.school as string | undefined;
   const category = router?.query?.categories as string | undefined;
@@ -23,12 +27,14 @@ function ProductGrid() {
     return [{ fieldPath: 'category', opStr: '==' as WhereFilterOp, value: category }];
   }, [category]);
 
-  const { data: productList, loading } = useDbSnapshot<TProduct>({
+  const { data, loading } = useDbSnapshot<TProduct>({
     collectionName: 'products',
     customQuery: [...(schoolQuery || []), ...(categoryQuery || [])]
   });
 
-  if (loading) return <Loading />;
+  const productList = data?.length ? data : products;
+
+  if (!productList?.length && loading) return <Loading />;
 
   if (!productList?.length) {
     return (
