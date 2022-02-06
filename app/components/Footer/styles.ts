@@ -47,6 +47,10 @@ export const FooterSocial = styled.div`
   height: auto;
   justify-content: flex-end;
 
+  .footerLink {
+    height: min-content;
+  }
+
   svg {
     margin: 0 0.75em;
   }
