@@ -1,10 +1,15 @@
 import PublicLayout from '~components/PublicLayout';
+import { TProduct } from '~types/product';
 import DetailsContent from './components/DetailsContent';
 
-function ProductDetails() {
+type Props = {
+  product: TProduct;
+};
+
+function ProductDetails({ product }: Props) {
   return (
     <PublicLayout>
-      <DetailsContent />
+      <DetailsContent product={product} />
     </PublicLayout>
   );
 }

@@ -11,7 +11,7 @@ function ProductCard({ product }: Props) {
   const { id, imageUrl, name, price } = product;
 
   return (
-    <Link href={{ pathname: PATHS.PRODUCT_DETAILS, query: { slug: id } }}>
+    <Link href={{ pathname: PATHS.PRODUCT_DETAILS, query: { id: id } }}>
       <Styled.ProductCardLink>
         <Styled.ProductCardContainer>
           <div className="img">

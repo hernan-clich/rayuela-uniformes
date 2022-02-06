@@ -7,7 +7,7 @@ const PATHS = {
   CART: '/cart',
   HOME: '/',
   PRODUCTS: '/products',
-  PRODUCT_DETAILS: '/product/[slug]',
+  PRODUCT_DETAILS: '/product/[id]',
   PROFILE: '/profile',
   ORDER: '/order/[id]'
 } as const;

@@ -1,10 +1,15 @@
 import { useRouter } from 'next/router';
 import CustomButton from '~components/CustomButton';
 import { isServer } from '~constants/general';
+import { TProduct } from '~types/product';
 import DetailsCard from '../DetailsCard';
 import * as Styled from './styles';
 
-function DetailsContent() {
+type Props = {
+  product: TProduct;
+};
+
+function DetailsContent({ product }: Props) {
   const router = useRouter();
 
   if (isServer) return null;
@@ -24,7 +29,7 @@ function DetailsContent() {
           Volver
         </CustomButton>
       )}
-      <DetailsCard />
+      <DetailsCard product={product} />
     </Styled.DetailsContentContainer>
   );
 }
