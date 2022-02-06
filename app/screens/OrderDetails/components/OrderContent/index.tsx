@@ -104,7 +104,7 @@ function OrderContent() {
               {orderData?.isPayed ? 'Pagado' : 'Pendiente'}
             </CustomText>
             {/* @todo: DELETE THISS!!! */}
-            {false && (
+            {true && (
               <CustomButton
                 size="regular"
                 weight="regular"

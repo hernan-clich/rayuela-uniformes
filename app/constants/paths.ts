@@ -14,7 +14,8 @@ const PATHS = {
 
 export const API_ROUTES = {
   GRANT_ADMIN_ROLE: '/api/grant-admin-role',
-  PAY_ORDER: '/api/pay-order'
+  PAY_ORDER: '/api/pay-order',
+  MP_WEBHOOK: '/api/mp-webhook'
 } as const;
 
 export default PATHS;

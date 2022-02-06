@@ -138,6 +138,7 @@ function CartDetails() {
                 isDelivered: false,
                 isPayed: false,
                 orderedProducts,
+                paymentId: null,
                 timestamp
               });
               setCartEmpty();

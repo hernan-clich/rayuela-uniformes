@@ -15,5 +15,6 @@ export type TOrder = {
   isDelivered: boolean;
   isPayed: boolean;
   orderedProducts: TOrderedProducts[];
+  paymentId: string | null;
   timestamp: FieldValue;
 };
