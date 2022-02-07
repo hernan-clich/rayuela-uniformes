@@ -47,7 +47,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const signInWithGoogle = async (shouldRedirectAfterSuccess = true) => {
     try {
-      const provider = new GoogleAuthProvider();
+      const provider = new GoogleAuthProvider().setCustomParameters({
+        prompt: 'select_account'
+      });
       const signIn = await signInWithPopup(auth, provider);
       const additionalInfo = getAdditionalUserInfo(signIn);
 
