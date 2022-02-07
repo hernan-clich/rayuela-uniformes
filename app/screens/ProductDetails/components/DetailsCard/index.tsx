@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { useMemo, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import CustomButton from '~components/CustomButton';
@@ -26,6 +27,8 @@ type Props = {
 };
 
 function DetailsCard({ product }: Props) {
+  const router = useRouter();
+
   const { width } = useWindowSize();
   const imgContainerRef = useRef<HTMLDivElement>(null);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -57,7 +60,7 @@ function DetailsCard({ product }: Props) {
     }
   };
 
-  if (!product) return <Loading />;
+  if (!product || router.isFallback) return <Loading />;
 
   return (
     <>

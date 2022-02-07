@@ -28,6 +28,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: productPaths,
-    fallback: false
+    fallback: true
   };
 };
