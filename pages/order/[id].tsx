@@ -33,6 +33,6 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   return {
     paths: orderPaths,
-    fallback: false
+    fallback: true
   };
 };

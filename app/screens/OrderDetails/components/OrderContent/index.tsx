@@ -1,4 +1,5 @@
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import Loading from '~components/Loading';
@@ -13,6 +14,7 @@ type Props = {
 };
 
 function OrderContent({ order }: Props) {
+  const router = useRouter();
   const itemsCount = order?.orderedProducts?.reduce((acc, order) => acc + order.quantity, 0);
   const totalCartAmt = order?.orderedProducts?.reduce(
     (acc, order) => acc + order.product.price * order.quantity,
@@ -22,7 +24,7 @@ function OrderContent({ order }: Props) {
 
   if (isServer) return null;
 
-  if (!order) return <Loading />;
+  if (!order || router.isFallback) return <Loading />;
 
   return (
     <Styled.OrderDetailsContainer>
