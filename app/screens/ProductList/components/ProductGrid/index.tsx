@@ -27,14 +27,14 @@ function ProductGrid({ products }: Props) {
     return [{ fieldPath: 'category', opStr: '==' as WhereFilterOp, value: category }];
   }, [category]);
 
-  const { data, loading } = useDbSnapshot<TProduct>({
+  const { data, loading: isClientDataLoading } = useDbSnapshot<TProduct>({
     collectionName: 'products',
     customQuery: [...(schoolQuery || []), ...(categoryQuery || [])]
   });
 
-  const productList = data?.length ? data : products;
+  const productList = isClientDataLoading ? products : data;
 
-  if (!productList?.length && loading) return <Loading />;
+  if (!productList?.length && isClientDataLoading) return <Loading />;
 
   if (!productList?.length) {
     return (
