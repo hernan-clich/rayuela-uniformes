@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useLayoutEffect, useMemo } from 'react';
 import { SMALL_BR } from '~styles/variables';
 
 function useWindowSize(): {
@@ -13,7 +13,7 @@ function useWindowSize(): {
 
   const isSmallScreen = useMemo(() => sizes.width <= SMALL_BR, [sizes.width]);
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const setWindowSizeCallback = () =>
       setSizes({
         height: window.innerHeight,
