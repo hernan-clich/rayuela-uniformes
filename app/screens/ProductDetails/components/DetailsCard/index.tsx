@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import Image from 'next/image';
+import { useMemo, useRef, useState } from 'react';
 import { v4 as uuid } from 'uuid';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
@@ -8,6 +9,7 @@ import ModalBody from '~components/ModalBody';
 import QuantityCounter from '~components/QuantityCounter';
 import PATHS from '~constants/paths';
 import useCart from '~hooks/useCart';
+import useWindowSize from '~hooks/useWindowSize';
 import { TProduct, TProductSizes } from '~types/product';
 import SizePicker from '../SizePicker';
 import StockTag from '../StockTag';
@@ -24,6 +26,11 @@ type Props = {
 };
 
 function DetailsCard({ product }: Props) {
+  const { width } = useWindowSize();
+  const imgContainerRef = useRef<HTMLDivElement>(null);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const imgContainerWidth = useMemo(() => imgContainerRef.current?.clientWidth, [width]);
+
   const { isCartEmpty, checkIfItemIsInCart, setNewItem } = useCart(product?.id);
   const [quantity, setQuantity] = useState(1);
   const [currentSize, setCurrentSize] = useState<TProductSizes>('2');
@@ -55,8 +62,16 @@ function DetailsCard({ product }: Props) {
   return (
     <>
       <Styled.DetailsCardContainer>
-        <div className="img">
-          <img src={product?.imageUrl} alt={product?.name} />
+        <div className="imgContainer" ref={imgContainerRef}>
+          <Image
+            src={product?.imageUrl}
+            alt={product?.name}
+            className="img"
+            layout="fixed"
+            height={imgContainerWidth ? imgContainerWidth * 0.45 : 0}
+            width={imgContainerWidth ? imgContainerWidth * 0.45 : 0}
+            priority
+          />
         </div>
         <div className="detailsWrapper">
           <div className="details">

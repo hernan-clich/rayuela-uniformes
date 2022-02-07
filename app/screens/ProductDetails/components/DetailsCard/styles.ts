@@ -10,22 +10,16 @@ export const DetailsCardContainer = styled.div`
   min-height: 70vh;
   width: calc(100vw - ${PRIMARY_SPACING_EM} * 2);
 
-  .img,
+  .imgContainer,
   .details {
     min-height: 50vh;
     min-width: calc(280px - ${PRIMARY_SPACING_EM} * 2);
   }
 
-  .img {
-    align-items: center;
+  .imgContainer {
     background-color: ${WILD_SAND};
-    display: flex;
-    justify-content: center;
-
-    img {
-      object-fit: contain;
-      width: 50%;
-    }
+    display: grid;
+    place-items: center;
   }
 
   .detailsWrapper {
@@ -51,7 +45,7 @@ export const DetailsCardContainer = styled.div`
   @media (min-width: ${SMALL_BR}px) {
     flex-direction: row;
 
-    .img,
+    .imgContainer,
     .detailsWrapper {
       min-width: 50%;
     }
