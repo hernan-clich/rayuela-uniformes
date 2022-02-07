@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import Link from 'next/link';
 import PATHS from '~constants/paths';
 import type { TProduct } from '~types/product';
@@ -15,7 +16,7 @@ function ProductCard({ product }: Props) {
       <Styled.ProductCardLink>
         <Styled.ProductCardContainer>
           <div className="img">
-            <img src={imageUrl} alt={name} />
+            <Image src={imageUrl} alt={name} height={180} width={180} layout="fixed" />
           </div>
           <div className="text">
             <p>{name}</p>
