@@ -31,11 +31,7 @@ export type TProduct = {
   id: string;
   imageUrl: string;
   name: string;
-  price: number;
   school: keyof typeof ESchools;
-  stockBySize: {
-    [key in TProductSizes]?: boolean;
-  };
   sizes: {
     name: TProductSizes;
     price: number;

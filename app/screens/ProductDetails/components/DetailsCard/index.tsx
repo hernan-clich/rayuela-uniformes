@@ -37,7 +37,11 @@ function DetailsCard({ product }: Props) {
   const { isCartEmpty, checkIfItemIsInCart, setNewItem } = useCart(product?.id);
   const [quantity, setQuantity] = useState(1);
   // @todo: What if the prod doesnt contain a size of 2???
-  const [currentSize, setCurrentSize] = useState<TProductSizes>('2');
+  const [currentSize, setCurrentSize] = useState<TProductSizes>(product.sizes?.[0]?.name || '2');
+  const currentProductPrice = useMemo(
+    () => product?.sizes?.find((size) => size.name === currentSize)?.price as number,
+    [currentSize, product?.sizes]
+  );
   const [modalType, setModalType] = useState<EModalTypes>(EModalTypes.NoDisplay);
   const isModalTypeNew = modalType === EModalTypes.New;
   const isModalTypeExisting = modalType === EModalTypes.Existing;
@@ -52,7 +56,13 @@ function DetailsCard({ product }: Props) {
   const handleSubmit = () => {
     // If the cart is empty or the product is not yet there, we're gonna add it
     if (isCartEmpty || !isProductAlreadyInCart) {
-      setNewItem({ id: uuid(), product: product, quantity, size: currentSize });
+      setNewItem({
+        id: uuid(),
+        product: product,
+        quantity,
+        size: currentSize,
+        price: currentProductPrice
+      });
       setModalType(EModalTypes.New);
     }
     // Else, if the product is already there, we'll let the user know with a modal
@@ -84,7 +94,7 @@ function DetailsCard({ product }: Props) {
               {product?.name || ''}
             </CustomText>
             <CustomText as="h2" size="big" weight="bold" className="price">
-              {product ? `$ ${product?.price.toLocaleString('es-AR')}` : ''}
+              {product ? `$ ${currentProductPrice?.toLocaleString('es-AR')}` : ''}
             </CustomText>
             <QuantityCounter
               quantity={quantity}

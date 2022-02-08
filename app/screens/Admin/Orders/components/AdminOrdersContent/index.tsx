@@ -22,7 +22,7 @@ function AdminOrdersContent() {
         buyerName,
         new Date(createdAt)?.toLocaleDateString('es-AR') || createdAt,
         `$ ${orderedProducts
-          .reduce((acc, order) => acc + order.product.price * order.quantity, 0)
+          .reduce((acc, order) => acc + order.price * order.quantity, 0)
           .toLocaleString('es-AR')}`
       ]
     })

@@ -22,7 +22,7 @@ function AdminProductsContent() {
     sizes: data.sizes,
     textFields: [
       data.name,
-      `$ ${data.price.toLocaleString('es-AR') || data.price}`,
+      `$ ${data.sizes?.[0]?.price.toLocaleString('es-AR') || data.sizes?.[0]?.price}`,
       ESchools[data.school]
     ]
   }));

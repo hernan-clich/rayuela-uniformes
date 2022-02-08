@@ -23,7 +23,7 @@ function useCart(productId = ''): {
     if (typeof window !== 'undefined')
       setItemsCount(() => localStorageCart.reduce((acc, item) => acc + item?.quantity, 0));
     setTotalCartAmt(() =>
-      localStorageCart.reduce((acc, item) => acc + item?.product?.price * item?.quantity, 0)
+      localStorageCart.reduce((acc, item) => acc + item?.price * item?.quantity, 0)
     );
   }, [localStorageCart]);
 

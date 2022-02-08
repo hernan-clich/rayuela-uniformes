@@ -2,7 +2,8 @@ import { FieldValue } from 'firebase/firestore';
 import { TProduct, TProductSizes } from './product';
 
 export type TOrderedProducts = {
-  product: TProduct;
+  product: Omit<TProduct, 'sizes'>;
+  price: number;
   quantity: number;
   size: TProductSizes;
 };

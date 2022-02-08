@@ -17,7 +17,7 @@ function OrderContent({ order }: Props) {
   const router = useRouter();
   const itemsCount = order?.orderedProducts?.reduce((acc, order) => acc + order.quantity, 0);
   const totalCartAmt = order?.orderedProducts?.reduce(
-    (acc, order) => acc + order.product.price * order.quantity,
+    (acc, order) => acc + order.price * order.quantity,
     0
   );
   const parsedTotalCartAmt = `$ ${totalCartAmt?.toLocaleString('es-AR')}`;
@@ -125,11 +125,11 @@ function OrderContent({ order }: Props) {
           </div>
         </div>
         <div>
-          {order?.orderedProducts?.map(({ product: { id }, product, quantity, size }, i) => (
+          {order?.orderedProducts?.map(({ product: { id }, product, price, quantity, size }, i) => (
             <StackableProductCard
               key={id}
               $isFirstItem={i === 0}
-              item={{ id, product, quantity, size }}
+              item={{ id, price, product, quantity, size }}
               isOrder
             />
           ))}

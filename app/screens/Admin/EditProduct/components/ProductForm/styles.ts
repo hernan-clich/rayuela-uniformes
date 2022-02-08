@@ -1,6 +1,11 @@
 import styled from 'styled-components';
-import { MONZA, PRUSSIAN_BLUE, SILVER, WHITE } from '~styles/colors';
-import { MEDIUM_BR, PRIMARY_FONT, SECONDARY_SPACING_EM } from '~styles/variables';
+import { MONZA, PRUSSIAN_BLUE, SILVER, TRANSPARENT, WHITE } from '~styles/colors';
+import {
+  MEDIUM_BR,
+  PRIMARY_FONT,
+  PRIMARY_SPACING_PX,
+  SECONDARY_SPACING_EM
+} from '~styles/variables';
 import { EFontSizes } from '~types/fonts';
 
 export const ProductFormContainer = styled.div`
@@ -24,7 +29,7 @@ export const ProductFormContainer = styled.div`
     margin-bottom: ${SECONDARY_SPACING_EM};
   }
 
-  input[type='text'] {
+  .textInput {
     border: 1px solid ${SILVER};
     border-radius: 4px;
     color: ${PRUSSIAN_BLUE};
@@ -32,6 +37,36 @@ export const ProductFormContainer = styled.div`
     font-size: ${EFontSizes.small};
     margin-bottom: ${SECONDARY_SPACING_EM};
     padding: 10px ${SECONDARY_SPACING_EM} 8px;
+  }
+
+  .sizeContainer {
+    align-items: center;
+    display: flex;
+    margin-bottom: 16px;
+  }
+
+  .sizeName {
+    background-color: ${TRANSPARENT};
+    border: 1px solid ${TRANSPARENT};
+    cursor: default;
+    font-weight: bold;
+    padding: 0;
+    pointer-events: none;
+    position: relative;
+    width: ${PRIMARY_SPACING_PX}px;
+  }
+
+  .sizePrice {
+    flex-shrink: 1;
+    margin: 0 8px 0 0;
+    min-width: 64px;
+  }
+
+  .sizeStock {
+    flex-shrink: 0;
+    height: 24px;
+    margin-left: 8px;
+    width: 24px;
   }
 
   .rightContainer {

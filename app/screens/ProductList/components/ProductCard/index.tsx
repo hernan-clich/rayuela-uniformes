@@ -9,7 +9,7 @@ type Props = {
 };
 
 function ProductCard({ product }: Props) {
-  const { id, imageUrl, name, price } = product;
+  const { id, imageUrl, name, sizes } = product;
 
   return (
     <Link href={{ pathname: PATHS.PRODUCT_DETAILS, query: { id: id } }}>
@@ -20,7 +20,7 @@ function ProductCard({ product }: Props) {
           </div>
           <div className="text">
             <p>{name}</p>
-            <p>$ {price}</p>
+            <p>$ {sizes?.[0]?.price}</p>
           </div>
         </Styled.ProductCardContainer>
       </Styled.ProductCardLink>

@@ -23,7 +23,7 @@ export default nc().post(async (req: NextApiRequest, res: NextApiResponse) => {
       currency_id: 'ARS',
       title: orderProd.product.name,
       quantity: orderProd.quantity,
-      unit_price: orderProd.product.price
+      unit_price: orderProd.price
     }));
 
     // Test cards

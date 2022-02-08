@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import { ChangeEvent, useEffect, useState } from 'react';
-import { useForm, Controller, FieldError } from 'react-hook-form';
+import { useForm, useFieldArray, Controller, FieldError } from 'react-hook-form';
 import Select, { MultiValue } from 'react-select';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
@@ -10,7 +10,7 @@ import { CCategories, TCategoryKeys } from '~constants/categories';
 import PATHS from '~constants/paths';
 import useDbCrud from '~hooks/useDbCrud';
 import { EDbCollections } from '~types/db';
-import { CProductSizes, TProduct } from '~types/product';
+import { CProductSizes, TProduct, TProductSizes } from '~types/product';
 import { CSchools, TSchoolIds } from '~types/schools';
 import * as Styled from './styles';
 
@@ -20,11 +20,13 @@ type TFormData = {
   category: string;
   img: FileList;
   name: string;
-  price: string;
   school: TSchoolIds;
   availableSizes: TMultiOptions;
-  // @todo: stockBySize needs to disappear from the entire app
-  stockBySize: TMultiOptions;
+  sizes: {
+    name: TProductSizes;
+    price: number;
+    stock: boolean;
+  }[];
 };
 
 function ProductForm() {
@@ -53,32 +55,26 @@ function ProductForm() {
 
   const methods = useForm<TFormData>();
   const {
+    control,
     formState: { errors },
     setValue,
     getValues,
     handleSubmit,
     register
   } = methods;
+  useFieldArray({ name: 'sizes', control });
 
   useEffect(() => {
     if (docData) {
       setValue('name', docData?.name);
-      setValue('price', String(docData?.price));
       setValue('school', docData?.school);
       setValue('category', docData?.category);
       setValue(
         'availableSizes',
-        Object.keys(docData?.stockBySize).map((size) => ({ label: size, value: size }))
+        docData?.sizes.map((size) => ({ label: size.name, value: size.name }))
       );
-      setAvailableSizes(
-        Object.keys(docData?.stockBySize).map((size) => ({ label: size, value: size }))
-      );
-      setValue(
-        'stockBySize',
-        Object.entries(docData?.stockBySize)
-          .filter(([_, hasStock]) => hasStock)
-          .map(([size]) => ({ value: size, label: size }))
-      );
+      setAvailableSizes(docData?.sizes.map((size) => ({ label: size.name, value: size.name })));
+      setValue('sizes', docData?.sizes);
     }
   }, [docData, setValue]);
 
@@ -92,34 +88,17 @@ function ProductForm() {
     }
   };
 
-  const onSubmit = ({
-    availableSizes,
-    category,
-    img,
-    name,
-    price,
-    school,
-    stockBySize
-  }: TFormData) => {
-    const parsedPrice = parseInt(price, 10);
-    const stockBySizeValues = stockBySize?.map((size) => size.value);
-    const reducedStockBySize = availableSizes.reduce(
-      (acc, size) => ({
-        ...acc,
-        name: size.value,
-        // @todo: Set this value in the form!
-        price: 2000,
-        stock: stockBySizeValues?.includes(size.value)
-      }),
-      {}
+  const onSubmit = ({ availableSizes, category, img, name, school, sizes }: TFormData) => {
+    const availableSizeValues = availableSizes.map((size) => size.value);
+    const validSizes = sizes?.filter(
+      (size) => availableSizeValues.includes(size.name) && Boolean(size.price)
     );
+
     const productToSave = {
       category,
       name,
       school,
-      price: parsedPrice,
-      sizes: [reducedStockBySize] as TProduct['sizes'],
-      stockBySize: {}
+      sizes: validSizes
     };
 
     if (productId) {
@@ -141,6 +120,7 @@ function ProductForm() {
           </CustomText>
           <input
             type="text"
+            className="textInput"
             {...register('name', {
               required: 'Campo obligatorio',
               minLength: { value: 8, message: 'El valor debe ser mas largo' }
@@ -148,17 +128,6 @@ function ProductForm() {
           />
           <CustomText as="span" size="xsmall" weight="bold" className="errorMsg" textAlign="left">
             {errors?.name?.message || ''}
-          </CustomText>
-          <label htmlFor="price">Precio</label>
-          <input
-            type="text"
-            {...register('price', {
-              required: 'Campo obligatorio',
-              pattern: { value: /^-?[0-9]\d*\.?\d*$/, message: 'Solo se aceptan numeros' }
-            })}
-          />
-          <CustomText as="span" size="xsmall" weight="bold" className="errorMsg" textAlign="left">
-            {errors?.price?.message || ''}
           </CustomText>
           <label htmlFor="school">Escuela</label>
           <Controller
@@ -237,36 +206,47 @@ function ProductForm() {
             {(errors?.availableSizes as unknown as FieldError)?.message || ''}
           </CustomText>
           {Boolean(availableSizes?.length) && (
-            <>
-              <label htmlFor="stockBySize">Talles con stock</label>
-              <Controller
-                control={methods.control}
-                name="stockBySize"
-                rules={{ required: 'Campo obligatorio' }}
-                render={({ field: { onChange, value } }) => (
-                  <Select
-                    options={availableSizes}
-                    instanceId="stockBySizeId"
-                    isMulti
-                    closeMenuOnSelect={false}
-                    className="formInput"
-                    placeholder="Stock"
-                    noOptionsMessage={() => 'No hay más opciones'}
-                    value={value || getValues('stockBySize')}
-                    onChange={(e) => onChange(e)}
+            <div style={{ display: 'flex', flexDirection: 'column' }}>
+              {availableSizes?.map((size, i) => (
+                <div key={`${size.label}-i`} className="sizeContainer">
+                  <input
+                    type="text"
+                    className="sizeName"
+                    value={size.value}
+                    {...register(`sizes.${i}.name` as const)}
                   />
-                )}
-              />
-              <CustomText
-                as="span"
-                size="xsmall"
-                weight="bold"
-                className="errorMsg"
-                textAlign="left"
-              >
-                {(errors?.stockBySize as unknown as FieldError)?.message || ''}
-              </CustomText>
-            </>
+                  <div>
+                    <input
+                      type="text"
+                      className="textInput sizePrice"
+                      placeholder="Precio"
+                      {...register(`sizes.${i}.price` as const, {
+                        required: 'Campo obligatorio',
+                        pattern: { value: /^-?[0-9]\d*\.?\d*$/, message: 'Solo se aceptan numeros' }
+                      })}
+                    />
+                    <CustomText
+                      as="span"
+                      size="xsmall"
+                      weight="bold"
+                      className="errorMsg"
+                      textAlign="left"
+                    >
+                      {errors?.sizes?.[i]?.price?.message || ''}
+                    </CustomText>
+                  </div>
+                  <CustomText as="label" size="xsmall" weight="bold" textAlign="left">
+                    Stock
+                  </CustomText>
+                  <input
+                    type="checkbox"
+                    className="sizeStock"
+                    title="Stock"
+                    {...register(`sizes.${i}.stock` as const)}
+                  />
+                </div>
+              ))}
+            </div>
           )}
           <CustomButton type="submit" size="small" weight="regular">
             {productId ? 'Editar' : 'Añadir'}
