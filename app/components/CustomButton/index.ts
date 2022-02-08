@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { PRUSSIAN_BLUE, WHITE } from '~styles/colors';
+import { PRUSSIAN_BLUE, REGAL_BLUE, WHITE } from '~styles/colors';
 import { PRIMARY_SPACING_EM, SECONDARY_SPACING_EM } from '~styles/variables';
 import { EFontSizes, EFontWeights, ETextTransform } from '~types/fonts';
 
@@ -25,6 +25,11 @@ const CustomButton = styled.button<Props>`
   text-transform: ${({ textTransform }) =>
     textTransform ? ETextTransform[textTransform] : ETextTransform.none};
   transition: all 150ms ease-in;
+
+  &:hover {
+    background-color: ${({ secondary }) => (secondary ? PRUSSIAN_BLUE : REGAL_BLUE)};
+    transform: scale(1.015);
+  }
 `;
 
 export default CustomButton;
