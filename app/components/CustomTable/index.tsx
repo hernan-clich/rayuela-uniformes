@@ -13,7 +13,6 @@ import useDbCrud from '~hooks/useDbCrud';
 import useWindowSize from '~hooks/useWindowSize';
 import { EDbCollections } from '~types/db';
 import { TOrder } from '~types/order';
-import { TProduct } from '~types/product';
 import MobileLabel from './components/MobileLabel';
 import { grantAdminRole } from './helpers';
 import * as Styled from './styles';
@@ -28,9 +27,6 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
 
   const [showConfirmationModal, setShowConfirmationModal] = useState(false);
   const [showDeletionConfirmedModal, setShowDeletionConfirmedModal] = useState(false);
-  const stockBySizeData = tableContent?.[0]?.stockBySize
-    ? tableContent?.map((data) => Object.entries(data?.stockBySize as TProduct['stockBySize']))
-    : null;
 
   return (
     <Styled.CustomTableContainer fieldsLength={columnHeaders?.desktop?.length}>
@@ -67,20 +63,20 @@ function CustomTable({ columnHeaders, tableContent, rowActions }: CustomTablePro
                 </CustomText>
               </div>
             ))}
-            {stockBySizeData && (
+            {body?.sizes && (
               <div className="tableTd">
                 <MobileLabel labelText="Talles" />
                 <div className="sizesContainer">
-                  {stockBySizeData[i].map(([size, hasStock]) => (
+                  {body?.sizes?.map(({ name, stock }) => (
                     <div
-                      key={size}
+                      key={name}
                       className={clsx('chip', {
-                        red: !hasStock,
-                        green: hasStock
+                        red: !stock,
+                        green: stock
                       })}
                     >
                       <CustomText as="span" size="xsmall" weight="bold">
-                        {size}
+                        {name}
                       </CustomText>
                     </div>
                   ))}

@@ -23,6 +23,7 @@ type TFormData = {
   price: string;
   school: TSchoolIds;
   availableSizes: TMultiOptions;
+  // @todo: stockBySize needs to disappear from the entire app
   stockBySize: TMultiOptions;
 };
 
@@ -102,10 +103,13 @@ function ProductForm() {
   }: TFormData) => {
     const parsedPrice = parseInt(price, 10);
     const stockBySizeValues = stockBySize?.map((size) => size.value);
-    const reducedStockBySize: TProduct['stockBySize'] = availableSizes.reduce(
+    const reducedStockBySize = availableSizes.reduce(
       (acc, size) => ({
         ...acc,
-        [size.value]: stockBySizeValues?.includes(size.value)
+        name: size.value,
+        // @todo: Set this value in the form!
+        price: 2000,
+        stock: stockBySizeValues?.includes(size.value)
       }),
       {}
     );
@@ -114,7 +118,8 @@ function ProductForm() {
       name,
       school,
       price: parsedPrice,
-      stockBySize: reducedStockBySize
+      sizes: [reducedStockBySize] as TProduct['sizes'],
+      stockBySize: {}
     };
 
     if (productId) {

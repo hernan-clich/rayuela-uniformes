@@ -36,4 +36,9 @@ export type TProduct = {
   stockBySize: {
     [key in TProductSizes]?: boolean;
   };
+  sizes: {
+    name: TProductSizes;
+    price: number;
+    stock: boolean;
+  }[];
 };

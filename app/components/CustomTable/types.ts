@@ -4,8 +4,8 @@ import { TUser } from '~types/user';
 
 type TTextFields = { textFields: (string | number)[] };
 
-type TProductTableContent = TTextFields &
-  Pick<TProduct, 'imageUrl' | 'id' | 'stockBySize'> & {
+export type TProductTableContent = TTextFields &
+  Pick<TProduct, 'imageUrl' | 'id' | 'sizes'> & {
     email?: never;
     isAdmin?: never;
     isDelivered?: never;
@@ -17,12 +17,12 @@ type TOrderTableContent = TTextFields &
     email?: never;
     imageUrl?: never;
     isAdmin?: never;
-    stockBySize?: never;
+    sizes?: never;
   };
 
 type TUserTableContent = TTextFields &
   Pick<TUser, 'id' | 'imageUrl' | 'isAdmin' | 'email'> & {
-    stockBySize?: never;
+    sizes?: never;
     isDelivered?: never;
     isPayed?: never;
   };

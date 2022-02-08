@@ -27,7 +27,18 @@ function CartDetails() {
   const [showCreateOrderModal, setShowCreateOrderModal] = useState(false);
   const orderedProducts: TOrderedProducts[] = localStorageCart?.map(
     ({ product: { category, id, imageUrl, name, price, school }, quantity, size }) => ({
-      product: { category, id, imageUrl, name, price, school },
+      product: {
+        category,
+        id,
+        imageUrl,
+        name,
+        price,
+        school,
+        // @todo: Remove this one from here
+        stockBySize: { '2': false },
+        // @todo: Don't hardcode, use the real stuff bozo!
+        sizes: [{ name: '2', price: 1, stock: true }]
+      },
       quantity,
       size
     })

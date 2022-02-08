@@ -36,16 +36,17 @@ function DetailsCard({ product }: Props) {
 
   const { isCartEmpty, checkIfItemIsInCart, setNewItem } = useCart(product?.id);
   const [quantity, setQuantity] = useState(1);
+  // @todo: What if the prod doesnt contain a size of 2???
   const [currentSize, setCurrentSize] = useState<TProductSizes>('2');
   const [modalType, setModalType] = useState<EModalTypes>(EModalTypes.NoDisplay);
   const isModalTypeNew = modalType === EModalTypes.New;
   const isModalTypeExisting = modalType === EModalTypes.Existing;
 
   const isProductAlreadyInCart = checkIfItemIsInCart(currentSize);
-  const sizesArray = product ? (Object.keys(product.stockBySize) as TProductSizes[]) : [];
-  const [, doesCurrentSizeHaveStock] = product
-    ? Object.entries(product?.stockBySize).filter((size) => size[0] === currentSize)[0]
-    : [currentSize, false];
+  const sizesArray = product ? product?.sizes?.map((size) => size.name) : [];
+  const doesCurrentSizeHaveStock = Boolean(
+    product?.sizes.find((size) => size.name === currentSize)
+  );
 
   // If everything goes well, we're placing the current item into LS 'cart'
   const handleSubmit = () => {

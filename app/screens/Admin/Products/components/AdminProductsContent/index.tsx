@@ -19,7 +19,7 @@ function AdminProductsContent() {
   const tableContent = data?.map((data) => ({
     id: data.id,
     imageUrl: data.imageUrl,
-    stockBySize: data.stockBySize,
+    sizes: data.sizes,
     textFields: [
       data.name,
       `$ ${data.price.toLocaleString('es-AR') || data.price}`,
