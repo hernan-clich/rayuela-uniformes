@@ -2,7 +2,6 @@ import CustomText from '~components/CustomText';
 import FbIcon from '~components/Icons/FbIcon';
 import EmailIcon from '~components/Icons/EmailIcon';
 import GoogIcon from '~components/Icons/GoogIcon';
-import WaIcon from '~components/Icons/WaIcon';
 import * as Styled from './styles';
 
 function Footer() {
@@ -14,7 +13,7 @@ function Footer() {
             creacionesmsariablas@hotmail.com
           </CustomText>
           <CustomText as="small" size="small" textAlign="left" weight="bold">
-            +54 11 5123 4567
+            +54 11 4774-6101
           </CustomText>
         </div>
         <div>
@@ -32,14 +31,14 @@ function Footer() {
         </div>
       </Styled.FooterText>
       <Styled.FooterSocial>
-        <a
+        {/* <a
           href="https://wa.me/5491160153529"
           rel="external noopener noreferrer"
           target="_blank"
           className="footerLink"
         >
           <WaIcon />
-        </a>
+        </a> */}
         <a
           href="https://www.facebook.com/rayuelauniformes"
           rel="external noopener noreferrer"
