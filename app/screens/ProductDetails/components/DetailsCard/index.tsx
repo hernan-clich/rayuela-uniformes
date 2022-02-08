@@ -49,7 +49,7 @@ function DetailsCard({ product }: Props) {
   const isProductAlreadyInCart = checkIfItemIsInCart(currentSize);
   const sizesArray = product ? product?.sizes?.map((size) => size.name) : [];
   const doesCurrentSizeHaveStock = Boolean(
-    product?.sizes.find((size) => size.name === currentSize)
+    product?.sizes.find((size) => size.name === currentSize)?.stock
   );
 
   // If everything goes well, we're placing the current item into LS 'cart'
@@ -58,7 +58,7 @@ function DetailsCard({ product }: Props) {
     if (isCartEmpty || !isProductAlreadyInCart) {
       setNewItem({
         id: uuid(),
-        product: product,
+        product,
         quantity,
         size: currentSize,
         price: currentProductPrice

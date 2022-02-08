@@ -4,6 +4,7 @@ import StackableProductCard from '~components/StackableProductCard';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import GoogleButton from '~components/GoogleButton';
+import Loading from '~components/Loading';
 import Modal from '~components/Modal';
 import ModalBody from '~components/ModalBody';
 import PATHS from '~constants/paths';
@@ -25,6 +26,7 @@ function CartDetails() {
   const [storedItems, setStoredItems] = useState<TItem[]>([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCreateOrderModal, setShowCreateOrderModal] = useState(false);
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
   const orderedProducts: TOrderedProducts[] = localStorageCart?.map(
     ({ product: { category, id, imageUrl, name, school }, price, quantity, size }) => ({
       product: {
@@ -45,6 +47,8 @@ function CartDetails() {
   useEffect(() => {
     if (typeof window !== 'undefined') setStoredItems(localStorageCart);
   }, [localStorageCart]);
+
+  if (isCreatingOrder) return <Loading />;
 
   return (
     <Styled.CartDetailsContainer>
@@ -137,7 +141,9 @@ function CartDetails() {
           buttonCta={{
             text: 'Confirmar creación',
             handler: async () => {
-              // @todo: Create a try/catch and render an error modal in case of error
+              // @todo: Create a catch and render an error modal in case of error
+              setIsCreatingOrder(true);
+
               const response = await addDbDocument({
                 buyerId: user?.uid || '',
                 buyerName: user?.displayName || user?.email || '',
@@ -148,7 +154,10 @@ function CartDetails() {
                 paymentId: null,
                 timestamp
               });
+
+              // @todo: Address weird jump after creating order (it displays the empty cart for a while)
               setCartEmpty();
+
               router.replace({ pathname: PATHS.ORDER, query: { id: response.id } });
             }
           }}
