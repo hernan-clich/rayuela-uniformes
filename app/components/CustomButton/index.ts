@@ -27,7 +27,7 @@ const CustomButton = styled.button<Props>`
   transition: all 150ms ease-in;
 
   &:hover {
-    background-color: ${({ secondary }) => (secondary ? PRUSSIAN_BLUE : REGAL_BLUE)};
+    background-color: ${({ secondary }) => (secondary ? WHITE : REGAL_BLUE)};
     transform: scale(1.015);
   }
 `;

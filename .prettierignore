@@ -4,3 +4,4 @@ node_modules
 .eslintrc
 .prettierrc
 next-i18next.config.js
+site.webmanifest
