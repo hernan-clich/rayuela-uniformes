@@ -1,10 +1,9 @@
 import { useRouter } from 'next/router';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Dispatch, SetStateAction } from 'react';
 import StackableProductCard from '~components/StackableProductCard';
 import CustomButton from '~components/CustomButton';
 import CustomText from '~components/CustomText';
 import GoogleButton from '~components/GoogleButton';
-import Loading from '~components/Loading';
 import Modal from '~components/Modal';
 import ModalBody from '~components/ModalBody';
 import PATHS from '~constants/paths';
@@ -16,7 +15,11 @@ import { TItem } from '~types/item';
 import { TOrderedProducts } from '~types/order';
 import * as Styled from './styles';
 
-function CartDetails() {
+type Props = {
+  setIsCreatingOrder: Dispatch<SetStateAction<boolean>>;
+};
+
+function CartDetails({ setIsCreatingOrder }: Props) {
   const router = useRouter();
   const { isAuthenticated, signInWithGoogle, user } = useAuth();
   const { addDbDocument, timestamp } = useDbCrud(EDbCollections.orders);
@@ -26,7 +29,6 @@ function CartDetails() {
   const [storedItems, setStoredItems] = useState<TItem[]>([]);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showCreateOrderModal, setShowCreateOrderModal] = useState(false);
-  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
   const orderedProducts: TOrderedProducts[] = localStorageCart?.map(
     ({ product: { category, id, imageUrl, name, school }, price, quantity, size }) => ({
       product: {
@@ -47,8 +49,6 @@ function CartDetails() {
   useEffect(() => {
     if (typeof window !== 'undefined') setStoredItems(localStorageCart);
   }, [localStorageCart]);
-
-  if (isCreatingOrder) return <Loading />;
 
   return (
     <Styled.CartDetailsContainer>
@@ -94,7 +94,7 @@ function CartDetails() {
                 isAuthenticated ? setShowCreateOrderModal(true) : setShowLoginModal(true);
               }}
             >
-              Continuar
+              Comprar
             </CustomButton>
           )}
         </div>
@@ -155,7 +155,6 @@ function CartDetails() {
                 timestamp
               });
 
-              // @todo: Address weird jump after creating order (it displays the empty cart for a while)
               setCartEmpty();
 
               router.replace({ pathname: PATHS.ORDER, query: { id: response.id } });

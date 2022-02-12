@@ -8,7 +8,7 @@ export const LoadingOverlay = styled.div`
   height: 100%;
   justify-content: center;
   left: 0;
-  opacity: 0.95;
+  opacity: 1;
   position: fixed;
   top: 0;
   width: 100%;

@@ -1,14 +1,19 @@
+import { useState } from 'react';
+import EmptyContentMessage from '~components/EmptyContentMessage';
+import EmptyCartIcon from '~components/Icons/EmptyCartIcon';
+import Loading from '~components/Loading';
+import { isServer } from '~constants/general';
+import PATHS from '~constants/paths';
 import useCart from '~hooks/useCart';
 import CartDetails from '../CartDetails';
-import EmptyContentMessage from '../../../../components/EmptyContentMessage';
-import PATHS from '~constants/paths';
-import EmptyCartIcon from '~components/Icons/EmptyCartIcon';
-import { isServer } from '~constants/general';
 
 function CartContent() {
+  const [isCreatingOrder, setIsCreatingOrder] = useState(false);
   const { isCartEmpty } = useCart();
 
   if (isServer) return null;
+
+  if (isCreatingOrder) return <Loading />;
 
   return (
     <>
@@ -19,7 +24,7 @@ function CartContent() {
           redirectHref={PATHS.PRODUCTS}
         />
       ) : (
-        <CartDetails />
+        <CartDetails setIsCreatingOrder={setIsCreatingOrder} />
       )}
     </>
   );
