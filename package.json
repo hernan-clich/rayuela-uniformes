@@ -16,6 +16,7 @@
     "clsx": "^1.1.1",
     "firebase": "^9.5.0",
     "firebase-admin": "^10.0.1",
+    "framer-motion": "^6.2.6",
     "js-cookie": "^3.0.1",
     "mercadopago": "^1.5.12",
     "next": "11.0.1",

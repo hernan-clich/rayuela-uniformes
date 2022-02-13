@@ -6,6 +6,7 @@ import { THTMLTextElements } from '~types/general';
 
 import * as Styled from './styles';
 import { defineHeight } from './utils';
+import { motion } from 'framer-motion';
 
 type Props = {
   bgImg: string;
@@ -16,6 +17,8 @@ type Props = {
   fontColor?: TFontColors;
 };
 
+const MotionStyledSingleBoxContainer = motion(Styled.SingleBoxContainer);
+
 function SingleBox({ asHtmlElement, bgImg, boxTitle, fontColor, path, squaredShape }: Props) {
   const { width } = useWindowSize();
 
@@ -23,7 +26,12 @@ function SingleBox({ asHtmlElement, bgImg, boxTitle, fontColor, path, squaredSha
   const isSecondary = fontColor === EFontColors.secondary;
 
   return (
-    <Styled.SingleBoxContainer bgImg={bgImg} height={elementHeight}>
+    <MotionStyledSingleBoxContainer
+      bgImg={bgImg}
+      height={elementHeight}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+    >
       <HeaderBox
         alignment={{ horizontal: 'left', vertical: 'center' }}
         asHtmlElement={asHtmlElement}
@@ -32,7 +40,7 @@ function SingleBox({ asHtmlElement, bgImg, boxTitle, fontColor, path, squaredSha
         path={path}
         secondary={isSecondary}
       />
-    </Styled.SingleBoxContainer>
+    </MotionStyledSingleBoxContainer>
   );
 }
 
